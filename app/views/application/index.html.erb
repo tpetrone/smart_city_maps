@@ -1,8 +1,32 @@
-<div id="menu">
-  <h1>Smart Parking Maps</h1>
-  <div>
-    Digite um endereço: <input id="address"><button id="address-submit">Enviar</button>
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Search box -->
+      <form id="header-search" action="#" autocomplete="off">
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" name="address">
+          <label class="mdl-textfield__label" for="sample1">Search address...</label>
+        </div>
+      </form>
+
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      Smart Parking
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Menu</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Login/Register</a>
+      <a class="mdl-navigation__link" href="">Show filters</a>
+      <a class="mdl-navigation__link" href="">Show legend</a>
+    </nav>
   </div>
-</div>
-<div id="map">
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <div id="map">
+      </div>
+    </div>
+  </main>
 </div>

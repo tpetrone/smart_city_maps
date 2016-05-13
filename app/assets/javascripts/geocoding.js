@@ -18,7 +18,9 @@ $(function () {
     });
   }
 
-  $("#address-submit").click(function() {
-    geocodeAddress($("#address").val());
+  $("#header-search").submit(function(event) {
+    var address = $("#header-search input[name=address]").val();
+    geocodeAddress(address);
+    event.preventDefault();
   });
 });

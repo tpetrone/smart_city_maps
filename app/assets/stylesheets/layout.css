@@ -1,0 +1,28 @@
+/**
+ * Layout styles
+ * =============
+ */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.header-search .mdl-textfield__label {
+  color: rgba(255, 255, 255, .5);
+}
+
+/*
+ * Make the map occupy the whole screen, except for the header.
+ * ----------------------------------------------------------- */
+
+#map {
+  height: calc(100vh - 64px);
+}
+
+@media screen and (max-width: 1024px) {
+  #map {
+    height: calc(100vh - 56px);
+  }
+}
