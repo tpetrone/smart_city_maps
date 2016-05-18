@@ -11,6 +11,12 @@
 
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
+
+      <!-- Add share location button-->
+      <button id="location-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored location-button">
+        <i id="geo-icon" class="mdl-icon-toggle__label material-icons">gps_fixed</i>
+      </button>
+
       Smart Parking
     </div>
   </header>
@@ -26,6 +32,23 @@
     <div class="page-content">
       <div id="map">
       </div>
+      <!-- Message Display Dialog-->
+      <dialog id="dialog-msg" class="mdl-dialog">
+        <div class="mdl-dialog__content">
+          <p></p>
+        </div>
+        <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+          <button id="dialog-button" type="button" class="mdl-button">Agree</button>
+        </div>
+      </dialog>
+
+      <!-- Loader Display Dialog-->
+      <dialog id="dialog-loader" class="mdl-dialog">
+        <div class="mdl-dialog__content">
+          <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
+      </dialog>
+
     </div>
   </main>
 </div>
