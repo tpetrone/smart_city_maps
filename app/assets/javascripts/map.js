@@ -26,6 +26,7 @@ function initMap() {
     anchorPoint: new google.maps.Point(0, -29)
   });
   autocomplete.addListener('place_changed', placeChangedHandler);
+  get_spots();
 }
 /**
  * Re-centers the map after the user has entered a location on the
