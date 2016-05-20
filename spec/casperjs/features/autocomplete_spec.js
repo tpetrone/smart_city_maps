@@ -1,9 +1,16 @@
-casper.test.begin('Autocomplete works correctly', 1, function suite(test) {
+/**
+ * Tests whether autocomplete features of Google Places are working.
+ */
+
+casper.test.begin('Autocomplete loads correctly', 1, function suite(test) {
   casper.start('http://localhost:3000', function() {
-    this.sendKeys('input[name=address]', "Instituto");
-    test.assertSelectorHasText('input.mdl-textfield__input', 'Instituto', "Establishment is correctly set into input text");
-  })
-  .run(function() {
+    var ac = casper.evaluate(function() {
+      return window.autocomplete;
+    });
+    test.assertTruthy(ac, 'Autocomplete is loaded');
+  });
+
+  casper.run(function() {
     test.done();
   });
 });
