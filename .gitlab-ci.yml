@@ -13,6 +13,7 @@ before_script:
   - which ruby
   - which phantomjs
   - which casperjs
+  - which istanbul
   - gem install bundler --no-ri --no-rdoc
   - bundle check || bundle install --jobs $(nproc) --path=/cache/bundler
   # This variable is set via GitLab's "secure variables"
@@ -31,4 +32,5 @@ casperjs:
   script:
     - RAILS_ENV=development bundle exec rails server --daemon
     - ps -ef | grep -i puma
-    - RAILS_ENV=development bundle exec rake spec:casperjs
+    - RAILS_ENV=development bundle exec rake spec:casperjs:prepare
+    - RAILS_ENV=development bundle exec rake spec:casperjs:run
