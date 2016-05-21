@@ -1,0 +1,18 @@
+{
+  "spots": [
+    {
+      "lat": "-23.559408",
+      "lng": "-46.7337361",
+      "address": "Av. Prof. Luciano Gualberto, 777",
+      "status": 0,
+      "operation": 1
+    },
+    {
+      "lat": "-24.559408",
+      "lng": "-47.7337361",
+      "address": "Av. Prof. Luciano Gualberto, 777",
+      "status": 0,
+      "operation": 1
+    }
+  ]
+}
