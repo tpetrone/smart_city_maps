@@ -1,14 +1,9 @@
 function get_location(map,callback){
-    //timeoutAuth >> timeoutResponse
-    var timeoutAuth = 5000;
-    var timeoutResponse = 5000;
+
     var modal = new Modal();
-
     var answer;
-    var options = {
-      enableHighAccuracy: false, timeout: timeoutResponse, maximumAge: 0
-    };
-
+    
+    var timeoutAuth = 5000;
     //Set authorization timeout after button click
     answer = setTimeout(function(){
       modal.hideLoader();
@@ -16,7 +11,11 @@ function get_location(map,callback){
     }, timeoutAuth);
 
 
+    var timeoutResponse = 30000;
+    var options = {
+      enableHighAccuracy: false, timeout: timeoutResponse, maximumAge: 0};
     navigator.geolocation.getCurrentPosition(success, error, options);
+    
     modal.showLoader();
 
 
@@ -25,14 +24,18 @@ function get_location(map,callback){
       clearTimeout(answer);
     }
 
-
-
-
   //Success callback of getCurrentPosition(success,error,option) request
   function success(pos) {
     handleCallback();
     pos = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
-    callback(pos);
+    map.setCenter(pos);
+    map.setZoom(15);
+    // if(infowindow){infowindow.setMap(null);}  //Remove old infoWindow if exists
+    infowindow = new google.maps.InfoWindow({
+      map: map,
+      position: pos,
+      content: 'You are here!'
+    });
   }
 
   function error(err) {

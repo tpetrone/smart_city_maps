@@ -13,13 +13,13 @@ function Modal(){
 
 
  this.hideLoader = function(){
-  loaderFlag = false;
-  dialog_loader.close();
+    if(loaderFlag){dialog_loader.close();}
+    loaderFlag = false;
  };
 
  this.showMsg = function(msg){
   dialogContent.html(msg);
- dialog_msg.showModal();
+  dialog_msg.showModal();
   msgFlag = true;
  };
 
