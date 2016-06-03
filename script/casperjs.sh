@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Run CasperJS specs.
-casperjs test spec/casperjs/features/*_spec.js
+casperjs test spec/casperjs/features/index_spec.js

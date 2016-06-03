@@ -4,18 +4,70 @@
  */
 
 var fs = require('fs');
+var features = {
+  geolocationSpec: require('./_geolocation_spec'),
+  autocompleteSpec: require('./_autocomplete_spec'),
+  spotsSpec: require('./_spots_spec')
+};
 
-casper.test.begin('Start page loads correctly', 1, function suite(test) {
+var utils = require('utils');
+var colorizer = require('colorizer').create('Colorizer');
+
+/**
+ * Define the size of the viewport.
+ */
+casper.options.viewportSize = { width: 1024, height: 768 };
+
+casper.test.begin('Start page loads correctly', 7, function suite(test) {
+
+  var startedAt = new Date().getTime();
   casper.start('http://localhost:3000', function() {
+    if (!this.page.injectJs('spec/casperjs/lib/geolocation.js')) {
+      test.fail("Unable to inject geolocation.js");
+    }
+
+    if (!this.page.injectJs('spec/casperjs/lib/casper_helper.js')) {
+      test.fail("Unable to inject casper_helper.js");
+    }
+  });
+
+  casper.then(function() {
     test.assertTitle("SmartParkingMaps");
   });
+
+  casper.waitFor(function check() {
+    return this.evaluate(function() {
+        return window.mapLoaded;
+    });
+  }, function then() {
+
+    var endedAt = new Date().getTime();
+    console.log("[debug] Loaded map after " + (endedAt - startedAt)/1000 + "s");
+
+    // Uncomment for debugging purposes.
+    // casper.capture('screenshot-index.png');
+
+  }, function timeout() {
+    this.echo("Map didn't load").exit();
+  });
+
+  features.geolocationSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
+  features.autocompleteSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
+  features.spotsSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
 
   // Store coverage data.
   casper.then(function() {
     var coverageData = casper.evaluate(function () {
       return JSON.stringify(__coverage__);
     });
-    fs.write(".istanbul/coverage/coverage_index_spec.json", coverageData, 'w');
+
+    if (coverageData) {
+      console.log("Saving coverage data");
+      fs.write(".istanbul/coverage/coverage_index_spec.json", coverageData, 'w');
+    }
+    else {
+      console.log("[warn] Coverage data was not found.");
+    }
   });
 
   casper.run(function() {

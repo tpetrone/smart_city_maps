@@ -18,11 +18,6 @@ html, body {
  * ----------------------------------------------------------- */
 
 #map {
-  height: calc(100vh - 64px);
+  height: 100%;
 }
 
-@media screen and (max-width: 1024px) {
-  #map {
-    height: calc(100vh - 56px);
-  }
-}

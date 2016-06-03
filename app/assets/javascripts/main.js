@@ -5,6 +5,10 @@ function main() {
     map: $("#map")[0]
   });
 
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
+    window.mapLoaded = true;
+  });
+
   map.enableAutocomplete($('#search-field')[0]);
 
   $.getJSON("/json/spots.json").done(function(data) {
@@ -17,7 +21,20 @@ function main() {
   });
 }
 
+function configureMapSize() {
+  var viewportWidth = $(window).width();
+  var viewportHeight = $(window).height();
+
+  if (viewportWidth <= 1024) {
+    $("#map").css({ height: (viewportHeight - 56) + 'px' });
+  }
+  else {
+    $("#map").css({ height: (viewportHeight - 64) + 'px' });
+  }
+}
+
 $(window).load(function() {
+  configureMapSize();
   setupGmapClass();
   main();
 });
