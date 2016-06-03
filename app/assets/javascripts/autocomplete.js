@@ -1,21 +1,33 @@
-  function placeChangedHandler(autocomplete, map) {
+$(function () {
+  // Prevent the page from reloading.
+  $("#header-search").submit(function(event) {
+     event.preventDefault();
+  });
+});
 
-    var infowindow = new google.maps.InfoWindow();
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-      return;
-    }
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(15);
-    }
+/**
+ * Repositions the map when the user selects a location.
+ */
+function placeChangedHandler(autocomplete, map) {
+
+  var infowindow = new google.maps.InfoWindow();
+  var place = autocomplete.getPlace();
+  if (!place.geometry) {
+    return;
+  }
+  // If the place has a geometry, then present it on a map.
+  if (place.geometry.viewport) {
+    map.fitBounds(place.geometry.viewport);
+  } else {
+    map.setCenter(place.geometry.location);
+    map.setZoom(15);
+  }
+
   marker = new google.maps.Marker({
     map: map,
     anchorPoint: new google.maps.Point(0, -29)
   });
+
   marker.setIcon(/** @type {google.maps.Icon} */({
     url: place.icon,
     size: new google.maps.Size(71, 71),
@@ -23,6 +35,7 @@
     anchor: new google.maps.Point(17, 34),
     scaledSize: new google.maps.Size(35, 35)
   }));
+
   marker.setPosition(place.geometry.location);
   marker.setVisible(true);
 
@@ -38,5 +51,3 @@
   infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
   infowindow.open(map, marker);
 }
-
-

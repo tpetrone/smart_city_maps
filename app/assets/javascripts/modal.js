@@ -1,40 +1,39 @@
-function Modal(){
+function Modal() {
 
- var dialog_loader = document.querySelector('#dialog-loader');
- var dialog_msg = document.querySelector('#dialog-msg');
- var dialogContent = $('.mdl-dialog__content>p');
- var self = this;
- var loaderFlag = false;
+  var dialogLoader = document.querySelector("#dialog-loader");
+  var dialogMsg = document.querySelector("#dialog-msg");
+  var dialogContent = $(".mdl-dialog__content > p");
+  var self = this;
+  var isVisible = false;
+  var isMsgVisible = false;
 
- this.showLoader = function(){
-  dialog_loader.showModal();
-  loaderFlag = true;
- };
+  this.showLoader = function() {
+    dialogLoader.showModal();
+    isVisible = true;
+  };
 
+  this.hideLoader = function() {
+    if (isVisible) {
+      dialogLoader.close();
+      isVisible = false;
+    }
+  };
 
- this.hideLoader = function(){
-    if(loaderFlag){dialog_loader.close();}
-    loaderFlag = false;
- };
+  this.showMsg = function(msg) {
+    dialogContent.html(msg);
+    dialogMsg.showModal();
+    isMsgVisible = true;
+  };
 
- this.showMsg = function(msg){
-  dialogContent.html(msg);
-  dialog_msg.showModal();
-  msgFlag = true;
- };
+  this.hideMsg = function() {
+    if (isMsgVisible) {
+      dialogMsg.close();
+      isMsgVisible = false;
+    }
+  };
 
- this.hideMsg = function(){
-  if(msgFlag){dialog_msg.close();}
-  msgFlag = false;
- };
-
- this.isMsgActive = function(){
-  return msgFlag;
- };
-
- //Modal dialog button click handler
- dialogButton.addEventListener('click', function(event) {
-  self.hideMsg();
- });
-
+  // Modal dialog button click handler
+  $('#dialog-button')[0].addEventListener('click', function(event) {
+    self.hideMsg();
+  });
 }
