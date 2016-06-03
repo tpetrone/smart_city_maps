@@ -1,10 +1,4 @@
-function enableAutocomplete(input,map){
-
-  autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo('bounds', map);
-  autocomplete.addListener('place_changed', placeChangedHandler);
-
-  function placeChangedHandler() {
+  function placeChangedHandler(autocomplete, map) {
 
     var infowindow = new google.maps.InfoWindow();
     var place = autocomplete.getPlace();
@@ -43,6 +37,6 @@ function enableAutocomplete(input,map){
 
   infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
   infowindow.open(map, marker);
-  }
 }
+
 
