@@ -8,10 +8,31 @@
       "operation": 1
     },
     {
-      "lat": "-24.559408",
-      "lng": "-47.7337361",
+      "lat": "-23.558408",
+      "lng": "-46.7335361",
+      "address": "Av. Prof. Luciano Gualberto, 777",
+      "status": -1,
+      "operation": 1
+    },
+    {
+      "lat": "-23.552408",
+      "lng": "-46.732361",
+      "address": "Av. Prof. Luciano Gualberto, 777",
+      "status": 1,
+      "operation": 1
+    },
+    {
+      "lat": "-23.559608",
+      "lng": "-46.7325361",
       "address": "Av. Prof. Luciano Gualberto, 777",
       "status": 0,
+      "operation": 1
+    },
+    {
+      "lat": "-23.554408",
+      "lng": "-46.7377361",
+      "address": "Av. Prof. Luciano Gualberto, 777",
+      "status": 1,
       "operation": 1
     }
   ]

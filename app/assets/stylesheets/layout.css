@@ -21,3 +21,67 @@ html, body {
   height: 100%;
 }
 
+#wrapper {
+  position: relative;
+}
+
+#over_map {
+  position: absolute; top: 10px; right: 5px; z-index: 99;
+}
+
+fieldset.group {
+  width: 11em;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+  border: 3px solid #000;
+}
+
+fieldset.group legend {
+  margin: 0;
+  padding: 0.3em;
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 100%;
+  color: black;
+  text-shadow: 0.5px 0.5px 0.5px white;
+}
+
+ul.checkbox {
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
+  list-style: none;
+}
+
+ul.checkbox li input {
+  margin-right: .25em;
+}
+
+ul.checkbox li {
+  border: 1px transparent solid;
+}
+
+ul.checkbox li:hover,
+ul.checkbox li.focus {
+  background-color: lightyellow;
+  border: 1px gray solid;
+  width: 10em;
+}
+
+#legend {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+  border: 3px solid #000;
+}
+
+#legend h3 {
+  margin-top: 0;
+}
+
+#legend img {
+  vertical-align: middle;
+}

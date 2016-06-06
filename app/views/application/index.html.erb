@@ -30,8 +30,28 @@
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
-      <div id="map">
+      <div id="wrapper">
+        <div id="map">
+        </div>
+
+        <!-- Float window filter over Google Maps-->
+        <div id="over_map" >
+          <fieldset class="group">
+            <legend>Filtre por: </legend>
+            <ul class="checkbox">
+            <li><input id="availableCheckbox" type="checkbox" onclick="toggleGroup('available')" checked="checked"/><label>Available</label></li>
+            <li><input id="occupiedCheckbox" type="checkbox" onclick="toggleGroup('occupied')" checked="checked"/><label>Occupied</label></li>
+            <li><input id="damagedCheckbox" type="checkbox" onclick="toggleGroup('defected')" checked="checked"/><label>Defected</label></li>
+            </ul>
+          </fieldset>
+        </div>
       </div>
+
+      <!-- Legend-->
+      <div id="legend">
+        Legenda:
+      </div>
+
       <!-- Message Display Dialog-->
       <dialog id="dialog-msg" class="mdl-dialog">
         <div class="mdl-dialog__content">
