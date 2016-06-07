@@ -1,6 +1,3 @@
-
-
-
 function main() {
 
   // Create a new AvailabilityFilter.
@@ -20,7 +17,6 @@ function main() {
     if (data.spots.length > 0) {
       for (i = 0; i < data.spots.length; i++) {
         spot = data.spots[i];
-        console.log(spot);
         gmarker = new GmapMarker(map, spot);
         gmarker.addMarker();
 
