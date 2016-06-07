@@ -99,7 +99,7 @@ We have an integration test suite that is run with CasperJS. To run all
 tests, use the following commands:
 
 ```
-./script/casper-bundle.sh
+./script/casperjs-bundle.sh
 ```
 
 **Note:** the `prepare` and `restore` steps are needed to make sure we also
