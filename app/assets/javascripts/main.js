@@ -1,11 +1,10 @@
 
-var markerGroups = {
-  "available": [],
-  "occupied": [],
-  "defected": []
-};
+
 
 function main() {
+
+  // Create a new AvailabilityFilter.
+  filterManager = new AvailabilityFilter();
 
   // Create map instance
   map = new Gmap({
@@ -17,7 +16,6 @@ function main() {
   });
 
   map.enableAutocomplete($('#search-field')[0]);
-  var states = { '-1': 'defected', '0': 'available', '1': 'occupied'};
   $.getJSON("/json/spots.json").done(function(data) {
     if (data.spots.length > 0) {
       for (i = 0; i < data.spots.length; i++) {
@@ -26,8 +24,7 @@ function main() {
         gmarker = new GmapMarker(map, spot);
         gmarker.addMarker();
 
-        if(!markerGroups[states[spot.status]]) markerGroups[states[spot.status]] = [];
-        markerGroups[states[spot.status]].push(gmarker.marker);
+        filterManager.assignSpot(spot);
       }
     }
 
@@ -43,17 +40,6 @@ function main() {
 
   });
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
-}
-
-function toggleGroup(type){
-  for (var i = 0; i < markerGroups[type].length; i++) {
-    var marker = markerGroups[type][i];
-    if (!marker.getVisible()) {
-      marker.setVisible(true);
-    } else {
-      marker.setVisible(false);
-    }
-  }
 }
 
 
