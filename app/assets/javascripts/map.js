@@ -1,6 +1,6 @@
 // Initial coordinates on which to center the map when the page is loaded.
-INIT_LAT = -23.559408;
-INIT_LNG = -46.7337361;
+INIT_LAT = -23.545241799982602;
+INIT_LNG = -46.63861848413944;
 INIT_ZOOM = 18;
 
 /**

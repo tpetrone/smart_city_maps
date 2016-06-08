@@ -11,3 +11,12 @@ RAILS_ASSET_URLS = {
     spot_gray: "<%= asset_url "icons/spot-gray.png" %>"
   }
 }
+
+Rails = {
+  config: {
+    smartParkingAPI: {
+      url: "<%= 'http://localhost:3010' %>",
+      token: "<%= Rails.application.secrets.smart_parking_api_key %>"
+    }
+  }
+}
