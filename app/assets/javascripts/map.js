@@ -79,6 +79,7 @@ function setupGmapClass() {
         }, time);
     }else{
       clearInterval(this.refresh);
+      this.refresh = false;
     }
   };
 
