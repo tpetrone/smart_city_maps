@@ -30,26 +30,32 @@
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
-      <div id="wrapper">
-        <div id="map">
-        </div>
-
-        <!-- Float window filter over Google Maps-->
-        <div id="over_map" >
-          <fieldset class="group">
-            <legend>Filter by: </legend>
-            <ul class="checkbox">
-            <li><input id="availableCheckbox" class="checkbox-filter" type="checkbox" data-status="available" checked="checked"/><label>Available</label></li>
-            <li><input id="occupiedCheckbox" class="checkbox-filter" type="checkbox" data-status="occupied" checked="checked"/><label>Occupied</label></li>
-            <li><input id="damagedCheckbox" class="checkbox-filter" type="checkbox" data-status="defected" checked="checked"/><label>Defected</label></li>
-            </ul>
-          </fieldset>
-        </div>
+      <div id="map">
       </div>
 
-      <!-- Legend-->
-      <div id="legend">
-        Legend:
+      <div id="map-controls" style="display: none;">
+        <span><strong>Filter by availability</strong></span>
+        <hr>
+        <ul class="availability-options">
+          <li>
+            <label>
+              <%= image_tag "icons/circle-green.svg" %>
+              <input class="checkbox-filter" type="checkbox" data-status="available" checked="checked"/>Available
+            </label>
+          </li>
+          <li>
+            <label>
+              <%= image_tag "icons/circle-red.svg" %>
+              <input class="checkbox-filter" type="checkbox" data-status="occupied" checked="checked"/>Occupied
+            </label>
+          </li>
+          <li>
+            <label>
+              <%= image_tag "icons/circle-gray.svg" %>
+              <input class="checkbox-filter" type="checkbox" data-status="defected" checked="checked"/>Defected
+            </label>
+          </li>
+        </ul>
       </div>
 
       <!-- Message Display Dialog-->

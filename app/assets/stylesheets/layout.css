@@ -21,67 +21,33 @@ html, body {
   height: 100%;
 }
 
-#wrapper {
-  position: relative;
-}
+/*
+ * Map controls.
+ * ----------------------------------------------------------- */
 
-#over_map {
-  position: absolute; top: 10px; right: 5px; z-index: 99;
-}
-
-fieldset.group {
-  width: 11em;
-  font-family: Arial, sans-serif;
-  background: #fff;
-  padding: 10px;
+#map-controls {
+  background: #fafafa;
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  color: #757575;
   margin: 10px;
-  border: 3px solid #000;
+  padding: 10px;
 }
 
-fieldset.group legend {
-  margin: 0;
-  padding: 0.3em;
-  font-weight: bold;
-  margin-left: 10px;
-  font-size: 100%;
-  color: black;
-  text-shadow: 0.5px 0.5px 0.5px white;
-}
-
-ul.checkbox {
+.availability-options {
   margin: 0;
   padding: 0;
-  margin-left: 20px;
-  list-style: none;
 }
 
-ul.checkbox li input {
-  margin-right: .25em;
+.availability-options li {
+  list-style-type: none;
+  padding: 1px 0;
 }
 
-ul.checkbox li {
-  border: 1px transparent solid;
+.availability-options label {
+  cursor: pointer;
 }
 
-ul.checkbox li:hover,
-ul.checkbox li.focus {
-  background-color: lightyellow;
-  border: 1px gray solid;
-  width: 10em;
-}
-
-#legend {
-  font-family: Arial, sans-serif;
-  background: #fff;
-  padding: 10px;
-  margin: 10px;
-  border: 3px solid #000;
-}
-
-#legend h3 {
-  margin-top: 0;
-}
-
-#legend img {
-  vertical-align: middle;
+.availability-options img {
+  height: 12px;
+  vertical-align: baseline;
 }
