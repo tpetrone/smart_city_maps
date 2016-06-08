@@ -1,5 +1,8 @@
 function main() {
 
+  // Create a new AvailabilityFilter.
+  filterManager = new AvailabilityFilter();
+
   // Create map instance
   map = new Gmap({
     map: $("#map")[0]
@@ -10,15 +13,22 @@ function main() {
   });
 
   map.enableAutocomplete($('#search-field')[0]);
-
   $.getJSON("/json/spots.json").done(function(data) {
     if (data.spots.length > 0) {
       for (i = 0; i < data.spots.length; i++) {
         spot = data.spots[i];
-        marker = new GmapMarker(map, spot);
+        gmarker = new GmapMarker(map, spot);
+        gmarker.addMarker();
+
+        filterManager.assignSpot(spot);
       }
     }
+
   });
+
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+    document.querySelector("#map-controls"));
+  $("#map-controls").show();
 }
 
 function configureMapSize() {

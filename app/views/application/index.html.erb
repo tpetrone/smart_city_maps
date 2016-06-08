@@ -32,6 +32,32 @@
     <div class="page-content">
       <div id="map">
       </div>
+
+      <div id="map-controls" style="display: none;">
+        <span><strong>Filter by availability</strong></span>
+        <hr>
+        <ul class="availability-options">
+          <li>
+            <label>
+              <%= image_tag "icons/circle-green.svg" %>
+              <input class="checkbox-filter" type="checkbox" data-status="available" checked="checked"/>Available
+            </label>
+          </li>
+          <li>
+            <label>
+              <%= image_tag "icons/circle-red.svg" %>
+              <input class="checkbox-filter" type="checkbox" data-status="occupied" checked="checked"/>Occupied
+            </label>
+          </li>
+          <li>
+            <label>
+              <%= image_tag "icons/circle-gray.svg" %>
+              <input class="checkbox-filter" type="checkbox" data-status="defected" checked="checked"/>Defected
+            </label>
+          </li>
+        </ul>
+      </div>
+
       <!-- Message Display Dialog-->
       <dialog id="dialog-msg" class="mdl-dialog">
         <div class="mdl-dialog__content">

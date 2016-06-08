@@ -1,10 +1,35 @@
-function GmapMarker (gmap, pos) {
+/**
+ * GmapMarker: this class is used to create new markers in the map.
+ */
+function GmapMarker (gmap, spotData) {
+
   this.map = gmap;
-  this.position = new google.maps.LatLng(pos.lat, pos.lng);
-  this.iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-  this.marker = new google.maps.Marker({
-     map: this.map,
-     position: this.position,
-     icon: this.iconBase + 'parking_lot_maps.png'
-  });
+
+  this.spot = {
+      position: new google.maps.LatLng(spotData.lat, spotData.lng),
+      state: Spot.STATUSES[spotData.status]
+  };
+
+  this.addMarker = function () {
+    this.marker = new google.maps.Marker({
+      map: this.map,
+      position: this.spot.position,
+      icon: GmapMarker.ICONS[this.spot.state].icon
+    });
+  };
 }
+
+GmapMarker.ICONS = {
+  defected: {
+    name: 'Defected',
+    icon: RAILS_ASSET_URLS.images.spot_gray
+  },
+  available: {
+    name: 'Available',
+    icon: RAILS_ASSET_URLS.images.spot_green
+  },
+  occupied: {
+    name: 'Occupied',
+    icon: RAILS_ASSET_URLS.images.spot_red
+  }
+};

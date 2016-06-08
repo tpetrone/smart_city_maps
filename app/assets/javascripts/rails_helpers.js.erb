@@ -1,0 +1,13 @@
+/**
+ * This file contains constants that are set using Rails asset helpers.
+ * If your JavaScript code requires an Rails asset helper, declare a new
+ * constant here, so this will be the only .js.erb file.
+ */
+
+RAILS_ASSET_URLS = {
+  images: {
+    spot_green: "<%= asset_url "icons/spot-green.png" %>",
+    spot_red: "<%= asset_url "icons/spot-red.png" %>",
+    spot_gray: "<%= asset_url "icons/spot-gray.png" %>"
+  }
+}

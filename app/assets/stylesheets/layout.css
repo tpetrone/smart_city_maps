@@ -21,3 +21,33 @@ html, body {
   height: 100%;
 }
 
+/*
+ * Map controls.
+ * ----------------------------------------------------------- */
+
+#map-controls {
+  background: #fafafa;
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  color: #757575;
+  margin: 10px;
+  padding: 10px;
+}
+
+.availability-options {
+  margin: 0;
+  padding: 0;
+}
+
+.availability-options li {
+  list-style-type: none;
+  padding: 1px 0;
+}
+
+.availability-options label {
+  cursor: pointer;
+}
+
+.availability-options img {
+  height: 12px;
+  vertical-align: baseline;
+}
