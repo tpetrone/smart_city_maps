@@ -1,0 +1,26 @@
+##
+# This file defines the default host and port configurations for each
+# service or application in the Smart City Platform.
+#
+
+default: &default
+  # Ports 3000-3009 are reserved for services.
+  resource_adapter: "localhost:3000"
+  resources_catalog: "localhost:3001"
+  data_collector: "localhost:3002"
+  discovery_service: "localhost:3003"
+
+  # Ports 3010 and above are used by applications.
+  smart_parking_api: "localhost:3010"
+  smart_parking_maps: "localhost:3011"
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  smart_parking_api: "localhost:3011"
+  smart_parking_maps: "localhost:3011"
+
+production:
+  <<: *default
