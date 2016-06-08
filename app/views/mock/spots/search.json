@@ -4,7 +4,7 @@
     "lng": "-46.63861848413944",
     "range": 2000,
     "count": 13,
-    "timestamp": "1465414740.688616"
+    "timestamp": "1465428432.1218252"
   },
   "links": {
     "self": "/spots/search"
@@ -16,7 +16,7 @@
       "attributes": {
         "latitude": "-23.545608175798",
         "longitude": "-46.638517230749",
-        "status": 1,
+        "status": 0,
         "parking_type": "establishment",
         "formatted_details": {
           "parking_restrictions": [
@@ -25,7 +25,8 @@
           "pricing_restrictions": [
             "Mon-Fri | 18:00:00 to 23:59:59: $10.00"
           ]
-        }
+        },
+        "google_establishment_id": "ChIJi6GKOxFWzpQRHk7k7_d5Wyc"
       },
       "relationships": {
         "establishment": {
@@ -59,7 +60,8 @@
           "pricing_restrictions": [
             "Mon-Fri | 18:00:00 to 23:59:59: $10.00"
           ]
-        }
+        },
+        "google_establishment_id": "ChIJi6GKOxFWzpQRHk7k7_d5Wyc"
       },
       "relationships": {
         "establishment": {
@@ -93,7 +95,8 @@
           "pricing_restrictions": [
             "Mon-Fri | 18:00:00 to 23:59:59: $15.00"
           ]
-        }
+        },
+        "google_establishment_id": "ChIJi6GKOxFWzpQRHk7k7_d5Wyc"
       },
       "relationships": {
         "establishment": {
@@ -127,7 +130,8 @@
           "pricing_restrictions": [
             "Mon-Fri | 07:00:00 to 19:00:00: $5.00"
           ]
-        }
+        },
+        "google_establishment_id": null
       },
       "relationships": {
         "establishment": {
@@ -155,7 +159,8 @@
           "pricing_restrictions": [
             "Mon-Fri | 07:00:00 to 19:00:00: $5.00"
           ]
-        }
+        },
+        "google_establishment_id": null
       },
       "relationships": {
         "establishment": {
@@ -183,7 +188,8 @@
           "pricing_restrictions": [
             "Mon-Fri | 07:00:00 to 19:00:00: $5.00"
           ]
-        }
+        },
+        "google_establishment_id": null
       },
       "relationships": {
         "establishment": {
@@ -211,7 +217,8 @@
           "pricing_restrictions": [
 
           ]
-        }
+        },
+        "google_establishment_id": null
       },
       "relationships": {
         "establishment": {
@@ -239,7 +246,8 @@
           "pricing_restrictions": [
 
           ]
-        }
+        },
+        "google_establishment_id": null
       },
       "relationships": {
         "establishment": {
@@ -267,7 +275,8 @@
           "pricing_restrictions": [
 
           ]
-        }
+        },
+        "google_establishment_id": null
       },
       "relationships": {
         "establishment": {
@@ -295,7 +304,8 @@
           "pricing_restrictions": [
 
           ]
-        }
+        },
+        "google_establishment_id": null
       },
       "relationships": {
         "establishment": {
@@ -323,7 +333,8 @@
           "pricing_restrictions": [
             "Sun-Sat | 00:00:00 to 23:59:59: $15.00"
           ]
-        }
+        },
+        "google_establishment_id": "ChIJn0Obs1NYzpQR60tacQW_S24"
       },
       "relationships": {
         "establishment": {
@@ -357,7 +368,8 @@
           "pricing_restrictions": [
             "Sun-Sat | 00:00:00 to 23:59:59: $15.00"
           ]
-        }
+        },
+        "google_establishment_id": "ChIJn0Obs1NYzpQR60tacQW_S24"
       },
       "relationships": {
         "establishment": {
@@ -391,7 +403,8 @@
           "pricing_restrictions": [
             "Sun-Sat | 00:00:00 to 23:59:59: $15.00"
           ]
-        }
+        },
+        "google_establishment_id": "ChIJn0Obs1NYzpQR60tacQW_S24"
       },
       "relationships": {
         "establishment": {
