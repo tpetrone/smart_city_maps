@@ -6,8 +6,8 @@ function GmapMarker (gmap, spotData) {
   this.map = gmap;
 
   this.spot = {
-      position: new google.maps.LatLng(spotData.lat, spotData.lng),
-      state: Spot.STATUSES[spotData.status],
+      position: new google.maps.LatLng(spotData.latitude, spotData.longitude),
+      state: Spot.STATUSES[spotData.status.toString()],
       _data: spotData
   };
 
@@ -19,7 +19,7 @@ function GmapMarker (gmap, spotData) {
     });
 
     var detail = new Detail();
-    detail.showInfo(gmap, this.marker, this.spot._data.address);
+    detail.showInfo(gmap, this.marker, this.spot._data);
   };
 }
 

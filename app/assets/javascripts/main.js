@@ -13,17 +13,20 @@ function main() {
   });
 
   map.enableAutocomplete($('#search-field')[0]);
-  $.getJSON("/json/spots.json").done(function(data) {
-    if (data.spots.length > 0) {
-      for (i = 0; i < data.spots.length; i++) {
-        spot = data.spots[i];
-        gmarker = new GmapMarker(map, spot);
-        gmarker.addMarker();
 
-        filterManager.assignSpot(spot);
-      }
+  Spot.search({
+    lat: map.getCenter().lat().toString(),
+    lng: map.getCenter().lng().toString()
+  }).done(function (response) {
+
+    var spots = response.data;
+
+    for(var i = 0; i < spots.length; i++) {
+      spot = spots[i].attributes;
+      gmarker = new GmapMarker(map, spot);
+      gmarker.addMarker();
+      filterManager.assignSpot(spot);
     }
-
   });
 
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(

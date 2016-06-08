@@ -18,6 +18,7 @@ before_script:
   - bundle check || bundle install --jobs $(nproc) --path=/cache/bundler
   # This variable is set via GitLab's "secure variables"
   - echo "$GOOGLE_API_KEY" > config/keys/server_key_1
+  - echo "DUMMY-KEY" > config/keys/smart_parking_api_key
 
 # Jobs
 # ---------------------------------
@@ -30,7 +31,7 @@ teaspoon:
 # Run CasperJS tests
 casperjs:
   script:
-    - RAILS_ENV=development bundle exec rails server --daemon
+    - RAILS_ENV=development bundle exec rails server -p 3011 --daemon
     - ps -ef | grep -i puma
     - RAILS_ENV=development bundle exec rake spec:casperjs:prepare
     - RAILS_ENV=development bundle exec rake spec:casperjs:run
