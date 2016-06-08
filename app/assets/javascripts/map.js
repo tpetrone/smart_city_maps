@@ -30,4 +30,19 @@ function setupGmapClass() {
       placeChangedHandler(autocomplete, map);
     });
   };
+
+  Gmap.prototype.getSpots = function(filterManager){
+    $.getJSON("/json/spots.json").done(function(data) {
+      if (data.spots.length > 0) {
+        for (i = 0; i < data.spots.length; i++) {
+          spot = data.spots[i];
+          gmarker = new GmapMarker(map);
+          gmarker.addMarker(spot);
+
+          filterManager.assignSpot(spot);
+        }
+      }
+    });
+  }
+
 }
