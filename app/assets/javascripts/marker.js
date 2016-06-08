@@ -25,21 +25,21 @@ function GmapMarker (gmap, spotData) {
     var state = Spot.STATUSES[spotData.status.toString()];
     var _data = spotData;
 
+  this.addMarker = function () {
     self.marker = new google.maps.Marker({
       map: this.map,
       position: position,
       icon: GmapMarker.ICONS[state].icon
     });
 
-  self.marker.addListener('click', function() {
-    traceroute(self.map, self.marker.position);
-  });
-
-  };
+    self.marker.addListener('click', function() {
+      traceroute(self.map, self.marker.position);
+    });
 
     var detail = new Detail();
     detail.showInfo(gmap, this.marker, _data);
   };
+
 }
 
 GmapMarker.ICONS = {
