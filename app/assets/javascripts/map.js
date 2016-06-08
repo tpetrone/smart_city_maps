@@ -43,6 +43,6 @@ function setupGmapClass() {
         }
       }
     });
-  }
+  };
 
 }
