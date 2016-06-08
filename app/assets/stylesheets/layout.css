@@ -70,3 +70,8 @@ html, body {
   margin-top: 15px;
   width: 150px;
 }
+
+#establishment-controls input[type=checkbox] {
+  vertical-align: top;
+}
+
