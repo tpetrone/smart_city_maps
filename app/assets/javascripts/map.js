@@ -1,11 +1,3 @@
-$(function () {
-  $("#switch-1, #time-slider").on('click', function(){
-    var switch_state = $("#switch-1").prop('checked');
-    var slider_value = $("#time-slider").prop("value");
-    map.autoRefresh(switch_state,slider_value);
-  });
-});
-
 // Initial coordinates on which to center the map when the page is loaded.
 INIT_LAT = -23.545241799982602;
 INIT_LNG = -46.63861848413944;
@@ -45,16 +37,20 @@ function setupGmapClass() {
     * create a marker and
     * assign it to AvailabilityFilter
     */
-  Gmap.prototype.getSpots = function(){
-    $.getJSON("/json/spots.json").done(function(data) {
-      gmarker = new GmapMarker(map);
+  Gmap.prototype.refreshFromAPI = function() {
+    Spot.search({
+      lat: map.getCenter().lat().toString(),
+      lng: map.getCenter().lng().toString()
+    }).done(function (response) {
+
       filterManager.resetAll();
-      if (data.spots.length > 0) {
-        for (i = 0; i < data.spots.length; i++) {
-          spot = data.spots[i];
-          gmarker.addMarker(spot);
-          filterManager.assignSpot(spot,gmarker.marker);
-        }
+
+      var spots = response.data;
+      for(var i = 0; i < spots.length; i++) {
+        spot = spots[i].attributes;
+        gmarker = new GmapMarker(map, spot);
+        gmarker.addMarker(spot);
+        filterManager.assignSpot(spot, gmarker);
       }
     });
   };
@@ -64,23 +60,51 @@ function setupGmapClass() {
     * feature and set the refresh interval
     * according to the slider in the UI
     */
-  Gmap.prototype.autoRefresh = function(switch_state, slider_value){
+  Gmap.prototype.autoRefresh = function(switch_state, slider_value) {
     var map = this;
     if(switch_state === true){
       time = slider_value * 1000;
       clearInterval(this.refresh);
       this.refresh = setInterval(function(){
-        map.getSpots();
-        /**
-         * It is not clear if the location should be refreshed here.
-         * UX tests must be made
-         */
-        getUserLocation(map);
+        map.refreshFromAPI();
+
+        // TODO: Discuss if we should re-center the map on auto-refresh.
+        // If so, uncomment the line below.
+        // getUserLocation(map);
         }, time);
-    }else{
+    }
+    else {
       clearInterval(this.refresh);
       this.refresh = false;
     }
   };
-
 }
+
+/**
+ * Setup event listeners.
+ */
+$(function () {
+  $("#switch-1").click(function() {
+    var _switchLabel = $("label[for=switch-1]").find(".mdl-switch__label");
+
+    if (this.checked) {
+      _switchLabel.html("ON");
+      $(".slider-wrapper").show(400);
+    }
+    else {
+      _switchLabel.html("OFF");
+      $(".slider-wrapper").hide(400);
+    }
+  });
+
+  $("#time-slider").on("input", function() {
+    $(this).parent()
+           .next(".mdl-slider__label").find("span").html(this.value + "s");
+  });
+
+  $("#switch-1, #time-slider").on('click', function(){
+    var switch_state = $("#switch-1").prop('checked');
+    var slider_value = $("#time-slider").prop("value");
+    map.autoRefresh(switch_state, slider_value);
+  });
+});

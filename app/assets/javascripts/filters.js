@@ -28,7 +28,7 @@ function AvailabilityFilter() {
    */
   this.toggleGroup = function(type) {
     for (var i = 0; i < this.markerGroups[type].length; i++) {
-      var marker = this.markerGroups[type][i];
+      var marker = this.markerGroups[type][i].marker;
       if (!marker.getVisible()) {
         marker.setVisible(true);
       } else {
@@ -43,7 +43,7 @@ function AvailabilityFilter() {
   this.resetAll = function(){
     for (var j in this.markerGroups) {
       for (var i = 0 ; i < this.markerGroups[j].length; i++) {
-        this.markerGroups[j][i].setMap(null);
+        this.markerGroups[j][i].marker.setMap(null);
       }
     }
   };

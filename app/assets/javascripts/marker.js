@@ -7,8 +7,8 @@ function GmapMarker (gmap, spotData) {
 
   this.addMarker = function (spotData) {
     var position = new google.maps.LatLng(spotData.latitude, spotData.longitude);
-    var state = state: Spot.STATUSES[spotData.status.toString()];
-    var _data: spotData;
+    var state = Spot.STATUSES[spotData.status.toString()];
+    var _data = spotData;
 
     self.marker = new google.maps.Marker({
       map: this.map,
@@ -17,7 +17,7 @@ function GmapMarker (gmap, spotData) {
     });
 
     var detail = new Detail();
-    detail.showInfo(gmap, this.marker, this.spot._data);
+    detail.showInfo(gmap, this.marker, _data);
   };
 }
 
