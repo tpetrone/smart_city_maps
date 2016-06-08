@@ -5,8 +5,9 @@
 
 var fs = require('fs');
 var features = {
-  geolocationSpec: require('./_geolocation_spec'),
   autocompleteSpec: require('./_autocomplete_spec'),
+  filtersSpec: require('./_filters_spec'),
+  geolocationSpec: require('./_geolocation_spec'),
   spotsSpec: require('./_spots_spec')
 };
 
@@ -54,6 +55,7 @@ casper.test.begin('Start page loads correctly', 7, function suite(test) {
   features.geolocationSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
   features.autocompleteSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
   features.spotsSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
+  features.filtersSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
 
   // Store coverage data.
   casper.then(function() {
