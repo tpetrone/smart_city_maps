@@ -16,6 +16,9 @@ function GmapMarker (gmap, spotData) {
       position: this.spot.position,
       icon: GmapMarker.ICONS[this.spot.state].icon
     });
+
+    var detail = new Detail();
+    detail.showInfo(gmap, this.marker, pos.address);
   };
 }
 

@@ -51,3 +51,9 @@ html, body {
   height: 12px;
   vertical-align: baseline;
 }
+.header-detail {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #6495ED;
+  font-weight: bold;
+  text-align: center;
+}
