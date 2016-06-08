@@ -38,9 +38,20 @@ function AvailabilityFilter() {
   };
 
   /**
+   * Erase all markers from the maps.
+   */
+  this.resetAll = function(){
+    for (var j in this.markerGroups) {
+      for (var i = 0 ; i < this.markerGroups[j].length; i++) {
+        this.markerGroups[j][i].setMap(null);
+      }
+    }
+  };
+
+  /**
    * Add a spot to a marker group.
    */
-  this.assignSpot = function(spot) {
-    this.markerGroups[Spot.STATUSES[spot.status]].push(gmarker.marker);
+  this.assignSpot = function(spot, marker) {
+    this.markerGroups[Spot.STATUSES[spot.status]].push(marker);
   };
 }
