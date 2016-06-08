@@ -8,7 +8,8 @@ var features = {
   autocompleteSpec: require('./_autocomplete_spec'),
   filtersSpec: require('./_filters_spec'),
   geolocationSpec: require('./_geolocation_spec'),
-  spotsSpec: require('./_spots_spec')
+  spotsSpec: require('./_spots_spec'),
+  routesSpec: require('./_routes_spec')
 };
 
 var utils = require('utils');
@@ -56,6 +57,7 @@ casper.test.begin('Start page loads correctly', 16, function suite(test) {
   features.autocompleteSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
   features.spotsSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
   features.filtersSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
+  features.routesSpec.spec(casper, test, { utils: utils, colorizer: colorizer });
 
   // Store coverage data.
   casper.then(function() {
