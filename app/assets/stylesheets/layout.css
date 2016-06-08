@@ -30,8 +30,13 @@ html, body {
   box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
   color: #757575;
   margin: 10px;
+  min-width: 150px;
   padding: 10px;
 }
+
+/*
+ * Map controls: availability options.
+ * ----------------------------------------------------------- */
 
 .availability-options {
   margin: 0;
@@ -50,4 +55,18 @@ html, body {
 .availability-options img {
   height: 12px;
   vertical-align: baseline;
+}
+
+#map-controls .spacer {
+  margin-top: 15px;
+}
+
+/*
+ * Map controls: auto-refresh options.
+ * ----------------------------------------------------------- */
+
+.slider-wrapper {
+  text-align: center;
+  margin-top: 15px;
+  width: 150px;
 }

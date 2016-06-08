@@ -19,7 +19,7 @@ var colorizer = require('colorizer').create('Colorizer');
  */
 casper.options.viewportSize = { width: 1024, height: 768 };
 
-casper.test.begin('Start page loads correctly', 7, function suite(test) {
+casper.test.begin('Start page loads correctly', 16, function suite(test) {
 
   var startedAt = new Date().getTime();
   casper.start('http://localhost:3011', function() {

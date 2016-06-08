@@ -56,6 +56,20 @@
             </label>
           </li>
         </ul>
+
+        <div class="spacer"></div>
+
+        <!-- Refresh controls -->
+        <span><strong>Auto-refresh</strong></span>
+        <hr>
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+            <input type="checkbox" id="switch-1" class="refresh-switch mdl-switch__input">
+            <span class="mdl-switch__label">OFF</span>
+          </label>
+          <div class="slider-wrapper" style="display: none;">
+            <input id="time-slider" class="mdl-slider mdl-js-slider" type="range" min="0" max="60" step="1" value="10" tabindex="0">
+            <span class="mdl-slider__label">Refresh interval<br><span>30s</span></span>
+          </div>
       </div>
 
       <!-- Message Display Dialog-->

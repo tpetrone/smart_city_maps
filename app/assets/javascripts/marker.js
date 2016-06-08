@@ -2,24 +2,22 @@
  * GmapMarker: this class is used to create new markers in the map.
  */
 function GmapMarker (gmap, spotData) {
-
+  var self = this;
   this.map = gmap;
 
-  this.spot = {
-      position: new google.maps.LatLng(spotData.latitude, spotData.longitude),
-      state: Spot.STATUSES[spotData.status.toString()],
-      _data: spotData
-  };
+  this.addMarker = function (spotData) {
+    var position = new google.maps.LatLng(spotData.latitude, spotData.longitude);
+    var state = Spot.STATUSES[spotData.status.toString()];
+    var _data = spotData;
 
-  this.addMarker = function () {
-    this.marker = new google.maps.Marker({
+    self.marker = new google.maps.Marker({
       map: this.map,
-      position: this.spot.position,
-      icon: GmapMarker.ICONS[this.spot.state].icon
+      position: position,
+      icon: GmapMarker.ICONS[state].icon
     });
 
     var detail = new Detail();
-    detail.showInfo(gmap, this.marker, this.spot._data);
+    detail.showInfo(gmap, this.marker, _data);
   };
 }
 
