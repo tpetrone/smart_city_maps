@@ -20,16 +20,27 @@ function main() {
   $("#map-controls").show();
 }
 
+/**
+ * Configure map dimensions.
+ */
 function configureMapSize() {
   var viewportWidth = $(window).width();
   var viewportHeight = $(window).height();
 
-  if (viewportWidth <= 1024) {
-    $("#map").css({ height: (viewportHeight - 56) + 'px' });
+  function updateSize(currentWidth, currentHeight) {
+    if (currentWidth <= 1024) {
+      $("#map").css({ height: (currentHeight - 56) + 'px' });
+    }
+    else {
+      $("#map").css({ height: (currentHeight - 64) + 'px' });
+    }
   }
-  else {
-    $("#map").css({ height: (viewportHeight - 64) + 'px' });
-  }
+
+  updateSize($(window).width(), $(window).height());
+
+  $(window).resize(function() {
+    updateSize($(window).width(), $(window).height());
+  });
 }
 
 $(window).load(function() {
