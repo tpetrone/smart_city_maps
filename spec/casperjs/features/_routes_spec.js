@@ -24,7 +24,7 @@ exports.spec = function(casper, test, other) {
     return casper.evaluate(function() {
       return $("#map .route-btn").length > 0;
     });
-  })
+  }, function then() {}, function timeout() {}, 10000);
 
   /**
    * Click on the route button.
@@ -43,7 +43,7 @@ exports.spec = function(casper, test, other) {
       return window.directionsDisplay &&
         window.directionsDisplay.directions.status === "OK";
     });
-  })
+  }, function then() {}, function timeout() {}, 10000);
 
   /**
    * Perform assertions.
@@ -72,7 +72,7 @@ exports.spec = function(casper, test, other) {
     return casper.evaluate(function() {
       return $("#map .route-btn").length > 0;
     });
-  })
+  }, function then() {}, function timeout() {}, 10000);
 
   /**
    * Click on the route button.
@@ -91,7 +91,7 @@ exports.spec = function(casper, test, other) {
       return window.directionsDisplay &&
         window.directionsDisplay.directions.status === "OK";
     });
-  })
+  }, function then() {}, function timeout() {}, 10000);
 
   /**
    * Perform assertions.
