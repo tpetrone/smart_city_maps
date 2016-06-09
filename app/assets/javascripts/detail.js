@@ -33,8 +33,13 @@ function Detail() {
         Detail.currentInfoWindow.close();
       }
 
-      newInfoWindow.open(map, marker);
       Detail.currentInfoWindow = newInfoWindow;
+      newInfoWindow.open(map, marker);
+
+      $(".route-btn").on('click', function() {
+        newInfoWindow.close();
+        traceroute(map, marker.position);
+      });
     });
   };
 

@@ -10,9 +10,8 @@ window.navigator.geolocation = {
   getCurrentPosition: function (success, failure) {
     success({
       coords: {
-        // Will always return Germany, Rostock
-        latitude: 54.0834,
-        longitude: 12.1004
+        latitude: -23.545241799982602,
+        longitude: -46.63867070417044,
 
       }, timestamp: Date.now()
     });
