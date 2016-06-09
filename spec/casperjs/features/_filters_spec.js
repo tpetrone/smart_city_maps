@@ -8,13 +8,13 @@ exports.spec = function(casper, test, other) {
   });
 
   /**
-   * Click to hide defected parking spots.
+   * Click to hide available parking spots.
    */
   casper.then(function() {
-    casper.click(".checkbox-filter[data-status=defected]");
+    casper.click(".checkbox-filter[data-status=available]");
 
     var _checkbox_status = casper.evaluate(function() {
-      return $(".checkbox-filter[data-status=defected]")[0].checked;
+      return $(".checkbox-filter[data-status=available]")[0].checked;
     });
 
     test.assert(_checkbox_status === false, "Checkbox was unselected");
@@ -24,10 +24,10 @@ exports.spec = function(casper, test, other) {
    * Click again to show the hidden spots.
    */
   casper.then(function() {
-    casper.click(".checkbox-filter[data-status=defected]");
+    casper.click(".checkbox-filter[data-status=available]");
 
     var _checkbox_status = casper.evaluate(function() {
-      return $(".checkbox-filter[data-status=defected]")[0].checked;
+      return $(".checkbox-filter[data-status=available]")[0].checked;
     });
 
     test.assert(_checkbox_status === true, "Checkbox was re-selected");
