@@ -91,7 +91,7 @@ the following steps:
   bundle exec rails server
   ```
   
-- Open http://localhost:3000 on your brower!
+- Open http://localhost:3011 on your brower!
 
 ## Testing
 
