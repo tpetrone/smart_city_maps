@@ -10,8 +10,8 @@ window.navigator.geolocation = {
   getCurrentPosition: function (success, failure) {
     success({
       coords: {
-        latitude: -23.2659,
-        longitude: -45.9128
+        latitude: -23.545241799982602,
+        longitude: -46.63867070417044,
 
       }, timestamp: Date.now()
     });

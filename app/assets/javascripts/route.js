@@ -2,7 +2,7 @@ function traceroute(map,spot_pos){
 
   // Remove old route, if it exists.
   if (window.directionsDisplay) {
-      directionsDisplay.setMap(null);
+    directionsDisplay.setMap(null);
   }
 
   directionsService = new google.maps.DirectionsService();
