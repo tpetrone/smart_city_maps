@@ -108,11 +108,13 @@ the following steps:
     **NOTE:** if you are a Smart City platform member, you can use the API
     key available from the [project configuration](https://gitlab.com/smart-city-platform/smart_parking_maps/variables).
 
+<br>
 - Setup **Smart Parking API key**: the API key is not kept in the repository for
   security purposes. You will need to create the file
   `RAILS_ROOT/app/config/keys/smart_parking_api_key` with the content of any
   valid API key from the [Smart Parking API](https://gitlab.com/smart-city-platform/smart_parking_api).
   If you don't have a key yet, please take a look at the Smart Parking API README.
+<br><br>
 
 - Start the server
   ```bash
@@ -132,9 +134,6 @@ tests, use the following commands:
 export LC_ALL=C
 ./script/casperjs-bundle.sh
 ```
-
-**Note:** the `prepare` and `restore` steps are needed to make sure we also
-get coverage results (for that, we use [istanbul](https://github.com/gotwarlost/istanbul)).
 
 ## Project phases
 
