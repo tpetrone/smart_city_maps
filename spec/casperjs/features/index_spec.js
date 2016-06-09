@@ -20,7 +20,7 @@ var colorizer = require('colorizer').create('Colorizer');
  */
 casper.options.viewportSize = { width: 1024, height: 768 };
 
-casper.test.begin('Start page loads correctly', 19, function suite(test) {
+casper.test.begin('Start page loads correctly', 22, function suite(test) {
 
   var startedAt = new Date().getTime();
   casper.start('http://localhost:3011', function() {
@@ -62,7 +62,8 @@ casper.test.begin('Start page loads correctly', 19, function suite(test) {
   ];
 
   for(var i = 0; i < featuresModules.length; i++) {
-    features[featuresModules[i]].spec(casper, test, { utils: utils, colorizer: colorizer });
+    features[featuresModules[i]].spec(casper, test, {
+      utils: utils, colorizer: colorizer });
   }
 
   // Store coverage data.

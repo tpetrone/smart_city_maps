@@ -23,6 +23,8 @@ function AvailabilityFilter() {
     "defected": []
   };
 
+  this.allMarkers = [];
+
   /**
    * Show/hide spot markers according to user selection.
    */
@@ -53,5 +55,9 @@ function AvailabilityFilter() {
    */
   this.assignSpot = function(spot, marker) {
     this.markerGroups[Spot.STATUSES[spot.status]].push(marker);
+    this.allMarkers.push({
+      spot: spot,
+      marker: marker
+    });
   };
 }

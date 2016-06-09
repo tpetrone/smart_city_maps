@@ -24,12 +24,7 @@ function setupGmapClass() {
 
   Gmap.prototype.enableAutocomplete = function(input) {
     var map = this;
-    var autocomplete = new google.maps.places.Autocomplete(input);
-
-    autocomplete.bindTo('bounds', map);
-    autocomplete.addListener('place_changed', function(event){
-      placeChangedHandler(autocomplete, map);
-    });
+    setupAutocomplete(input, map);
   };
 
   /**
@@ -78,6 +73,15 @@ function setupGmapClass() {
       this.refresh = false;
     }
   };
+}
+
+function setupAutocomplete(input, map) {
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+  autocomplete.addListener('place_changed', function (event) {
+    placeChangedHandler(autocomplete.getPlace(), map);
+  });
+  return autocomplete;
 }
 
 /**
