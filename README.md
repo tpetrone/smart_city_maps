@@ -99,7 +99,7 @@ the following steps:
   overcommit --install
   overcommit --sign
   ```
-
+<br>
 - Setup **Google API key**: the API key is not kept in the repository for security
   purposes. You will need to create the file
   `RAILS_ROOT/config/keys/server_key_1` with the content of your Google
@@ -111,9 +111,13 @@ the following steps:
 <br>
 - Setup **Smart Parking API key**: the API key is not kept in the repository for
   security purposes. You will need to create the file
-  `RAILS_ROOT/app/config/keys/smart_parking_api_key` with the content of any
+  `RAILS_ROOT/config/keys/smart_parking_api_key` with the content of any
   valid API key from the [Smart Parking API](https://gitlab.com/smart-city-platform/smart_parking_api).
   If you don't have a key yet, please take a look at the Smart Parking API README.
+<br><br>
+
+- Make sure the [smart_parking_api](https://gitlab.com/smart-city-platform/smart_parking_api)
+  server is running on port 3010 (refer to that project's README for how to do that).
 <br><br>
 
 - Start the server
