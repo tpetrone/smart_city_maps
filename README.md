@@ -134,6 +134,9 @@ the following steps:
 We have an integration test suite that is run with CasperJS. To run all
 tests, use the following commands:
 
+**IMPORTANT:** The application needs to be running on port 3011 for the test
+suite to be able to run.
+
 ```
 export LC_ALL=C
 ./script/casperjs-bundle.sh
