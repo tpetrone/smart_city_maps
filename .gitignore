@@ -16,9 +16,6 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-# Ignore API keys
-/config/keys
-
 # Ignore istanbul coverage files.
 /.istanbul/coverage
 /.istanbul/javascripts
