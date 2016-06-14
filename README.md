@@ -16,8 +16,8 @@ so be sure to check that one too!
 
 ## Live demo
 
-A demo version of the application has been configured on Cloud9, and you can
-see it [here](http://poo-pci-deborasetton.c9users.io:8081/).
+A demo version of the application has been deployed to Heroku, and you can
+see it [here](http://smart-parking-maps.herokuapp.com/).
 
 ## Development setup
 
