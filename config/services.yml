@@ -23,4 +23,5 @@ test:
   smart_parking_maps: "localhost:3011"
 
 production:
-  <<: *default
+  smart_parking_api: "smart-parking-api.herokuapp.com"
+  smart_parking_maps: "smart-parking-maps.herokuapp.com"
