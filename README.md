@@ -101,7 +101,7 @@ the following steps:
   ```
 <br>
 - Setup **Google API key**: the API key is not kept in the repository for security
-  purposes. You will need to create the file
+  purposes. You will need to modify the contents of the file
   `RAILS_ROOT/config/keys/server_key_1` with the content of your Google
   API key.
   
@@ -110,7 +110,7 @@ the following steps:
 
 <br>
 - Setup **Smart Parking API key**: the API key is not kept in the repository for
-  security purposes. You will need to create the file
+  security purposes. You will need to modify the contents of the file
   `RAILS_ROOT/config/keys/smart_parking_api_key` with the content of any
   valid API key from the [Smart Parking API](https://gitlab.com/smart-city-platform/smart_parking_api).
   If you don't have a key yet, please take a look at the Smart Parking API README.
