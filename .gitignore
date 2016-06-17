@@ -20,3 +20,7 @@
 /.istanbul/coverage
 /.istanbul/javascripts
 /.istanbul/reports
+
+# Ignore secret keys
+/config/keys/*
+!/config/keys/.keep
