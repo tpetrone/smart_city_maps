@@ -4,7 +4,7 @@ $(function () {
    */
   $("#min-price").change(function() {
     var newMin = parseFloat($("#min-price").val());
-    if (newMin != NaN) {
+    if (!isNaN(newMin)) {
       showSpotsAboveThisPrice(newMin);
     }
   });
@@ -14,7 +14,7 @@ $(function () {
    */
    $("#max-price").change(function() {
      var newMax = parseFloat($("#max-price").val());
-     if (newMax != NaN) {
+     if (!isNaN(newMax)) {
        showSpotsBelowThisPrice(newMax);
      }
    });
@@ -30,7 +30,7 @@ function showSpotsBelowThisPrice(newMax) {
     var pricingRestrictions = obj.spot.formatted_details.pricing_restrictions[0];
 
     // If the spot has any pricing restrictions
-    if (pricingRestrictions != undefined) {
+    if (pricingRestrictions !== undefined) {
       spotPrice = getSpotPrice(pricingRestrictions);
       if (spotPrice <= newMax) {
         obj.marker.marker.setVisible(true);
@@ -69,7 +69,7 @@ function showSpotsAboveThisPrice(newMin) {
     var pricingRestrictions = obj.spot.formatted_details.pricing_restrictions[0];
 
     // If the spot has any pricing restrictions
-    if (pricingRestrictions != undefined) {
+    if (pricingRestrictions !== undefined) {
       spotPrice = getSpotPrice(pricingRestrictions);
       if (spotPrice >= newMin) {
         obj.marker.marker.setVisible(true);
