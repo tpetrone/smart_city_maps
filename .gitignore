@@ -21,6 +21,6 @@
 /.istanbul/javascripts
 /.istanbul/reports
 
-# Ignore secret keys
+# Ignore API keys
 /config/keys/*
 !/config/keys/.keep
