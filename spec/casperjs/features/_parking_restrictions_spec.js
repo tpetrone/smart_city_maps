@@ -6,4 +6,4 @@ exports.spec = function(casper, test, other) {
      });
      test.assert(spotPrice === 10.0, "Get price from parking restriction was successfull");
   });
-}
+};
