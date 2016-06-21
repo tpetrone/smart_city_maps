@@ -1,39 +1,27 @@
-function Modal() {
+function Modal(elementDialog) {
 
-  var dialogLoader = document.querySelector("#dialog-loader");
-  var dialogMsg = document.querySelector("#dialog-msg");
-  var dialogContent = $(".mdl-dialog__content > p");
   var self = this;
-  var isVisible = false;
-  var isMsgVisible = false;
+  this.elementDialog = elementDialog;
+  this.dialogContent = $("#" + elementDialog.id + "> .mdl-dialog__content > p");
+  this.isVisible = false;
 
-  this.showLoader = function() {
-    dialogLoader.showModal();
-    isVisible = true;
-  };
-
-  this.hideLoader = function() {
-    if (isVisible) {
-      dialogLoader.close();
-      isVisible = false;
+  this.show = function(msg = null) {
+    if (msg){
+      this.dialogContent.html(msg);
     }
+    this.elementDialog.showModal();
+    this.isVisible = true;
   };
 
-  this.showMsg = function(msg) {
-    dialogContent.html(msg);
-    dialogMsg.showModal();
-    isMsgVisible = true;
-  };
-
-  this.hideMsg = function() {
-    if (isMsgVisible) {
-      dialogMsg.close();
-      isMsgVisible = false;
+  this.hide = function() {
+    if (this.isVisible) {
+      this.elementDialog.close();
+      this.isVisible = false;
     }
   };
 
   // Modal dialog button click handler
   $('#dialog-button')[0].addEventListener('click', function(event) {
-    self.hideMsg();
+    self.hide();
   });
 }
