@@ -4,8 +4,9 @@ function Detail() {
    * Prepares the details window for a marker and binds on the
    * 'click' event to display the details.
    */
-  this.showInfo = function(map, marker, details){
-
+  this.showInfo = function(map, marker, spot){
+    //debugger;
+    details = spot.attributes;
     var content = $(".parking-spot-details").clone().show();
 
     content.find("li[data-attr=type] span").html(Utils.capitalize(details.parking_type));
@@ -39,6 +40,14 @@ function Detail() {
       $(".route-btn").on('click', function() {
         newInfoWindow.close();
         traceroute(map, marker.position);
+      });
+
+      $(".checkIn-btn").on('click', function() {
+        console.log("you do check-in");
+        user_logged_id = 1; // averiguar esta parte
+        var current_checkIn = new CheckIn(spot.id, user_logged_id);
+        current_checkIn.saveCheckIn();
+
       });
     });
   };

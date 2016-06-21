@@ -19,3 +19,16 @@ Spot.search = function() {
     console.log("error");
   });
 };
+
+Spot.checkin = function(spotId, userId) {
+  return $.post(Rails.config.smartParkingAPI.url + "/checkins", {
+    token: Rails.config.smartParkingAPI.token,
+    spot_id: spotId,
+    user_id: userId
+  }).done(function(response) {
+    console.log("saved on API!");
+    // Salva as informações que a API retornou.
+  }).fail(function() {
+    console.log("error");
+  });
+};
