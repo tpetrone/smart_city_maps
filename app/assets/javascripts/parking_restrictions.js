@@ -5,7 +5,7 @@ $(function () {
   $("#min-price").change(function() {
     var newMin = parseFloat($("#min-price").val());
     if (!isNaN(newMin)) {
-      showSpotsAboveThisPrice(newMin);
+      showSpotsAboveThisPrice(filterManager.allMarkers, newMin);
     }
   });
 
@@ -15,7 +15,7 @@ $(function () {
    $("#max-price").change(function() {
      var newMax = parseFloat($("#max-price").val());
      if (!isNaN(newMax)) {
-       showSpotsBelowThisPrice(newMax);
+       showSpotsBelowThisPrice(filterManager.allMarkers, newMax);
      }
    });
 });
@@ -23,10 +23,10 @@ $(function () {
 /*
  * Show only spots with prices lower than newMax
  */
-function showSpotsBelowThisPrice(newMax) {
-  var allMarkersLength = filterManager.allMarkers.length;
+function showSpotsBelowThisPrice(allMarkers, newMax) {
+  var allMarkersLength = allMarkers.length;
   for (var i = 0; i < allMarkersLength; i++) {
-    var obj = filterManager.allMarkers[i];
+    var obj = allMarkers[i];
     var pricingRestrictions = obj.spot.formatted_details.pricing_restrictions[0];
 
     // If the spot has any pricing restrictions
@@ -62,10 +62,10 @@ function getSpotPrice(pricingRestrictions) {
 /*
  * Shows only spots with prices higher than newMin
  */
-function showSpotsAboveThisPrice(newMin) {
-  var allMarkersLength = filterManager.allMarkers.length;
+function showSpotsAboveThisPrice(allMarkers, newMin) {
+  var allMarkersLength = allMarkers.length;
   for (var i = 0; i < allMarkersLength; i++) {
-    var obj = filterManager.allMarkers[i];
+    var obj = allMarkers[i];
     var pricingRestrictions = obj.spot.formatted_details.pricing_restrictions[0];
 
     // If the spot has any pricing restrictions

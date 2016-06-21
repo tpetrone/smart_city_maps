@@ -9,7 +9,8 @@ var features = {
   filtersSpec: require('./_filters_spec'),
   geolocationSpec: require('./_geolocation_spec'),
   spotsSpec: require('./_spots_spec'),
-  routesSpec: require('./_routes_spec')
+  routesSpec: require('./_routes_spec'),
+  parkingRestrictionsSpec: require('./_parking_restrictions_spec')
 };
 
 var utils = require('utils');
@@ -58,7 +59,8 @@ casper.test.begin('Start page loads correctly', 22, function suite(test) {
    'autocompleteSpec',
    'spotsSpec',
    'filtersSpec',
-   'routesSpec'
+   'routesSpec',
+   'parkingRestrictionsSpec'
   ];
 
   for(var i = 0; i < featuresModules.length; i++) {
