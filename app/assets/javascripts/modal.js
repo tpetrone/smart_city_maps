@@ -22,7 +22,10 @@ function Modal(elementDialog) {
   };
 
   // Modal dialog button click handler
-  $('#dialog-button')[0].addEventListener('click', function(event) {
+  $('.close').bind('click', function(event) {
     self.hide();
+  });
+  $('.close-menu').bind('click', function(event) {
+    //$("#menu").toggleClass('is-visible');
   });
 }
