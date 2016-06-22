@@ -29,7 +29,6 @@ function showSpotsBelowThisPrice(allMarkers, newMax) {
     var obj = allMarkers[i];
     var pricingRestrictions = obj.spot.formatted_details.pricing_restrictions[0];
 
-    // If the spot has any pricing restrictions
     if (pricingRestrictions !== undefined) {
       spotPrice = getSpotPrice(pricingRestrictions);
       if (spotPrice <= newMax) {

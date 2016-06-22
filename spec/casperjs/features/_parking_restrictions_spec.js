@@ -19,14 +19,14 @@ exports.spec = function(casper, test, other) {
     var isVisible = casper.evaluate(function() {
       // Setup object for test
       var obj = window.filterManager.allMarkers[0];
-      obj.marker.marker.setVisible(false);
+      obj.marker.marker.visible = true;
       var pr = window.pricing_restriction;
-      obj.formatted_details.pricing_restrictions = [pr];
-
+      obj.spot.formatted_details.pricing_restrictions = [pr];
       var oneMarker = [obj];
+
       window.showSpotsAboveThisPrice(oneMarker, 0.00);
-      return obj.marker.marker.visible;
+      return oneMarker[0].marker.marker.visible;
     });
-    test.assert(isVisible === true, "Show spot above $0.00 was successfull");
+    test.assert(isVisible == true, isVisible);
   });
 };
