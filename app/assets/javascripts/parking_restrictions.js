@@ -45,16 +45,12 @@ function showSpotsBelowThisPrice(allMarkers, newMax) {
  */
 function getSpotPrice(pricingRestrictions) {
   var PRICE_REGEX = /[0-9]+\.[0-9][0-9]/;
-  var spotPrice = null;
-  try {
-    var i = pricingRestrictions.search(PRICE_REGEX);
-    var j = pricingRestrictions.length;
-    var priceStr = pricingRestrictions.substring(i,j);
-    spotPrice = parseFloat(priceStr);
-  } catch(e) {
-    console.log("Error parsing spot price to float: " + pricingRestrictions);
-    throw e;
-  }
+
+  var i = pricingRestrictions.search(PRICE_REGEX);
+  var j = pricingRestrictions.length;
+  var priceStr = pricingRestrictions.substring(i,j);
+
+  var spotPrice = parseFloat(priceStr);
   return spotPrice;
 }
 
