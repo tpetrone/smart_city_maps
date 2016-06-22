@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-deparam
+//= require jquery.j-toker
 
 // The Rails helpers file must be loaded first.
 //= require rails_helpers
