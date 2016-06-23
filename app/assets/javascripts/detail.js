@@ -4,7 +4,7 @@ function Detail() {
    * Prepares the details window for a marker and binds on the
    * 'click' event to display the details.
    */
-  this.showInfo = function(map, marker, details){
+  this.showInfo = function(map, marker, details, spot_id){
 
     var content = $(".parking-spot-details").clone().show();
 
@@ -32,6 +32,14 @@ function Detail() {
       if (Detail.currentInfoWindow) {
         Detail.currentInfoWindow.close();
       }
+
+      var incident=new Incident();
+
+      incident.lastComment(spot_id);
+
+      $("#submit-button").on('click', function() {
+        incident.submitComment(spot_id);
+      });
 
       Detail.currentInfoWindow = newInfoWindow;
       newInfoWindow.open(map, marker);

@@ -88,8 +88,38 @@
          <br>
        </div> -->
 
+      <!-- Show incident and comment -->
+      <div id="incident-controls" style="display: none;">
+        <hr>
+        <span><strong>Report Incident</strong></span>
+        <br>
+        <span class="mdl-list__item-primary-content">
+        <div id="category">
+        </div>
+        <div id="comment">
+        </div>
+        <i class="small material-icons">person</i>
+        <span class="mdl-list__item-sub-title">last user</span>	    
+        </span>
+        <br>
+
+        <hr>
+        <select id="incident-option">
+          <option value="wrong adress">wrong adress</option>
+          <option value="Incorrect Address">wrong schedule</option>
+          <option value="wrong price">wrong price</option>
+        </select>
+        <br>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="comment-input" >
+          <label class="mdl-textfield__label" for="comment-input">Comment...</label>	   
+        </div>
+        <button id="submit-button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+          <i class="small material-icons">message</i>
+        </button>
       </div>
 
+      </div>
       <!-- Message Display Dialog-->
       <dialog id="dialog-msg" class="mdl-dialog">
         <div class="mdl-dialog__content">
