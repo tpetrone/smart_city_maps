@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-deparam
+//= require pubsub.js
 //= require jquery.j-toker
 
 // The Rails helpers file must be loaded first.
