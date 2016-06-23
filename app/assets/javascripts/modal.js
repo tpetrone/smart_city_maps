@@ -1,4 +1,3 @@
-/*jshint esversion: 6 */
 function Modal(elementDialog) {
 
   var self = this;
@@ -6,7 +5,7 @@ function Modal(elementDialog) {
   this.dialogContent = $("#" + elementDialog.id + "> .mdl-dialog__content > p");
   this.isVisible = false;
 
-  this.show = function(msg = null) {
+  this.show = function(msg) {
     if (msg){
       this.dialogContent.html(msg);
     }
@@ -24,8 +23,5 @@ function Modal(elementDialog) {
   // Modal dialog button click handler
   $('.close').bind('click', function(event) {
     self.hide();
-  });
-  $('.close-menu').bind('click', function(event) {
-    //$("#menu").toggleClass('is-visible');
   });
 }
