@@ -3,6 +3,9 @@ function main() {
   // Create a new AvailabilityFilter.
   filterManager = new AvailabilityFilter();
 
+  // Create User instance
+  current_user = new User();
+
   // Create map instance
   map = new Gmap({
     map: $("#map")[0]
@@ -46,5 +49,6 @@ function configureMapSize() {
 $(window).load(function() {
   configureMapSize();
   setupGmapClass();
+  setupUser();
   main();
 });
