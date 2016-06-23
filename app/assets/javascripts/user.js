@@ -3,9 +3,9 @@ function setupUser(){
   User = function(){
     this.isLoggedIn = false;
     this.email = "";
-    this.id = ""
-    this.token = ""
-  }
+    this.id = "";
+    this.token = "";
+  };
 
   User.prototype.constructor = User;
 
@@ -14,11 +14,11 @@ function setupUser(){
       apiUrl: Rails.config.smartParkingAPI.url,
       storage:'localStorage'
     });
-  }
+  };
 
   User.prototype.doLogin = function(email,password) {
     var self = this;
-    this.configRoot;
+    this.configRoot();
 
     $.auth.emailSignIn({
       token: Rails.config.smartParkingAPI.token,
@@ -39,7 +39,7 @@ function setupUser(){
 
   User.prototype.doSignup = function(email,password,password_confirmation) {
     var self = this;
-    this.configRoot;
+    this.configRoot();
 
     $.auth.emailSignUp({
       token: Rails.config.smartParkingAPI.token,
