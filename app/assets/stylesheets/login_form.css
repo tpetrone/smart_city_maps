@@ -4,3 +4,22 @@
 .wrapper {
   margin : auto;
 }
+.close-wrapper {
+  text-align: right;
+}
+.close-wrapper i{
+  font-size:14px;
+}
+
+.panel {
+  text-align: left;
+  padding-top: 15px;
+}
+
+.panel-error{
+  color: red;
+}
+
+.panel-success{
+  color: green;
+}

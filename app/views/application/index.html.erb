@@ -23,7 +23,7 @@
   <div id="menu" class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
-      <a id="link-auth" class="mdl-navigation__link">Login/Register</a>
+      <a id="link-auth" class="mdl-navigation__link" href="#">Login/Register</a>
       <a class="mdl-navigation__link" href="">Show filters</a>
       <a class="mdl-navigation__link" href="">Show legend</a>
     </nav>
@@ -109,35 +109,45 @@
 
       <!-- Log in Form Display Dialog-->
       <dialog id="dialog-form">
+      <!-- Close (x) button -->
+       <div class="close-wrapper">
+          <button class="mdl-button mdl-js-button close">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
         <div class="mdl-card mdl-shadow--2dp wrapper">
           <div class="mdl-card__title text-center">
-            <h2 class="mdl-card__title-text">Login or Signup</h2>
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+              <div class="mdl-tabs__tab-bar">
+                <a id="tab-login" tabindex="-1" href="#panel" class="mdl-tabs__tab is-active">Login</a>
+                <a id="tab-signup" tabindex="-1" href="#panel" class="mdl-tabs__tab">Signup</a>
+              </div>
+              <!-- below empty div is necessary for tab element to work-->
+              <div id="panel" class="mdl-tabs__panel is-active panel"></div>
+            </div>
           </div>
           <div class="mdl-card__supporting-text">
             <form action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                <input class="mdl-textfield__input" type="text" id="email" />
+                <input class="mdl-textfield__input" type="text" id="txt-email" />
                 <label class="mdl-textfield__label" for="email">Email</label>
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                <input class="mdl-textfield__input" type="password" id="password" />
+                <input class="mdl-textfield__input" type="password" id="txt-pass" />
                 <label class="mdl-textfield__label" for="password">Password</label>
               </div>
               <div id="pass_confirmation" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo"  style="display: none;">
-                <input class="mdl-textfield__input" type="password"/>
-                <label class="mdl-textfield__label" for="pass_confirmation">Confirm Password</label>
+                <input class="mdl-textfield__input" type="password" id="txt-conf"/>
+                <label class="mdl-textfield__label" for="txt-conf">Confirm Password</label>
               </div>
             </form>
           </div>
           <div class="mdl-card__actions mdl-card--border text-center">
-            <a id="login" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+            <a id="form-btn-login" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
               Login
             </a>
-            <a id="signup" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            <a id="form-btn-signup" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" style="display: none;">
               Signup
-            </a>
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect close close-menu">
-              Close
             </a>
           </div>
         </div>
