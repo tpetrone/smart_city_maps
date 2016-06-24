@@ -108,8 +108,8 @@
           $("#link-signin").hide();
           $("#link-signout").show();
           // Show respective message
-          $("#panel").html(msg);
         }
+        $("#panel").html(msg);
         break;
       case "signout":
         if (!error){
@@ -119,8 +119,9 @@
         }
         break;
       case "signup":
-      // Show respective message
-      $("#panel").html(msg);
+        // Show respective message
+        $("#panel").html(msg);
+        break;
     }
   };
 }
