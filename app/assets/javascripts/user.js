@@ -105,7 +105,7 @@
     switch(condition) {
       case "signin":
         if (!error){
-          this.modal_form.hide()
+          this.modal_form.hide();
           $("#link-signin").hide();
           $("#link-signout").show();
           // Show respective message
