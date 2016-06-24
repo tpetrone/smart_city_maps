@@ -19,9 +19,16 @@ function Modal(elementDialog) {
       this.isVisible = false;
     }
   };
+}
+
+$(function () {
+  // Modal dialog button click handler
+  $('.close-msg').bind('click', function(event) {
+    document.querySelector("#dialog-msg").close();
+  });
 
   // Modal dialog button click handler
-  $('.close').bind('click', function(event) {
-    self.hide();
+  $('.close-form').bind('click', function(event) {
+    document.querySelector("#dialog-form").close();
   });
-}
+});
