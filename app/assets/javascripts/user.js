@@ -131,6 +131,7 @@
  */
 $(function () {
   $("#link-signin").click(function() {
+    $("#panel").html("");
     current_user.modal_form.show();
   });
 
