@@ -23,7 +23,8 @@
   <div id="menu" class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
-      <a id="link-auth" class="mdl-navigation__link" href="#">Login/Register</a>
+      <a id="link-signin" class="mdl-navigation__link" href="#">Login/Register</a>
+      <a id="link-signout" class="mdl-navigation__link" href="#" style="display: none;">Sign Out</a>
       <a class="mdl-navigation__link" href="">Show filters</a>
       <a class="mdl-navigation__link" href="">Show legend</a>
     </nav>
@@ -96,7 +97,7 @@
           <p></p>
         </div>
         <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-          <button id="dialog-button" type="button" class="mdl-button close">Ok</button>
+          <button id="dialog-button" type="button" class="mdl-button close-msg">Ok</button>
         </div>
       </dialog>
 
@@ -111,7 +112,7 @@
       <dialog id="dialog-form">
       <!-- Close (x) button -->
        <div class="close-wrapper">
-          <button class="mdl-button mdl-js-button close">
+          <button class="mdl-button mdl-js-button close-form">
             <i class="material-icons">close</i>
           </button>
         </div>
