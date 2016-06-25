@@ -85,26 +85,18 @@
         <div class="spacer"></div>
 
         <div class="availability-spot-restrictions">
-          <span><strong>Hours of operation restrictions</strong></span>
+          <span><strong>Filter by hours of operation</strong></span>
+            <hr>
+            Date: <input type="text" id="datepicker" class="mdl-textfield__input">
             <br>
-            <input type="checkbox"/>Mon
-            <input type="checkbox"/>Tue
-            <input type="checkbox"/>Wed
-            <input type="checkbox"/>Thu
-            <input type="checkbox"/>Fri
-            <input type="checkbox"/>Sat
-            <input type="checkbox"/>Sun
-            <br>
-            Initial: <input type="text" name="timepicker" class="timepicker" size="7"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Final: <input type="text" name="timepicker" class="timepicker" size="7"/>
+            Hours: <input type="text" name="timepicker" class="timepicker mdl-textfield__input">
         </div>
 
         <div class="spacer"></div>
 
         <div class="pricing-spot-restrictions">
-          <span><strong>Pricing restrictions</strong></span>
-            <br>
+          <span><strong>Filter by price</strong></span>
+            <hr>
             Min:
             <input id="min-price" class="mdl-textfield__input" type="text" name="min_price" value=""/>
             Max:

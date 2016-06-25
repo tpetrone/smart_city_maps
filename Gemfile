@@ -18,6 +18,10 @@ gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
+# Use jquery-ui for the plugins
+gem 'jquery-ui-rails'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Use ActiveModel has_secure_password

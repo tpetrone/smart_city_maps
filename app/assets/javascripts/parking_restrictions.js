@@ -28,6 +28,7 @@ $(function () {
       title: 'Time Picker' //The Wickedpicker's title
    };
    $('.timepicker').wickedpicker(options);
+   $('#datepicker').datepicker();
 });
 
 /*

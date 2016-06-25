@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 
 // The Rails helpers file must be loaded first.
 //= require rails_helpers
