@@ -90,33 +90,38 @@
 
       <!-- Show incident and comment -->
       <div id="incident-controls" style="display: none;">
-        <hr>
-        <span><strong>Report Incident</strong></span>
-        <br>
-        <span class="mdl-list__item-primary-content">
-        <div id="category">
+        <div id="show-occurence" style="display: none;">
+          <hr>
+          <span><strong>About spot parking</strong></span>
+          <br>
+          <span class="mdl-list__item-primary-content">
+            <div id="category" style="text-align:center;">
+            </div>
+            <div id="comment" style="text-align:center;">
+            </div>
+            <div id="user"></div>
+            <span class="mdl-list__item-sub-title">
+              <div id="time"></div>
+            </span>
+          </span>
         </div>
-        <div id="comment">
-        </div>
-        <i class="small material-icons">person</i>
-        <span class="mdl-list__item-sub-title">last user</span>	    
-        </span>
-        <br>
 
-        <hr>
-        <select id="incident-option">
-          <option value="wrong adress">wrong adress</option>
-          <option value="Incorrect Address">wrong schedule</option>
-          <option value="wrong price">wrong price</option>
-        </select>
-        <br>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="comment-input" >
-          <label class="mdl-textfield__label" for="comment-input">Comment...</label>	   
-        </div>
-        <button id="submit-button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-          <i class="small material-icons">message</i>
-        </button>
+        <div id="send-incident">
+          <hr>
+          <select id="incident-option">
+            <option value="0">Other</option>
+            <option value="1">Incorrect address</option>
+            <option value="2">Wrong schedule</option>
+            <option value="3">Different price</option>
+          </select>
+          <div class="mdl-textfield mdl-js-textfield" style="width: 80%; ">
+            <input class="mdl-textfield__input" type="text" id="comment-input" >
+            <label class="mdl-textfield__label" for="comment-input">comment...</label>
+          </div>
+          <button id="submit-button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+            <i class="tiny material-icons">message</i>
+          </button>
+          </div>
       </div>
 
       </div>
