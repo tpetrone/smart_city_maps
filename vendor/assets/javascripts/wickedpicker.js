@@ -3,7 +3,7 @@
  * Copyright (c) 2015-2016 Eric Gagnon - http://github.com/wickedRidge/wickedpicker
  * License: MIT
  */
-
+/* eslint no-eval: 0 */
 (function ($, window, document) {
 
     "use strict";
