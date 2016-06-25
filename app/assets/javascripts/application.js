@@ -17,3 +17,5 @@
 //= require rails_helpers
 
 //= require_tree .
+
+//= require wickedpicker

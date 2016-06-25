@@ -18,6 +18,16 @@ $(function () {
        showSpotsBelowThisPrice(filterManager.allMarkers, newMax);
      }
    });
+
+   var options = {
+      twentyFour: true,  //Display 24 hour format, defaults to false
+      upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS
+      downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS
+      close: 'wickedpicker__close', //The close class selector to use, for custom CSS
+      hoverState: 'hover-state', //The hover state class to use, for custom CSS
+      title: 'Time Picker' //The Wickedpicker's title
+   };
+   $('.timepicker').wickedpicker(options);
 });
 
 /*
