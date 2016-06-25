@@ -18,7 +18,7 @@
          */
         String.prototype.endsWith = function (string) {
             return string.length > 0 && this.substring(this.length - string.length, this.length) === string;
-        }
+        };
     }
 
     /*
