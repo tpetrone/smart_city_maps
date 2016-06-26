@@ -15,15 +15,22 @@ function Modal(elementDialog) {
     this.isVisible = true;
 
     // Check browser compatibiliy before showing modal programmatically
-    if (this.isChrome) {this.elementDialog.showModal();}
+    try {
+      this.elementDialog.showModal();
+    } catch(err) {
+      console.log("Can't close the <dialog>. Your browser is not supported =(");
+    }
   };
 
   this.hide = function() {
     if (this.isVisible) {
       this.isVisible = false;
-
-      // Check browser compatibiliy before closing modal programmatically
-      if (this.isChrome) {this.elementDialog.close();}
+    }
+    // Check browser compatibiliy before closing modal programmatically
+    try {
+      this.elementDialog.close();
+    } catch(err) {
+      console.log("Can't close the <dialog>. Your browser is not supported =(");
     }
   };
 }
@@ -32,6 +39,7 @@ $(function () {
   // Modal dialog button click handler
   $('.close-msg').bind('click', function(event) {
     try {
+      current_user.modal_msg.hide();
       document.querySelector("#dialog-msg").close();
     }
     catch(err) {
