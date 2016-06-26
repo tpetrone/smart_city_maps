@@ -5,18 +5,25 @@ function Modal(elementDialog) {
   this.dialogContent = $("#" + elementDialog.id + "> .mdl-dialog__content > p");
   this.isVisible = false;
 
+  // Detect Chrome Browser
+  this.isChrome = /Chrome/i.exec(navigator.userAgent);
+
   this.show = function(msg) {
     if (msg){
       this.dialogContent.html(msg);
     }
-    this.elementDialog.showModal();
     this.isVisible = true;
+
+    // Check browser compatibiliy before showing modal programmatically
+    if (this.isChrome) {this.elementDialog.showModal();}
   };
 
   this.hide = function() {
     if (this.isVisible) {
-      this.elementDialog.close();
       this.isVisible = false;
+
+      // Check browser compatibiliy before closing modal programmatically
+      if (this.isChrome) {this.elementDialog.close();}
     }
   };
 }
@@ -24,11 +31,21 @@ function Modal(elementDialog) {
 $(function () {
   // Modal dialog button click handler
   $('.close-msg').bind('click', function(event) {
-    document.querySelector("#dialog-msg").close();
+    try {
+      document.querySelector("#dialog-msg").close();
+    }
+    catch(err) {
+      console.log("Sorry. Your browser is not supported =(");
+    }
   });
 
   // Modal dialog button click handler
   $('.close-form').bind('click', function(event) {
-    document.querySelector("#dialog-form").close();
+    try {
+      document.querySelector("#dialog-form").close();
+    }
+    catch(err) {
+      console.log("Sorry. Your browser is not supported =(");
+    }
   });
 });

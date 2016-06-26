@@ -21,7 +21,14 @@ function main() {
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
     document.querySelector("#map-controls"));
   $("#map-controls").show();
+
+  // Hide Loader and Message Modals if not Chrome (keep Login Modal)
+  if (/Chrome/i.exec(navigator.userAgent) === null){
+    $("#dialog-msg").addClass("hidden");
+    $("#dialog-loader").addClass("hidden");
+  }
 }
+
 
 /**
  * Configure map dimensions.
