@@ -4,7 +4,7 @@ function Checkin(spot, userId){
   this.userId = userId;
 
   this.save = function(){
-     Spot.checkin(this.spotId, this.userId)
+     Spot.checkin(this.spotId, this.userId);
   };
 
   $(".checkOut-btn").on('click', function() {
@@ -16,15 +16,35 @@ function Checkin(spot, userId){
 
   $(".route-checkin-btn").on('click', function() {
     //map.refreshFromAPI();
-    Detail.currentInfoWindow.close();
-    var position = new google.maps.LatLng(spot.attributes.latitude, spot.attributes.longitude);
-    console.log("position");
-    console.log(spot.attributes.latitude);
-    console.log(spot.attributes.longitude);
-    traceroute(map, position);
+    Checkin.search_by_user(user_logged_id);
   });
-
 }
+
+// do this user checkin before?
+Checkin.search_by_user = function(userId) {
+  return $.get(Rails.config.smartParkingAPI.url + "/checkins/search", {
+      token: "NwcCwWKViHsTjHaW5QGfbAtt",// Rails.config.smartParkingAPI.token,
+      user_id: userId
+    }).done(function(response) {
+      var checkinData = response.data[0].attributes;
+      Spot.search({
+        lat: map.getCenter().lat().toString(),
+        lng: map.getCenter().lng().toString()
+      }).done(function (response) {
+        var spots = response.data;
+        for(var i = 0; i < spots.length; i++) {
+          spot = spots[i];
+          if (spot.id === checkinData.spot_id){
+            Detail.currentInfoWindow.close();
+            lat = spot.attributes.latitude;
+            log = spot.attributes.longitude;
+            var position = new google.maps.LatLng(lat, log);
+            traceroute(map, position);
+          }
+        }
+      });
+    });
+};
 
 Checkin.checkout = function(checkinId) {
   console.log("Entrouu no checkin.checkout");
@@ -44,12 +64,12 @@ Checkin.search = function(userId) {
       token: "NwcCwWKViHsTjHaW5QGfbAtt",// Rails.config.smartParkingAPI.token,
       user_id: userId
     }).done(function(response) {
-      console.log(response.data[0].attributes);
       checkinData = response.data[0].attributes;
-      console.log(checkinData);
-      console.log(checkinData.id);
       Checkin.checkout(checkinData.id);
     }).fail(function() {
       console.log("error");
     });
 };
+
+
+
