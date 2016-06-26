@@ -1,3 +1,5 @@
+var user_logged_id = 1;
+
 function Detail() {
 
   /**
@@ -44,9 +46,9 @@ function Detail() {
 
       $(".checkIn-btn").on('click', function() {
         console.log("you do check-in");
-        user_logged_id = 1; // averiguar esta parte
-        var current_checkIn = new CheckIn(spot.id, user_logged_id);
-        current_checkIn.saveCheckIn();
+         // averiguar esta parte
+        current_checkIn = new Checkin(spot, user_logged_id);
+        current_checkIn.save();
 
       });
     });

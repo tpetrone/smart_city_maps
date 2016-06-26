@@ -10,7 +10,7 @@ Spot.STATUSES = {
 
 Spot.search = function() {
   return $.get(Rails.config.smartParkingAPI.url + "/spots/search", {
-    token: Rails.config.smartParkingAPI.token,
+    token: "NwcCwWKViHsTjHaW5QGfbAtt",// Rails.config.smartParkingAPI.token,
     lat: "-23.545241799982602",
     lng: "-46.63861848413944"
   }).done(function(response) {
@@ -22,12 +22,12 @@ Spot.search = function() {
 
 Spot.checkin = function(spotId, userId) {
   return $.post(Rails.config.smartParkingAPI.url + "/checkins", {
-    token: Rails.config.smartParkingAPI.token,
+    token: "NwcCwWKViHsTjHaW5QGfbAtt", //Rails.config.smartParkingAPI.token,
     spot_id: spotId,
     user_id: userId
   }).done(function(response) {
     console.log("saved on API!");
-    // Salva as informações que a API retornou.
+    console.log(response.data);
   }).fail(function() {
     console.log("error");
   });
