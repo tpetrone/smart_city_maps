@@ -16,9 +16,10 @@ CATEGORIES = {
 
 var user_id=1;
 
-  function refreshLastComment(obj){
+  function refreshLastComment(data){
     $("#incident-controls").show();
-    if (obj !== null){
+    if (data.length > 0){
+      obj=data[0];
       $('div#show-occurence').show();
       $('div#comment').html('<span>' + obj.attributes.comment + '</span>');
       var icon = CATEGORIES_ICONS[obj.attributes.category];
@@ -37,7 +38,7 @@ var user_id=1;
       token: Rails.config.smartParkingAPI.token,
       spot: spot_id
     }).done(function(response) {
-      obj = response.data[0];
+      obj = response.data;
       refreshLastComment(obj);
       console.log("done!");
     }).fail(function() {
@@ -53,6 +54,8 @@ var user_id=1;
       category: $( "#incident-option" ).val(),
       comment: $( "#comment-input" ).val()}
     }).done(function(response) {
+      obj = response.data;
+      refreshLastComment(obj);
       $( "#comment-input" ).val("");
     }).fail(function() {
       console.log("error");
