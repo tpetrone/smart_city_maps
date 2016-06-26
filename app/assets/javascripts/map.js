@@ -21,7 +21,9 @@ function setupGmapClass() {
   /**
    * Minimum change of center (in meters) that will trigger a map update.
    */
-  Gmap.MIN_DISTANCE_TO_UPDATE = 50;
+  Gmap.MIN_DISTANCE_TO_UPDATE = 5000;
+
+  Gmap.markerClusterer = null;
 
   // Make Gmap "inherit" from google.maps.Map.
   Gmap.prototype = Object.create(google.maps.Map.prototype);
@@ -53,7 +55,13 @@ function setupGmapClass() {
 
       filterManager.resetAll();
 
+      if (Gmap.markerClusterer) {
+        Gmap.markerClusterer.clearMarkers();
+      }
+
       var spots = response.data;
+      var markers = [];
+
       for(var i = 0; i < spots.length; i++) {
         spot = spots[i];
         spot_id = spot.id;
@@ -61,7 +69,12 @@ function setupGmapClass() {
 
         gmarker.addMarker(spot);
         filterManager.assignSpot(spot, gmarker);
+        markers.push(gmarker.marker);
       }
+
+      Gmap.markerClusterer = new MarkerClusterer(map, markers, {
+        imagePath: '/assets/markerclusterer/m'
+      });
     });
   };
 

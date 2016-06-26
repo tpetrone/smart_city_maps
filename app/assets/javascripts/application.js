@@ -24,6 +24,10 @@
 //= require jquery-ui
 //= require datetimepicker-min
 
+// Markerclusterer dependencies
+// -----------------------
+//= require markerclusterer
+
 // The Rails helpers file must be loaded first.
 //= require rails_helpers
 
