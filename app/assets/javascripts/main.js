@@ -3,6 +3,9 @@ function main() {
   // Create a new AvailabilityFilter.
   filterManager = new AvailabilityFilter();
 
+  // Create User instance
+  currentUser = new User();
+
   // Create map instance
   map = new Gmap({
     map: $("#map")[0]
@@ -18,6 +21,12 @@ function main() {
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
     document.querySelector("#map-controls"));
   $("#map-controls").show();
+
+  // Hide loader and message modals if not Chrome (keep Login Modal).
+  if (/Chrome/i.exec(navigator.userAgent) === null) {
+    $("#dialog-msg").addClass("hidden");
+    $("#dialog-loader").addClass("hidden");
+  }
 }
 
 /**
@@ -46,5 +55,6 @@ function configureMapSize() {
 $(window).load(function() {
   configureMapSize();
   setupGmapClass();
+  setupUser();
   main();
 });
