@@ -14,12 +14,13 @@ function Modal(elementDialog) {
     }
     this.isVisible = true;
 
-    // Check browser compatibiliy before showing modal programmatically
+    // Check browser compatibility before showing modal programmatically
     try {
       this.elementDialog.showModal();
     } catch(err) {
-      // REVISIT: maybe display a notification when this happens?
-      console.log("Can't close the <dialog>. Your browser is not supported =(");
+      // REVISIT: maybe display a notification when this happens? Do this for
+      // the two other occurrences below too.
+      console.log("Can't show <dialog>. Your browser is not supported.");
     }
   };
 
@@ -27,37 +28,42 @@ function Modal(elementDialog) {
     if (this.isVisible) {
       this.isVisible = false;
     }
-    // Check browser compatibiliy before closing modal programmatically
+    // Check browser compatibility before closing modal programmatically
     try {
       this.elementDialog.close();
+      return true;
     } catch(err) {
-      // REVISIT: maybe display a notification when this happens?
-      console.log("Can't close the <dialog>. Your browser is not supported =(");
+      console.log("Can't close the <dialog>. Your browser is not supported.");
+      return false;
     }
   };
 }
 
 $(function () {
-  // Modal dialog button click handler
-  $('.close-msg').bind('click', function(event) {
+
+  /**
+   * Try to close a dialog.
+   */
+  function closeDialog(selector) {
     try {
-      current_user.modal_msg.hide();
-      document.querySelector("#dialog-msg").close();
+      document.querySelector(selector).close();
     }
     catch(err) {
-      // REVISIT: maybe display a notification when this happens?
-      console.log("Sorry. Your browser is not supported =(");
+      console.log("Can't close the <dialog>. Your browser is not supported.");
+    }
+  }
+
+  // Close dialog message on click.
+  $('.close-msg').bind('click', function(event) {
+    if (!current_user.modal_msg.hide()) {
+      // Only use this method of closing the dialog if the call
+      // to hide() didn't succeed.
+      closeDialog("#dialog-msg");
     }
   });
 
-  // Modal dialog button click handler
+  // Close dialog form on click.
   $('.close-form').bind('click', function(event) {
-    try {
-      document.querySelector("#dialog-form").close();
-    }
-    catch(err) {
-      // REVISIT: maybe display a notification when this happens?
-      console.log("Sorry. Your browser is not supported =(");
-    }
+    closeDialog("#dialog-form");
   });
 });
