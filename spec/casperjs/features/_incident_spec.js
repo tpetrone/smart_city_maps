@@ -33,7 +33,7 @@ exports.spec = function(casper, test, other) {
     var data = casper.evaluate(function() {
       return incident.lastComment(1).response.data;
     });
-    test.assert(typeof(data) === "object", "Incident request was succesfull");
+    test.assert(typeof(data) === "object", "Incident request was successful");
   });
 
   /**
