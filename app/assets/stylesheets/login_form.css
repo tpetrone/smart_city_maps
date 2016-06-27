@@ -2,11 +2,6 @@
  * Styles for the login form.
  */
 
-/* REVIEW: since this is a generic rule, it could be moved out of this file. */
-.text-center {
-  text-align : center;
-}
-
 .wrapper {
   margin : auto;
 }
@@ -30,9 +25,4 @@
 
 .panel-success {
   color: green;
-}
-
-/* REVIEW: since this is a generic rule, it could be moved out of this file. */
-.hidden {
-  display: none;
 }
