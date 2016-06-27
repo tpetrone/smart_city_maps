@@ -9,7 +9,8 @@ var features = {
   filtersSpec: require('./_filters_spec'),
   geolocationSpec: require('./_geolocation_spec'),
   spotsSpec: require('./_spots_spec'),
-  routesSpec: require('./_routes_spec')
+  routesSpec: require('./_routes_spec'),
+  incidentSpec: require('./_incident_spec')
 };
 
 var utils = require('utils');
@@ -20,10 +21,10 @@ var colorizer = require('colorizer').create('Colorizer');
  */
 casper.options.viewportSize = { width: 1024, height: 768 };
 
-casper.test.begin('Start page loads correctly', 22, function suite(test) {
+casper.test.begin('Start page loads correctly', 27, function suite(test) {
 
   var startedAt = new Date().getTime();
-  casper.start('http://localhost:3011', function() {
+  casper.start('http://poo16-hansbecc.c9users.io:8081', function() {
     if (!this.page.injectJs('spec/casperjs/lib/geolocation.js')) {
       test.fail("Unable to inject geolocation.js");
     }
@@ -58,7 +59,8 @@ casper.test.begin('Start page loads correctly', 22, function suite(test) {
    'autocompleteSpec',
    'spotsSpec',
    'filtersSpec',
-   'routesSpec'
+   'routesSpec',
+   'incidentSpec'
   ];
 
   for(var i = 0; i < featuresModules.length; i++) {
