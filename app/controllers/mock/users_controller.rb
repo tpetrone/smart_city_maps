@@ -1,37 +1,37 @@
 module Mock
   class UsersController < ApplicationController
-    # REVIEW: Extract these JSON.load(...) calls to its own method.
     def signup
       if params[:email] == "user@valid.com"
-        render json: JSON.load(
-          File.read("#{Rails.root}/app/views/mock/users/signup_success.json"))
+        render_json 'signup_success'
       else
-        render json: JSON.load(
-          File.read("#{Rails.root}/app/views/mock/users/signup_fail.json")),
-        status: :unauthorized
+        render_json 'signup_fail', :unauthorized
       end
     end
 
     def signin
       if params[:email] == "user@valid.com"
-        render json: JSON.load(
-          File.read("#{Rails.root}/app/views/mock/users/signin_success.json"))
+        render_json 'signin_success'
       else
-        render json: JSON.load(
-          File.read("#{Rails.root}/app/views/mock/users/signin_fail.json")),
-        status: :unauthorized
+        render_json 'signin_fail', :unauthorized
       end
     end
 
     def signout
       if params[:error]
-        render json: JSON.load(
-          File.read("#{Rails.root}/app/views/mock/users/signout_fail.json")),
-        status: :bad_request
+        render_json 'signout_fail', :bad_request
       else
-        render json: JSON.load(
-          File.read("#{Rails.root}/app/views/mock/users/signout_success.json"))
+        render_json 'signout_success'
       end
+    end
+
+    private
+
+    def render_json(view_name, status_code = :ok)
+      render(
+        json: JSON.load(
+          File.read("#{Rails.root}/app/views/mock/users/#{view_name}.json")),
+        status: status_code
+      )
     end
   end
 end

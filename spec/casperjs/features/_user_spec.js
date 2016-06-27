@@ -37,7 +37,7 @@ exports.spec = function(casper, test, other) {
     var error_msg = casper.evaluate(function() {
       return $("#panel").html()[0];
     });
-    test.assertEquals(error_msg, "<", "The user could not SignUp");
+    test.assertEquals(error_msg, "<", "The user could not sign up");
   });
 
   /**
