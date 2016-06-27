@@ -1,6 +1,8 @@
-function Checkin(spot, userId){
-
-  this.spotId = spot.id;
+function Checkin(spotId, userId){
+  /**
+   * Enable checkin capability for a spot so the user remind where he parked
+   */
+  this.spotId = spotId;
   this.userId = userId;
 
   this.save = function(){
@@ -8,14 +10,12 @@ function Checkin(spot, userId){
   };
 
   $(".checkOut-btn").on('click', function() {
-    console.log("doing checkOut...");
-    console.log("UserID: ");
-    console.log(user_logged_id);
+    console.log("you (user_id: " + user_logged_id + ") clicked the checkout button");
     Checkin.search(user_logged_id);
   });
 
   $(".route-checkin-btn").on('click', function() {
-    //map.refreshFromAPI();
+    console.log("you (user_id: " + user_logged_id + ") clicked trace route button");
     Checkin.search_by_user(user_logged_id);
   });
 }
@@ -23,7 +23,7 @@ function Checkin(spot, userId){
 // do this user checkin before?
 Checkin.search_by_user = function(userId) {
   return $.get(Rails.config.smartParkingAPI.url + "/checkins/search", {
-      token: "NwcCwWKViHsTjHaW5QGfbAtt",// Rails.config.smartParkingAPI.token,
+      token: Rails.config.smartParkingAPI.token,
       user_id: userId
     }).done(function(response) {
       var checkinData = response.data[0].attributes;
@@ -47,12 +47,14 @@ Checkin.search_by_user = function(userId) {
 };
 
 Checkin.checkout = function(checkinId) {
-  console.log("Entrouu no checkin.checkout");
   return $.post(Rails.config.smartParkingAPI.url + "/checkins/"+checkinId, {
-      token: "NwcCwWKViHsTjHaW5QGfbAtt",// Rails.config.smartParkingAPI.token,
+      token: Rails.config.smartParkingAPI.token,
       checkin_id: checkinId
     }).done(function(response) {
-      console.log("checkout feito");
+      user_checkout = response.data[0].attributes.user_id.toString();
+      spot_checkout = response.data[0].attributes.spot_id.toString();
+      console.log("You (user_id: "+user_checkout+") did checkout on spot_id: "+spot_checkout);
+      console.log('now the spot_id: '+spot_checkout+"is available");
     }).fail(function() {
       console.log("error");
     });
@@ -61,15 +63,12 @@ Checkin.checkout = function(checkinId) {
 // do this user checkin before?
 Checkin.search = function(userId) {
   return $.get(Rails.config.smartParkingAPI.url + "/checkins/search", {
-      token: "NwcCwWKViHsTjHaW5QGfbAtt",// Rails.config.smartParkingAPI.token,
+      token: Rails.config.smartParkingAPI.token,
       user_id: userId
     }).done(function(response) {
-      checkinData = response.data[0].attributes;
+      checkinData = response.data[0];
       Checkin.checkout(checkinData.id);
     }).fail(function() {
       console.log("error");
     });
 };
-
-
-

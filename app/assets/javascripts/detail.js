@@ -44,10 +44,10 @@ function Detail() {
         traceroute(map, marker.position);
       });
 
+      //button to do checkin
       $(".checkIn-btn").on('click', function() {
-        console.log("you do check-in");
-         // averiguar esta parte
-        current_checkIn = new Checkin(spot, user_logged_id);
+        console.log("you clicked the checkin button");
+        current_checkIn = new Checkin(spot.id, user_logged_id);
         current_checkIn.save();
 
       });
