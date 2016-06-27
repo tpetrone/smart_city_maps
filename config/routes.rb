@@ -4,5 +4,8 @@ Rails.application.routes.draw do
 
   unless Rails.env.production?
     get '/spots/search' => 'mock/spots#search'
+    post '/auth' => 'mock/users#signup'
+    post '/auth/sign_in' => 'mock/users#signin'
+    delete '/auth/sign_out' => 'mock/users#signout'
   end
 end

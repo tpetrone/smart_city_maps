@@ -1,0 +1,11 @@
+{
+  "data":{
+    "id":26,
+    "email":"thiago.petrone@gmail.com",
+    "provider":"email",
+    "uid":"thiago.petrone@gmail.com",
+    "name":null,
+    "nickname":null,
+    "image":null
+  }
+}
