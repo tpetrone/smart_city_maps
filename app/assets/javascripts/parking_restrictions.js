@@ -28,10 +28,25 @@ $(function () {
       title: 'Time Picker' //The Wickedpicker's title
    };
 
-   $('.timepicker').wickedpicker(options);
-
    $('#datepicker').datepicker();
+   $("#datepicker").change(function() {
+     dateTimeChanged();
+   });
+
+   $('#timepicker').wickedpicker(options);
+   $('#timepicker').change(function(){
+     dateTimeChanged();
+   });
 });
+
+function dateTimeChanged() {
+  var dateStr = $("#datepicker").val();
+  var timeStr = $("#timepicker").val();
+  if (dateStr !== "" && timeStr !== "") {
+    var targetTime = getTargetTime(dateStr, timeStr);
+    showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
+  }
+}
 
 /*
  * Shows only spots with prices lower than newMax
@@ -192,5 +207,17 @@ function getRestrictionTime(stringTime, targetTime) {
   var h = parseInt(hs[0]);
   var m = parseInt(hs[1]);
   var s = parseInt(hs[2]);
+  return new Date(d, M, y, h, m, s);
+}
+
+function getTargetTime(stringDate, stringTime) {
+  var dateBits = stringDate.split(/\//);
+  var d = parseInt(dateBits[0]);
+  var M = parseInt(dateBits[1]);
+  var y = parseInt(dateBits[2]);
+  var timeBits = stringTime.split(/:/);
+  var h = parseInt(timeBits[0]);
+  var m = parseInt(timeBits[1]);
+  var s = parseInt(timeBits[2]);
   return new Date(d, M, y, h, m, s);
 }
