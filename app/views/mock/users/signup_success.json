@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "data": {
+    "id": 27,
+    "provider": "email",
+    "uid": "testemail1@mydomain.com",
+    "name": null,
+    "nickname": null,
+    "image": null,
+    "email": "testemail1@mydomain.com",
+    "created_at": "2016-06-26T14:52:53.304Z",
+    "updated_at": "2016-06-26T14:52:53.304Z"
+  }
+}

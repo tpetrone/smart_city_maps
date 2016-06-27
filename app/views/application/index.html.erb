@@ -23,7 +23,8 @@
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Login/Register</a>
+      <a id="link-signin" class="mdl-navigation__link" href="#">Sign in or sign up</a>
+      <a id="link-signout" class="mdl-navigation__link" href="#" style="display: none;">Sign out</a>
       <a class="mdl-navigation__link" href="">Show filters</a>
       <a class="mdl-navigation__link" href="">Show legend</a>
     </nav>
@@ -131,7 +132,7 @@
           <p></p>
         </div>
         <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-          <button id="dialog-button" type="button" class="mdl-button">Ok</button>
+          <button id="dialog-button" type="button" class="mdl-button close-msg">Ok</button>
         </div>
       </dialog>
 
@@ -139,6 +140,52 @@
       <dialog id="dialog-loader" class="mdl-dialog">
         <div class="mdl-dialog__content">
           <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
+      </dialog>
+
+      <!-- Login form Dialog-->
+      <dialog id="dialog-form">
+        <!-- Close (x) button -->
+        <div class="close-wrapper">
+          <button class="mdl-button mdl-js-button close-form">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+        <div class="mdl-card mdl-shadow--2dp wrapper">
+          <div class="mdl-card__title text-center">
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+              <div class="mdl-tabs__tab-bar">
+                <a id="tab-login" tabindex="-1" href="#panel" class="mdl-tabs__tab is-active">Sign in</a>
+                <a id="tab-signup" tabindex="-1" href="#panel" class="mdl-tabs__tab">Sign up</a>
+              </div>
+              <!-- This empty div is necessary for tab element to work -->
+              <div id="panel" class="mdl-tabs__panel is-active panel"></div>
+            </div>
+          </div>
+          <div class="mdl-card__supporting-text">
+            <form action="#">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" id="txt-email" />
+                <label class="mdl-textfield__label" for="email">Email</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="password" id="txt-password" />
+                <label class="mdl-textfield__label" for="password">Password</label>
+              </div>
+              <div id="password-confirm-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo"  style="display: none;">
+                <input class="mdl-textfield__input" type="password" id="txt-password-confirm"/>
+                <label class="mdl-textfield__label" for="txt-password-confirm">Confirm Password</label>
+              </div>
+            </form>
+          </div>
+          <div class="mdl-card__actions mdl-card--border text-center">
+            <a id="form-btn-login" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+              Sign in
+            </a>
+            <a id="form-btn-signup" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" style="display: none;">
+              Sign up
+            </a>
+          </div>
         </div>
       </dialog>
 
