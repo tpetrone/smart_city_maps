@@ -10,14 +10,13 @@ RAILS_ASSET_URLS = {
     spot_red: "<%= asset_url "icons/spot-red.png" %>",
     spot_gray: "<%= asset_url "icons/spot-gray.png" %>"
   }
-}
-// REVIEW: Add a semicolon here too or find out why it breaks things.
+};
 
 Rails = {
   config: {
     smartParkingAPI: {
       url: "http://<%= Rails.application.config_for(:services)['smart_parking_api'] %>",
       token: "<%= Rails.application.secrets.smart_parking_api_key %>"
-    }, // REVIEW: remove this comma (added unnecessarily on d72982).
+    }
   }
 };
