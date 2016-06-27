@@ -66,7 +66,7 @@ function setupUser() {
       password: password
     })
     .then(function(user) {
-      // REVIEW: can we remove this?
+      // TODO: remove this after we're done testing users.
       console.log(user);
       self.id = user.data.id;
       self.isLoggedIn = true;
@@ -85,12 +85,12 @@ function setupUser() {
   User.prototype.doSignOut = function() {
     var self = this;
 
-    // Append token to data payload via ajaxSetup since jToker
-    // does not allow.
-    // REVIEW: does not allow...?
+    // Append token to data payload via ajaxSetup since jToker does not allow
+    // it to be passed as a parameter to the auth.signOut() method.
     $.ajaxSetup({
-      // REVIEW: use our default style of declaring objects.
-      data: { "token" : Rails.config.smartParkingAPI.token }
+      data: {
+        token: Rails.config.smartParkingAPI.token
+      }
     });
 
     // - Call jToker helper and set its promises;
