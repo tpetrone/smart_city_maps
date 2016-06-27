@@ -6,7 +6,7 @@ function Checkin(spotId, userId){
   this.userId = userId;
 
   this.save = function(){
-     Spot.checkin(this.spotId, this.userId);
+     return Spot.checkin(this.spotId, this.userId);
   };
 
   $(".checkOut-btn").on('click', function() {
