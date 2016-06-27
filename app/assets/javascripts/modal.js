@@ -55,7 +55,7 @@ $(function () {
 
   // Close dialog message on click.
   $('.close-msg').bind('click', function(event) {
-    if (!current_user.modal_msg.hide()) {
+    if (!currentUser.modalMessage.hide()) {
       // Only use this method of closing the dialog if the call
       // to hide() didn't succeed.
       closeDialog("#dialog-msg");

@@ -4,7 +4,7 @@ function main() {
   filterManager = new AvailabilityFilter();
 
   // Create User instance
-  current_user = new User();
+  currentUser = new User();
 
   // Create map instance
   map = new Gmap({
@@ -22,8 +22,7 @@ function main() {
     document.querySelector("#map-controls"));
   $("#map-controls").show();
 
-  // Hide Loader and Message Modals if not Chrome (keep Login Modal)
-  // REVISIT: test this in other browsers.
+  // Hide loader and message modals if not Chrome (keep Login Modal).
   if (/Chrome/i.exec(navigator.userAgent) === null) {
     $("#dialog-msg").addClass("hidden");
     $("#dialog-loader").addClass("hidden");

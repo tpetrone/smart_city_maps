@@ -6,8 +6,8 @@ function setupUser() {
     this.isLoggedIn = false;
 
     // Instantiate modals that will be used to show user messages.
-    this.modal_form = new Modal(document.querySelector("#dialog-form"));
-    this.modal_msg = new Modal(document.querySelector("#dialog-msg"));
+    this.modalForm    = new Modal(document.querySelector("#dialog-form"));
+    this.modalMessage = new Modal(document.querySelector("#dialog-msg"));
 
     // Configure jToker.
     this.configJtoker();
@@ -145,10 +145,10 @@ function setupUser() {
       // Upon failure: show message on the form panel.
       case "signin":
         if (!error){
-          this.modal_form.hide();
+          this.modalForm.hide();
           $("#link-signin").hide();
           $("#link-signout").show();
-          this.modal_msg.show(msg);
+          this.modalMessage.show(msg);
         } else {
           $("#panel").html(msg);
         }
@@ -162,7 +162,7 @@ function setupUser() {
           $("#link-signin").show();
           $("#link-signout").hide();
         }
-        this.modal_msg.show(msg);
+        this.modalMessage.show(msg);
         break;
       // Sign up
       // Upon sucess and failure: show message
@@ -182,7 +182,7 @@ $(function () {
   // Open sign in form.
   $("#link-signin").click(function() {
     $("#panel").html("");
-    current_user.modal_form.show();
+    currentUser.modalForm.show();
   });
 
   // When user selects the login tab inside the login form:
@@ -215,7 +215,7 @@ $(function () {
   $("#form-btn-login").click(function() {
     var email = $("#txt-email").val();
     var password = $("#txt-pass").val();
-    current_user.doSignIn(email, password);
+    currentUser.doSignIn(email, password);
   });
 
   // When the user clicks on the signup button:
@@ -224,12 +224,12 @@ $(function () {
     var email = $("#txt-email").val();
     var password = $("#txt-pass").val();
     var password_confirmation = $("#txt-conf").val();
-    current_user.doSignUp(email, password, password_confirmation);
+    currentUser.doSignUp(email, password, password_confirmation);
   });
 
   // When the user clicks on the signout link:
   // - Try to perform sign up.
   $("#link-signout").click(function() {
-    current_user.doSignOut();
+    currentUser.doSignOut();
   });
 });

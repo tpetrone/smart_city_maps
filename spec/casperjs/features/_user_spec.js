@@ -29,7 +29,7 @@ exports.spec = function(casper, test, other) {
     console.log("*** Unsuccessful case assertions ***");
     // Assert if Modal is shown
     status = casper.evaluate(function() {
-      return current_user.modal_form.isVisible;
+      return currentUser.modalForm.isVisible;
     });
     test.assertEquals(status, "true", "Form successfully shown");
 
@@ -81,13 +81,13 @@ exports.spec = function(casper, test, other) {
    */
   casper.waitFor(function() {
     return casper.evaluate(function() {
-      return current_user.isLoggedIn;
+      return currentUser.isLoggedIn;
     });
   }, function then() {}, function timeout() {
     console.log("*** Unsuccessful case assertions ***");
     // Assert user status
     var status = casper.evaluate(function() {
-      return current_user.isLoggedIn;
+      return currentUser.isLoggedIn;
     });
 
     // Assert error message on the panel
@@ -114,20 +114,20 @@ exports.spec = function(casper, test, other) {
    */
   casper.waitFor(function() {
     return casper.evaluate(function() {
-      return current_user.isLoggedIn;
+      return currentUser.isLoggedIn;
     });
   // Perform Assertions.
   }, function then() {
     console.log("*** Successful case assertions ***");
     var status = casper.evaluate(function() {
-      return current_user.isLoggedIn;
+      return currentUser.isLoggedIn;
     });
     test.assertEquals(status, true, "User successfully logged in");
 
     // Assert if Modal is closed
     var isVisible = casper.evaluate(function() {
       $(".close-form").click();
-      return current_user.modal_form.isVisible;
+      return currentUser.modalForm.isVisible;
     });
     test.assertEquals(isVisible, false, "Form successfully hidden");
 
@@ -140,7 +140,7 @@ exports.spec = function(casper, test, other) {
     // Assert modal closed
     isVisible = casper.evaluate(function(){
       $(".close-msg").click();
-      return current_user.modal_msg.isVisible;
+      return currentUser.modalMessage.isVisible;
       });
     test.assertEquals(isVisible, false, "Message successfully hidden");
 
@@ -162,13 +162,13 @@ exports.spec = function(casper, test, other) {
     console.log("*** Successful case assertions ***");
     // Assert user status
     status = casper.evaluate(function() {
-      return current_user.isLoggedIn;
+      return currentUser.isLoggedIn;
     });
     test.assertEquals(status, "false", "User successful logged out");
 
     // Assert modal appearence
     modal = casper.evaluate(function() {
-      return current_user.modal_msg.isVisible;
+      return currentUser.modalMessage.isVisible;
     });
     test.assertEquals(modal, true, "Modal is opened");
 
