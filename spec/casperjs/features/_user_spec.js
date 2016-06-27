@@ -122,7 +122,7 @@ exports.spec = function(casper, test, other) {
     var status = casper.evaluate(function() {
       return currentUser.isLoggedIn;
     });
-    test.assertEquals(status, true, "User successfully logged in");
+    test.assertEquals(status, true, "User successfully signed in");
 
     // Assert if Modal is closed
     var isVisible = casper.evaluate(function() {

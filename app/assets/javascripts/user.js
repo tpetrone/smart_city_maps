@@ -70,7 +70,7 @@ function setupUser() {
       console.log(user);
       self.id = user.data.id;
       self.isLoggedIn = true;
-      msg = ["Successfully logged in as " + user.data.email];
+      msg = ["Successfully signed in as " + user.data.email];
       self.updateLayout(msg, "signin", false);
     })
     .fail(function(resp) {
