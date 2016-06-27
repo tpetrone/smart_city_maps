@@ -191,8 +191,7 @@ $(function () {
   // - Show login button; and
   // - Clear the panel where error messages appear.
   $("#tab-login").click(function() {
-    // REVIEW: change pass_confirmation to password_confirmation.
-    $("#pass_confirmation").hide(400);
+    $("#password-confirm-field").hide(400);
     $("#form-btn-signup").hide();
     $("#form-btn-login").show(400);
     $("#panel").html("");
@@ -204,7 +203,7 @@ $(function () {
   // - Hide login button; and
   // - Clear the panel where error messages appear
   $("#tab-signup").click(function() {
-    $("#pass_confirmation").show(400);
+    $("#password-confirm-field").show(400);
     $("#form-btn-login").hide();
     $("#form-btn-signup").show(400);
     $("#panel").html("");
@@ -214,7 +213,7 @@ $(function () {
   // - Fetch text fields infos and try to perform login.
   $("#form-btn-login").click(function() {
     var email = $("#txt-email").val();
-    var password = $("#txt-pass").val();
+    var password = $("#txt-password").val();
     currentUser.doSignIn(email, password);
   });
 
@@ -222,8 +221,8 @@ $(function () {
   // - Fetch text fields infos and try to perform sign up.
   $("#form-btn-signup").click(function() {
     var email = $("#txt-email").val();
-    var password = $("#txt-pass").val();
-    var password_confirmation = $("#txt-conf").val();
+    var password = $("#txt-password").val();
+    var password_confirmation = $("#txt-password-confirm").val();
     currentUser.doSignUp(email, password, password_confirmation);
   });
 
