@@ -20,6 +20,7 @@
       Smart Parking
     </div>
   </header>
+  <!-- REVISIT: it looks like this id was added but is not being used -->
   <div id="menu" class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
@@ -108,10 +109,10 @@
         </div>
       </dialog>
 
-      <!-- Log in Form Display Dialog-->
+      <!-- Login form Dialog-->
       <dialog id="dialog-form">
-      <!-- Close (x) button -->
-       <div class="close-wrapper">
+        <!-- Close (x) button -->
+        <div class="close-wrapper">
           <button class="mdl-button mdl-js-button close-form">
             <i class="material-icons">close</i>
           </button>
@@ -123,7 +124,7 @@
                 <a id="tab-login" tabindex="-1" href="#panel" class="mdl-tabs__tab is-active">Login</a>
                 <a id="tab-signup" tabindex="-1" href="#panel" class="mdl-tabs__tab">Signup</a>
               </div>
-              <!-- below empty div is necessary for tab element to work-->
+              <!-- This empty div is necessary for tab element to work -->
               <div id="panel" class="mdl-tabs__panel is-active panel"></div>
             </div>
           </div>
@@ -134,10 +135,12 @@
                 <label class="mdl-textfield__label" for="email">Email</label>
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <!-- REVIEW: use a more meaningful id for this field -->
                 <input class="mdl-textfield__input" type="password" id="txt-pass" />
                 <label class="mdl-textfield__label" for="password">Password</label>
               </div>
               <div id="pass_confirmation" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo"  style="display: none;">
+                <!-- REVIEW: use a more meaningful id for this field -->
                 <input class="mdl-textfield__input" type="password" id="txt-conf"/>
                 <label class="mdl-textfield__label" for="txt-conf">Confirm Password</label>
               </div>

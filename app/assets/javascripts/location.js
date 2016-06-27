@@ -13,6 +13,7 @@ $(function () {
  */
 function getUserLocation(map, callback) {
 
+  // REVIEW: use camelCase to name variables.
   var modal_loader = new Modal(document.querySelector("#dialog-loader"));
   var modal_msg = new Modal(document.querySelector("#dialog-msg"));
   var answer;

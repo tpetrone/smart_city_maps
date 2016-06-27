@@ -1,5 +1,5 @@
 {
-  "errors":[{
-    "title":"Parameter :token is required"
+  "errors": [{
+    "title": "Parameter :token is required"
   }]
 }

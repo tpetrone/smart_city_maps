@@ -1,19 +1,26 @@
 {
-  "status":"error",
-  "data":{
-    "id":null,
-    "provider":"email",
-    "uid":"",
-    "name":null,
-    "nickname":null,
-    "image":null,
-    "email":"testemail@mydomain.com",
-    "created_at":null,
-    "updated_at":null
+  "status": "error",
+  "data": {
+    "id": null,
+    "provider": "email",
+    "uid": "",
+    "name": null,
+    "nickname": null,
+    "image": null,
+    "email": "testemail@mydomain.com",
+    "created_at": null,
+    "updated_at": null
   },
-  "errors":{
-    "password":["can't be blank"],
-    "email":["already in use"],
-    "full_messages":["Password can't be blank","Email already in use"]
+  "errors": {
+    "password": [
+      "can't be blank"
+    ],
+    "email": [
+      "already in use"
+    ],
+    "full_messages": [
+      "Password can't be blank",
+      "Email already in use"
+    ]
   }
 }

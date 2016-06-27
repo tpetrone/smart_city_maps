@@ -23,12 +23,12 @@ function main() {
   $("#map-controls").show();
 
   // Hide Loader and Message Modals if not Chrome (keep Login Modal)
-  if (/Chrome/i.exec(navigator.userAgent) === null){
+  // REVISIT: test this in other browsers.
+  if (/Chrome/i.exec(navigator.userAgent) === null) {
     $("#dialog-msg").addClass("hidden");
     $("#dialog-loader").addClass("hidden");
   }
 }
-
 
 /**
  * Configure map dimensions.

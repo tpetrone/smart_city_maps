@@ -8,11 +8,11 @@ exports.spec = function(casper, test, other) {
   });
 
   /**
-   * Fill in Login Form with wrong credentials
+   * Fill in login form with wrong credentials.
    */
   casper.then(function() {
     console.log("***");
-    console.log("*** Begining of SignUp test");
+    console.log("*** Beginning of SignUp test");
     console.log("***");
     casper.evaluate(function() {
       $("#link-signin").click();
@@ -23,8 +23,7 @@ exports.spec = function(casper, test, other) {
   });
 
   /**
-   * Wait for results and
-   * perform assertions.
+   * Wait for results and perform assertions.
    */
   casper.wait(1000, function() {
     console.log("*** Unsuccessful case assertions ***");
@@ -42,7 +41,7 @@ exports.spec = function(casper, test, other) {
   });
 
   /**
-   * Fill in Login Form with RIGHT credentials
+   * Fill in login form with right credentials.
    */
   casper.then(function() {
     casper.evaluate(function() {
@@ -52,8 +51,7 @@ exports.spec = function(casper, test, other) {
   });
 
   /**
-   * Wait for results and
-   * perform assertions.
+   * Wait for results and perform assertions.
    */
   casper.wait(1000, function() {
     console.log("*** Successful case assertions ***");
@@ -61,15 +59,15 @@ exports.spec = function(casper, test, other) {
     var error_msg = casper.evaluate(function() {
       return $("#panel").html()[0];
     });
-    test.assertEquals(error_msg, "A", "The user Signed Up successfuly");
+    test.assertEquals(error_msg, "A", "The user signed up successfuly");
   });
 
   /**
-   * Fill in Login Form with wrong credentials
+   * Fill in login form with wrong credentials.
    */
   casper.then(function() {
     console.log("***");
-    console.log("*** Begining of SignIn tests ***");
+    console.log("*** Beginning of SignIn tests ***");
     console.log("***");
     casper.evaluate(function() {
       $("#tab-login").click();
@@ -79,8 +77,7 @@ exports.spec = function(casper, test, other) {
   });
 
   /**
-   * Wait for results and
-   * perform assertions
+   * Wait for results and perform assertions
    */
   casper.waitFor(function() {
     return casper.evaluate(function() {
@@ -149,14 +146,12 @@ exports.spec = function(casper, test, other) {
 
   }, function timeout() {}, 2000);
 
-
-
   /**
-   * Click on the Menu.
+   * Click on the menu.
    */
   casper.then(function() {
     console.log("***");
-    console.log("*** Begining of SignOut tests ***");
+    console.log("*** Beginning of sign out tests ***");
     console.log("***");
     casper.evaluate(function() {
       $("#link-signout").click();
@@ -185,12 +180,12 @@ exports.spec = function(casper, test, other) {
   });
 
   /**
-   * Insert Error parameter to force unsuccessful Sign Out
+   * Insert error parameter to force unsuccessful sign out.
    */
   casper.then(function() {
     casper.evaluate(function() {
       $.ajaxSetup({
-       data: { "error" : "error" }
+        data: { "error" : "error" }
       });
       $("#link-signout").click();
     });

@@ -1,5 +1,6 @@
 module Mock
   class UsersController < ApplicationController
+    # REVIEW: Extract these JSON.load(...) calls to its own method.
     def signup
       if params[:email] == "user@valid.com"
         render json: JSON.load(

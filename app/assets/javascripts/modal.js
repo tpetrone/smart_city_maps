@@ -9,7 +9,7 @@ function Modal(elementDialog) {
   this.isChrome = /Chrome/i.exec(navigator.userAgent);
 
   this.show = function(msg) {
-    if (msg){
+    if (msg) {
       this.dialogContent.html(msg);
     }
     this.isVisible = true;
@@ -18,6 +18,7 @@ function Modal(elementDialog) {
     try {
       this.elementDialog.showModal();
     } catch(err) {
+      // REVISIT: maybe display a notification when this happens?
       console.log("Can't close the <dialog>. Your browser is not supported =(");
     }
   };
@@ -30,6 +31,7 @@ function Modal(elementDialog) {
     try {
       this.elementDialog.close();
     } catch(err) {
+      // REVISIT: maybe display a notification when this happens?
       console.log("Can't close the <dialog>. Your browser is not supported =(");
     }
   };
@@ -43,6 +45,7 @@ $(function () {
       document.querySelector("#dialog-msg").close();
     }
     catch(err) {
+      // REVISIT: maybe display a notification when this happens?
       console.log("Sorry. Your browser is not supported =(");
     }
   });
@@ -53,6 +56,7 @@ $(function () {
       document.querySelector("#dialog-form").close();
     }
     catch(err) {
+      // REVISIT: maybe display a notification when this happens?
       console.log("Sorry. Your browser is not supported =(");
     }
   });
