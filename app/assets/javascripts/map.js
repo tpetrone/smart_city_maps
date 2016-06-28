@@ -43,7 +43,8 @@ function setupGmapClass() {
       var spots = response.data;
       for(var i = 0; i < spots.length; i++) {
         spot = spots[i].attributes;
-        gmarker = new GmapMarker(map, spot);
+        spot_id = spots[i].id;
+        gmarker = new GmapMarker(map, spot, spot_id);
         gmarker.addMarker(spot);
         filterManager.assignSpot(spot, gmarker);
       }

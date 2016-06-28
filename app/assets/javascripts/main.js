@@ -53,6 +53,17 @@ function configureMapSize() {
 }
 
 $(window).load(function() {
+  /**
+   * Setup global options for Ajax. We do this because when jToker calls
+   * the validateToken() method, it needs to send the API token, otherwise
+   * the validation method will fail.
+   */
+  $.ajaxSetup({
+    data: {
+      token: Rails.config.smartParkingAPI.token
+    }
+  });
+
   configureMapSize();
   setupGmapClass();
   setupUser();

@@ -10,7 +10,7 @@ function setupUser() {
     this.modalMessage = new Modal(document.querySelector("#dialog-msg"));
 
     // Configure jToker.
-    this.configJtoker();
+    this.configJtoker(this);
   };
 
   User.prototype.constructor = User;
@@ -18,10 +18,16 @@ function setupUser() {
   /**
    * Configure jToker.
    */
-  User.prototype.configJtoker = function() {
+  User.prototype.configJtoker = function(user) {
     $.auth.configure({
       apiUrl: Rails.config.smartParkingAPI.url,
       storage:'localStorage'
+    })
+    .done(function() {
+      if ($.auth.user.id) {
+        user.id = $.auth.user.id;
+        user.isLoggedIn = true;
+      }
     });
   };
 
@@ -84,14 +90,6 @@ function setupUser() {
    */
   User.prototype.doSignOut = function() {
     var self = this;
-
-    // Append token to data payload via ajaxSetup since jToker does not allow
-    // it to be passed as a parameter to the auth.signOut() method.
-    $.ajaxSetup({
-      data: {
-        token: Rails.config.smartParkingAPI.token
-      }
-    });
 
     // - Call jToker helper and set its promises;
     // - Keep track of user attributes;
