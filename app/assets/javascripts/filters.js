@@ -79,7 +79,6 @@ function AvailabilityFilter() {
   };
 
   this.applyFilters = function(marker, filterKey, visible) {
-    debugger;
     this.addFilter(marker, filterKey, visible);
 
     var showMarker = true;

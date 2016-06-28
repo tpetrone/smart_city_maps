@@ -39,8 +39,8 @@ $(function () {
      dateTimeChanged();
    });
 
-   $('#timepicker').wickedpicker(options);
-   $('#timepicker').change(function(){
+   $('.timepicker').wickedpicker(options);
+   $('.timepicker').change(function(){
      dateTimeChanged();
    });
 });
@@ -74,14 +74,10 @@ function dateTimeChanged() {
  * Shows only spots with prices lower than newMax
  */
 function showSpotsBelowThisPrice(allMarkers, min, newMax) {
-  debugger;
   min = (min === null) ? 0.0 : min;
   var datetime = new Date();
   for (var i = 0; i < allMarkers.length; i++) {
-    var obj = allMarkers[i];
-    var marker = allMarkers[i].marker.marker;
-    // setMarkerVisible(obj, false);
-    var prs = getSpotPricingRestriction(obj);
+    var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
     for (var j = 0; j < prs.length; j++) {
       var withinInterval = isWithinInterval(prs[j], datetime);
@@ -98,6 +94,7 @@ function showSpotsBelowThisPrice(allMarkers, min, newMax) {
     } else {
       showSpot = false;
     }
+    var marker = allMarkers[i].marker.marker;
     filterManager.applyFilters(marker, fName(arguments), showSpot);
   }
 }
@@ -109,10 +106,7 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
   max = (max === null) ? Number.MAX_VALUE : max;
   var datetime = new Date();
   for (var i = 0; i < allMarkers.length; i++) {
-    var obj = allMarkers[i];
-    var marker = allMarkers[i].marker.marker;
-    // setMarkerVisible(obj, false);
-    var prs = getSpotPricingRestriction(obj);
+    var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
     for (var j = 0; j < prs.length; j++) {
       var withinInterval = isWithinInterval(prs[j], datetime);
@@ -128,6 +122,7 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
     } else {
       showSpot = false;
     }
+    var marker = allMarkers[i].marker.marker;
     filterManager.applyFilters(marker, fName(arguments), showSpot);
   }
 }
@@ -137,15 +132,21 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
  */
 function showSpotsByTimeOfOperation(allMarkers, targetTime) {
   for (var i = 0; i < allMarkers.length; i++) {
-    var obj = allMarkers[i];
-    var prs = getSpotParkingRestriction(obj);
+    var prs = getSpotParkingRestriction(allMarkers[i]);
+    var showSpot = false;
+    if (prs.length === 0) {
+      showSpot = true;
+    }
     for (var j = 0; j < prs.length; j++) {
       var withinInterval = isWithinInterval(prs[j], targetTime);
       var spotAvailable = isSpotAvailable(prs[j], withinInterval);
       if (spotAvailable) {
-        setMarkerVisible(obj, true);
+        showSpot = true;
+        break;
       }
     }
+    var marker = allMarkers[i].marker.marker;
+    filterManager.applyFilters(marker, fName(arguments), showSpot);
   }
 }
 
@@ -243,8 +244,7 @@ function getRestrictionTime(stringTime, targetTime) {
   var hs = stringTime.split(/:/);
   var h = parseInt(hs[0]);
   var m = parseInt(hs[1]);
-  var s = parseInt(hs[2]);
-  return new Date(y, M, d, h, m, 0, 0);
+  return new Date(y, M, d, h, m, 59, 0);
 }
 
 /*
@@ -277,12 +277,11 @@ function isWithinTime(initTime, endTime, targetTime) {
 
 function getTargetTime(stringDate, stringTime) {
   var dateBits = stringDate.split(/\//);
-  var d = parseInt(dateBits[0]);
-  var M = parseInt(dateBits[1]);
+  var M = parseInt(dateBits[0])-1;
+  var d = parseInt(dateBits[1]);
   var y = parseInt(dateBits[2]);
   var timeBits = stringTime.split(/:/);
   var h = parseInt(timeBits[0]);
   var m = parseInt(timeBits[1]);
-  var s = parseInt(timeBits[2]);
-  return new Date(d, M, y, h, m, s);
+  return new Date(y, M, d, h, m, 59, 0);
 }
