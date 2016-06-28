@@ -3,7 +3,13 @@ $(function () {
    * Listens for changes in min-price element
    */
   $("#min-price").change(function() {
-    filterManager.applyAll();
+    var newMin = getMinPrice();
+    if (newMin !== null) {
+      var max = getMaxPrice();
+      showSpotsAboveThisPrice(filterManager.allMarkers, newMin, max);
+    } else {
+      $(this).val("");
+    }
   });
 
   /*
@@ -39,16 +45,6 @@ $(function () {
    });
 });
 
-function applyMinPriceFilter() {
-  var newMin = getMinPrice();
-  if (newMin !== null) {
-    var max = getMaxPrice();
-    showSpotsAboveThisPrice(filterManager.allMarkers, newMin, max);
-  } else {
-    $(this).val("");
-  }
-}
-
 function getMaxPrice() {
   var max = parseFloat($("#max-price").val());
   if (isNaN(max) || max < 0.0) {
@@ -78,11 +74,13 @@ function dateTimeChanged() {
  * Shows only spots with prices lower than newMax
  */
 function showSpotsBelowThisPrice(allMarkers, min, newMax) {
+  debugger;
   min = (min === null) ? 0.0 : min;
   var datetime = new Date();
   for (var i = 0; i < allMarkers.length; i++) {
     var obj = allMarkers[i];
-    setMarkerVisible(obj, false);
+    var marker = allMarkers[i].marker.marker;
+    // setMarkerVisible(obj, false);
     var prs = getSpotPricingRestriction(obj);
     var spotPrice = 0.0;
     for (var j = 0; j < prs.length; j++) {
@@ -94,9 +92,13 @@ function showSpotsBelowThisPrice(allMarkers, min, newMax) {
       }
     }
     // Show the spot if its price is below or equal to the threshold
+    var showSpot;
     if (spotPrice <= newMax && spotPrice >= min) {
-      setMarkerVisible(obj, true);
+      showSpot = true;
+    } else {
+      showSpot = false;
     }
+    filterManager.applyFilters(marker, fName(arguments), showSpot);
   }
 }
 
@@ -108,7 +110,8 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
   var datetime = new Date();
   for (var i = 0; i < allMarkers.length; i++) {
     var obj = allMarkers[i];
-    setMarkerVisible(obj, false);
+    var marker = allMarkers[i].marker.marker;
+    // setMarkerVisible(obj, false);
     var prs = getSpotPricingRestriction(obj);
     var spotPrice = 0.0;
     for (var j = 0; j < prs.length; j++) {
@@ -118,10 +121,14 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
         break;
       }
     }
+    var showSpot;
     // Show the spot if its price is above or equal to the threshold
     if (spotPrice >= newMin && spotPrice <= max) {
-      setMarkerVisible(obj, true);
+      showSpot = true;
+    } else {
+      showSpot = false;
     }
+    filterManager.applyFilters(marker, fName(arguments), showSpot);
   }
 }
 
@@ -129,21 +136,14 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
  * Shows only spots within the date range
  */
 function showSpotsByTimeOfOperation(allMarkers, targetTime) {
-  debugger;
   for (var i = 0; i < allMarkers.length; i++) {
     var obj = allMarkers[i];
     var prs = getSpotParkingRestriction(obj);
-    // If there is any parking restriction for this spot
-    if (prs !== undefined) {
-      for (var j = 0; j < prs.length; j++) {
-        var withinInterval = isWithinInterval(prs[j], targetTime);
-        var spotAvailable = isSpotAvailable(prs[j], withinInterval);
-        if (spotAvailable) {
-          setMarkerVisible(obj, true);
-        }
-      }
-      if (!spotAvailable) {
-        setMarkerVisible(obj, false);
+    for (var j = 0; j < prs.length; j++) {
+      var withinInterval = isWithinInterval(prs[j], targetTime);
+      var spotAvailable = isSpotAvailable(prs[j], withinInterval);
+      if (spotAvailable) {
+        setMarkerVisible(obj, true);
       }
     }
   }
@@ -285,8 +285,4 @@ function getTargetTime(stringDate, stringTime) {
   var m = parseInt(timeBits[1]);
   var s = parseInt(timeBits[2]);
   return new Date(d, M, y, h, m, s);
-}
-
-function setMarkerVisible(obj, val) {
-  obj.marker.marker.setVisible(val);
 }

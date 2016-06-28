@@ -31,11 +31,13 @@ function AvailabilityFilter() {
   this.toggleGroup = function(type) {
     for (var i = 0; i < this.markerGroups[type].length; i++) {
       var marker = this.markerGroups[type][i].marker;
+      var showSpot;
       if (!marker.getVisible()) {
-        marker.setVisible(true);
+        showSpot = true;
       } else {
-        marker.setVisible(false);
+        showSpot = false;
       }
+      filterManager.applyFilters(marker, "spotStatus", showSpot);
     }
   };
 
@@ -60,4 +62,39 @@ function AvailabilityFilter() {
       marker: marker
     });
   };
+
+  this.filterKeys = [];
+  this.addFilter = function(marker, filterKey, visible) {
+    var isFilterAdded = false;
+    for (var i = 0; i < this.filterKeys.length; i++) {
+      if (this.filterKeys[i] == filterKey) {
+        isFilterAdded = true;
+        break;
+      }
+    }
+    if (!isFilterAdded) {
+      this.filterKeys.push(filterKey);
+    }
+    marker[filterKey] = visible;
+  };
+
+  this.applyFilters = function(marker, filterKey, visible) {
+    debugger;
+    this.addFilter(marker, filterKey, visible);
+
+    var showMarker = true;
+    for (var i = 0; i < this.filterKeys.length; i++) {
+      if (marker.hasOwnProperty(this.filterKeys[i])) {
+        showMarker = showMarker && marker[this.filterKeys[i]];
+        if (!showMarker) {
+          break;
+        }
+      }
+    }
+    marker.setVisible(showMarker);
+  };
+}
+
+function fName(args) {
+   return args.callee.name;
 }
