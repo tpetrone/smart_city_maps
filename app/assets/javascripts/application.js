@@ -19,4 +19,4 @@
 
 //= require_tree .
 
-//= require wickedpicker
+//= require datetimepicker-min

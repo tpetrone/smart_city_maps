@@ -25,23 +25,14 @@ $(function () {
      }
    });
 
-   var options = {
-      twentyFour: true,  //Display 24 hour format, defaults to false
-      upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS
-      downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS
-      close: 'wickedpicker__close', //The close class selector to use, for custom CSS
-      hoverState: 'hover-state', //The hover state class to use, for custom CSS
-      title: 'Time Picker' //The Wickedpicker's title
-   };
-
-   $('#datepicker').datepicker();
-   $("#datepicker").change(function() {
-     dateTimeChanged();
+   $('#datetimepicker').datetimepicker({
+     step: 15,
+     format:'m/d/Y H:i',
+     formatDate:'Y/m/d'
    });
-
-   $('.timepicker').wickedpicker(options);
-   $('.timepicker').change(function(){
-     dateTimeChanged();
+   $('#datetimepicker').change(function() {
+     var targetTime = getTargetTime(dateStr, timeStr);
+     showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
    });
 });
 
@@ -61,21 +52,12 @@ function getMinPrice() {
   return min;
 }
 
-function dateTimeChanged() {
-  var dateStr = $("#datepicker").val();
-  var timeStr = $("#timepicker").val();
-  if (dateStr !== "" && timeStr !== "") {
-    var targetTime = getTargetTime(dateStr, timeStr);
-    showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
-  }
-}
-
 /*
  * Shows only spots with prices lower than newMax
  */
 function showSpotsBelowThisPrice(allMarkers, min, newMax) {
   min = (min === null) ? 0.0 : min;
-  var datetime = new Date();
+  var datetime = getTargetTime();
   for (var i = 0; i < allMarkers.length; i++) {
     var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
@@ -104,7 +86,7 @@ function showSpotsBelowThisPrice(allMarkers, min, newMax) {
  */
 function showSpotsAboveThisPrice(allMarkers, newMin, max) {
   max = (max === null) ? Number.MAX_VALUE : max;
-  var datetime = new Date();
+  var datetime = getTargetTime();
   for (var i = 0; i < allMarkers.length; i++) {
     var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
@@ -131,6 +113,7 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
  * Shows only spots within the date range
  */
 function showSpotsByTimeOfOperation(allMarkers, targetTime) {
+  debugger;
   for (var i = 0; i < allMarkers.length; i++) {
     var prs = getSpotParkingRestriction(allMarkers[i]);
     var showSpot = false;
@@ -275,13 +258,23 @@ function isWithinTime(initTime, endTime, targetTime) {
   return within;
 }
 
-function getTargetTime(stringDate, stringTime) {
-  var dateBits = stringDate.split(/\//);
-  var M = parseInt(dateBits[0])-1;
-  var d = parseInt(dateBits[1]);
-  var y = parseInt(dateBits[2]);
-  var timeBits = stringTime.split(/:/);
-  var h = parseInt(timeBits[0]);
-  var m = parseInt(timeBits[1]);
-  return new Date(y, M, d, h, m, 59, 0);
+function getTargetTime() {
+  var fullDatetimeStr = $("#datetimepicker").val();
+  var targetTime;
+  if (fullDatetimeStr !== "") {
+    var fullDateBits = fullDatetimeStr.split(/ /);
+    var stringDate = fullDateBits[0];
+    var stringTime = fullDateBits[1];
+    var dateBits = stringDate.split(/\//);
+    var M = parseInt(dateBits[0])-1;
+    var d = parseInt(dateBits[1]);
+    var y = parseInt(dateBits[2]);
+    var timeBits = stringTime.split(/:/);
+    var h = parseInt(timeBits[0]);
+    var m = parseInt(timeBits[1]);
+    targetTime = new Date(y, M, d, h, m, 59, 0);
+  } else {
+    targetTime = new Date();
+  }
+  return targetTime;
 }

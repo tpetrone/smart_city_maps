@@ -12,6 +12,5 @@
  *
  *= require_tree .
  *= require_self
- *= require wickedpicker
- *= require jquery-ui
+ *= require datetimepicker
  */
