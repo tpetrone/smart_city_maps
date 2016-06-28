@@ -113,7 +113,6 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
  * Shows only spots within the date range
  */
 function showSpotsByTimeOfOperation(allMarkers, targetTime) {
-  debugger;
   for (var i = 0; i < allMarkers.length; i++) {
     var prs = getSpotParkingRestriction(allMarkers[i]);
     var showSpot = false;

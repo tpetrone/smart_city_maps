@@ -19,4 +19,4 @@
 
 //= require_tree .
 
-//= require datetimepicker-min
+//= require datetimepicker-full
