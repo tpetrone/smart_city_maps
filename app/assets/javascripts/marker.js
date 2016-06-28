@@ -1,7 +1,7 @@
 /**
  * GmapMarker: this class is used to create new markers in the map.
  */
-function GmapMarker (gmap, spotData, spot_id) {
+function GmapMarker (gmap, spotData, spotId) {
   var self = this;
   this.map = gmap;
 
@@ -17,7 +17,14 @@ function GmapMarker (gmap, spotData, spot_id) {
     });
 
     var detail = new Detail();
-    detail.showInfo(gmap, this.marker, _data, spot_id);
+    detail.showInfo(gmap, this.marker, _data, spotId);
+
+    this.marker.addListener('click', function() {
+      currentSpot = {
+        id: spotId
+      };
+      Incident.spotSelectedHandler(spotId);
+    });
   };
 }
 

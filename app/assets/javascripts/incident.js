@@ -1,64 +1,194 @@
-function Incident(){
+Incident = new (function() {
+  var self = this;
 
-CATEGORIES_ICONS = {
-  0: 'assignment_late',
-  1: 'location_off',
-  2: 'restore',
-  3: 'info_outline'
-};
+  this.CATEGORIES = {
+    0: 'Other',
+    1: 'Incorrect address',
+    2: 'Wrong schedule',
+    3: 'Different price'
+  };
 
-CATEGORIES = {
-  0: 'Other',
-  1: 'Incorrect address',
-  2: 'Wrong schedule',
-  3: 'Different price'
-};
-
-var user_id=1;
-
-  function refreshLastComment(data){
-    $("#incident-controls").show();
-    if (data.length > 0){
-      obj=data[0];
-      $('div#show-occurence').show();
-      $('div#comment').html('<span>' + obj.attributes.comment + '</span>');
-      var icon = CATEGORIES_ICONS[obj.attributes.category];
-      $('div#category').html('<i class="small material-icons">' + icon + '</i><span><strong>' + CATEGORIES[obj.attributes.category] +'</strong></span>');
-      $('div#user').html('<i class="small material-icons">person</i><span><strong>' + obj.attributes.name_user + '</strong></span>');
-      $('div#time').html('<span>' + obj.attributes.time_last_comment + '</span>');
-    }
-    else{
-      $('div#show-occurence').hide();
-      $('div#category').html('<i class="small material-icons">done</i>');
-    }
+  this.CATEGORIES_ICONS = {
+    0: 'assignment_late',
+    1: 'location_off',
+    2: 'restore',
+    3: 'info_outline'
   }
 
-  this.lastComment = function(spot_id) {
-    return $.get(Rails.config.smartParkingAPI.url + "/incidents/last", {
-      token: Rails.config.smartParkingAPI.token,
-      spot: spot_id
-    }).done(function(response) {
-      obj = response.data;
-      refreshLastComment(obj);
-      console.log("done!");
-    }).fail(function() {
-      console.log("error");
+  /**
+   * Handler that deals with a spot having been selected by the user.
+   */
+  this.spotSelectedHandler = function(spotId) {
+    self.refreshIncidents(spotId);
+  };
+
+
+  /**
+   * Handler that deals with a spot having been unselected by the user.
+   */
+  this.spotUnselectedHandler = function() {
+    if (currentSpot && currentSpot.id) {
+      currentSpot.id = undefined;
+    }
+
+    // We have no spot selected, so show this message.
+    $(".msg-no-spot-selected").show();
+    // Hide incidents area.
+    $(".when-has-spot").hide();
+  }
+
+  /**
+   * Get incidents from the API and display them.
+   */
+  this.refreshIncidents = function(spotId) {
+    // Remove previously shown incidents.
+    $(".when-has-spot .incident-report").remove();
+
+    // Fetch data from the API.
+    $.get(Rails.config.smartParkingAPI.url + "/incidents/" + spotId)
+    .done(function(response) {
+      self.showIncidents(response.data);
+    })
+    .fail(function() {
+      NotificationCenter.error("Unable to fetch incidents. Try again later.");
     });
   };
 
-  this.submitComment=function(spot_id){
+  /**
+   * Create and populate DOM elements for each reported incident.
+   * TODO: deal with too many incidents.
+   */
+  this.showIncidents = function(incidents) {
+
+    // We have a spot selected, so hide this message.
+    $(".msg-no-spot-selected").hide();
+    $(".when-has-spot").show();
+
+    if (incidents.length) {
+      // For each incident...
+      for(var i = 0; i < incidents.length; i++) {
+        var data = incidents[i];
+
+        // Create a new DOM element.
+        var incident = $(".template-for-incident")
+                      .clone()
+                      .removeClass("template-for-incident")
+                      .addClass("incident-report")
+                      .show();
+
+        // And set the information.
+        incident.find("span.user-comment").html(data.attributes.comment);
+        incident.find(".reported-incident-icon").html(self.CATEGORIES_ICONS[data.attributes.category]);
+        incident.find(".reported-incident-category").html(self.CATEGORIES[data.attributes.category]);
+        incident.find(".reported-incident-time").html(data.attributes.human_created_at + " ago");
+
+        // Append this element to the list and show it.
+        $(".reported-incidents-list").append(incident).show();
+      }
+    } else {
+      // No incidents for this spot. Just show a message and the report button.
+      $(".msg-empty-incidents").show();
+    }
+
+    // Show the report button.
+    $("#btn-report-incident").show();
+  };
+
+  /**
+   * Clear form data and hide the form.
+   */
+  this.clearForm = function() {
+    $("#form-for-incident input[name=incident-category]").val('');
+    $(".category-chooser").text("Choose a category");
+    $("#form-for-incident textarea[name=incident-description]").val('');
+    $("#form-for-incident button[type=submit]").attr('disabled', false);
+    $("#container-incident-form").hide();
+  };
+
+  /**
+   * Create a new incident.
+   */
+  this.create = function(spotId, category, comment) {
     return $.post(Rails.config.smartParkingAPI.url + "/incidents", {
-      token: Rails.config.smartParkingAPI.token, incident: {
-      user: user_id,
-      spot: spot_id,
-      category: $( "#incident-option" ).val(),
-      comment: $( "#comment-input" ).val()}
+      incident: {
+        spot_id:  currentSpot.id,
+        category: category,
+        comment:  comment
+      }
     }).done(function(response) {
-      obj = response.data;
-      refreshLastComment(obj);
-      $( "#comment-input" ).val("");
-    }).fail(function() {
-      console.log("error");
+      NotificationCenter.success("Incident was reported. Thank you!");
+      self.clearForm();
+      self.refreshIncidents(currentSpot.id);
+    }).fail(function(response) {
+      var errors = "Incident could not be reported. Errors: ";
+      if (response.status === 422) {
+        for (var i = 0; i < response.responseJSON.errors.length; i++) {
+          var error = response.responseJSON.errors[i];
+          errors = errors + error.title + ". ";
+        }
+        NotificationCenter.error(errors);
+        $("#form-for-incident button[type=submit]").attr('disabled', false);
+      } else {
+        NotificationCenter.error("Incident could not be reported. Please, try again later.");
+      }
     });
   };
-}
+});
+
+
+/**
+ * Attach event handlers to DOM elements on page load.
+ */
+$(function() {
+
+  /**
+   * Make the "Choose a category" label open the category menu.
+   */
+  $(".category-chooser").click(function() {
+    $("#incident-category-menu").click();
+  });
+
+  /**
+   * When the user chooses a category, update the hidden form field and
+   * the text.
+   */
+  $("#incident-category-menu-items").click(function(event) {
+    $("#form-for-incident input[name=incident-category]").val($(event.target).data('category'));
+    $(".category-chooser").text($(event.target).text());
+  });
+
+  /**
+   * When the user clicks the report incident button, check if they're logged
+   * in and, if so, display the form.
+   */
+  $("#btn-report-incident").click(function() {
+    if (currentUser.id) {
+      $("#btn-report-incident").hide();
+      $("#container-incident-form").show();
+    } else {
+      NotificationCenter.error("Please log in to report an incident.");
+    }
+  });
+
+  /**
+   * If the user decides to cancel the report, just hide the form and
+   * re-display the button.
+   */
+  $("#form-for-incident .btn-cancel").click(function () {
+    $("#btn-report-incident").show();
+    $("#container-incident-form").hide();
+  });
+
+  /**
+   * If the user submits the form, create a new incident.
+   */
+  $("#form-for-incident").on('submit', function(event) {
+    $("#form-for-incident button[type=submit]").attr('disabled', true);
+    event.preventDefault();
+
+    var category = $("#form-for-incident input[name=incident-category]").val();
+    var comment  = $("#form-for-incident textarea[name=incident-description]").val();
+
+    Incident.create(currentSpot.id, category, comment);
+  });
+});

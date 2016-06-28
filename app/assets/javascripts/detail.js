@@ -33,16 +33,12 @@ function Detail() {
         Detail.currentInfoWindow.close();
       }
 
-      var incident=new Incident();
-
-      incident.lastComment(spot_id);
-
-      $("#submit-button").on('click', function() {
-        incident.submitComment(spot_id);
-      });
-
       Detail.currentInfoWindow = newInfoWindow;
       newInfoWindow.open(map, marker);
+
+      google.maps.event.addListener(newInfoWindow, 'closeclick', function () {
+        Incident.spotUnselectedHandler();
+      });
 
       $(".route-btn").on('click', function() {
         newInfoWindow.close();

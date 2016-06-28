@@ -83,47 +83,83 @@
           </label>
         </div>
 
-<!--         <div id="show-estab-spots-div">
-          <input type="checkbox" id="show-spot-chkbox" name="spot-chkbox">
-          Show establishment spots only
-         <br>
-       </div> -->
+        <div class="spacer"></div>
 
-      <!-- Show incident and comment -->
-      <div id="incident-controls" style="display: none;">
-        <div id="show-occurence" style="display: none;">
+        <!-- Incidents -->
+        <div id="incident-controls">
+          <span><strong>Incident reports</strong></span>
           <hr>
-          <span><strong>About spot parking</strong></span>
-          <br>
-          <span class="mdl-list__item-primary-content">
-            <div id="category" style="text-align:center;">
+          <div class="msg-no-spot-selected">
+            No spot selected. Please select a spot to view incidents
+            associated to it.
+          </div>
+
+          <!-- This area is visible only when a spot is selected. -->
+          <div class="when-has-spot" style="display: none;">
+            <div class="msg-empty-incidents" style="display: none;">
+              No incidents have been reported for this spot yet.
             </div>
-            <div id="comment" style="text-align:center;">
+
+            <ul class="mdl-list reported-incidents-list" style="display: none;">
+              <li class="mdl-list__item template-for-incident" style="display: none;">
+                <span class="mdl-list__item-primary-content">
+                  <i class="material-icons mdl-list__item-icon reported-incident-icon">person</i>
+                  <span>
+                    <!-- Put these spans inside another span to avoid weird spacing issues. -->
+                    <span class="user-comment">COMMENT-PLACEHOLDER</span>
+                    (<span class="reported-incident-category">CATEGORY-PLACEHOLDER</span>, <span class="reported-incident-time">TIME-PLACEHOLDER</span>)
+                  </span>
+                </span>
+              </li>
+            </ul>
+
+            <!-- Report incident button -->
+            <div style="text-align: center;">
+              <button id="btn-report-incident" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" style="display: none;">
+                Report incident
+              </button>
             </div>
-            <div id="user"></div>
-            <span class="mdl-list__item-sub-title">
-              <div id="time"></div>
-            </span>
-          </span>
+
+            <!-- Incident form -->
+            <div id="container-incident-form" style="display: none;">
+              <form id="form-for-incident">
+                <input type="hidden" name="incident-category" value="">
+                <div>
+                  <!-- Left aligned menu below button -->
+                  <button id="incident-category-menu"
+                          class="mdl-button mdl-js-button mdl-button--icon" type="button">
+                    <i class="material-icons">list</i>
+                  </button>
+
+                  <ul id="incident-category-menu-items" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                      for="incident-category-menu">
+                    <li class="mdl-menu__item" data-category="1">Incorrect status</li>
+                    <li class="mdl-menu__item" data-category="2">Incorrect schedule</li>
+                    <li class="mdl-menu__item" data-category="3">Incorrect pricing</li>
+                    <li class="mdl-menu__item" data-category="0">Other</li>
+                  </ul>
+
+                  <span class="category-chooser">
+                    Choose a category
+                  </span>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <textarea class="mdl-textfield__input" type="text" rows= "2" name="incident-description"></textarea>
+                  <label class="mdl-textfield__label" for="sample5">Describe the incident...</label>
+                </div>
+                <br>
+                <!-- Create incident button -->
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                  Create
+                </button>
+                <!-- Cancel incident report button -->
+                <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab btn-cancel">
+                  <i class="material-icons">delete</i>
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-
-        <div id="send-incident">
-          <hr>
-          <select id="incident-option">
-            <option value="0">Other</option>
-            <option value="1">Incorrect address</option>
-            <option value="2">Wrong schedule</option>
-            <option value="3">Different price</option>
-          </select>
-          <div class="mdl-textfield mdl-js-textfield" style="width: 80%; ">
-            <input class="mdl-textfield__input" type="text" id="comment-input" >
-            <label class="mdl-textfield__label" for="comment-input">comment...</label>
-          </div>
-          <button id="submit-button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-            <i class="tiny material-icons">message</i>
-          </button>
-          </div>
-      </div>
 
       </div>
       <!-- Message Display Dialog-->
@@ -206,4 +242,9 @@
   <button class="mdl-button mdl-js-button mdl-button--raised route-btn">
     Calculate route from my current location
   </button>
+</div>
+
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
 </div>
