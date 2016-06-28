@@ -1,39 +1,436 @@
 {
-  "spots": [
+  "meta": {
+    "lat": "-23.545241799982602",
+    "lng": "-46.63861848413944",
+    "range": 2000,
+    "count": 13,
+    "timestamp": "1465403606.0693805"
+  },
+  "links": {
+    "self": "/spots/search"
+  },
+  "data": [
     {
-      "lat": "-23.559408",
-      "lng": "-46.7337361",
-      "address": "Av. Prof. Luciano Gualberto, 777",
-      "status": 0,
-      "operation": 1
+      "type": "spot",
+      "id": 101,
+      "attributes": {
+        "latitude": "-23.545608175798",
+        "longitude": "-46.638517230749",
+        "status": 0,
+        "parking_type": "establishment",
+        "formatted_details": {
+          "parking_restrictions": [
+            "Mon-Fri | 00:00:00 to 17:59:59: unavailable"
+          ],
+          "pricing_restrictions": [
+            "Mon-Fri | 18:00:00 to 23:59:59: $10.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          },
+          "data": [
+            {
+              "type": "establishment",
+              "id": 21
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/spots/101"
+      }
     },
     {
-      "lat": "-23.558408",
-      "lng": "-46.7335361",
-      "address": "Av. Prof. Luciano Gualberto, 777",
-      "status": -1,
-      "operation": 1
+      "type": "spot",
+      "id": 102,
+      "attributes": {
+        "latitude": "-23.545443429752",
+        "longitude": "-46.638373732567",
+        "status": 0,
+        "parking_type": "establishment",
+        "formatted_details": {
+          "parking_restrictions": [
+            "Mon-Fri | 00:00:00 to 17:59:59: unavailable"
+          ],
+          "pricing_restrictions": [
+            "Mon-Fri | 18:00:00 to 23:59:59: $10.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          },
+          "data": [
+            {
+              "type": "establishment",
+              "id": 21
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/spots/102"
+      }
     },
     {
-      "lat": "-23.552408",
-      "lng": "-46.732361",
-      "address": "Av. Prof. Luciano Gualberto, 777",
-      "status": 1,
-      "operation": 1
+      "type": "spot",
+      "id": 103,
+      "attributes": {
+        "latitude": "-23.545295895805",
+        "longitude": "-46.638249009848",
+        "status": 0,
+        "parking_type": "establishment",
+        "formatted_details": {
+          "parking_restrictions": [
+            "Mon-Fri | 00:00:00 to 17:59:59: unavailable"
+          ],
+          "pricing_restrictions": [
+            "Mon-Fri | 18:00:00 to 23:59:59: $15.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          },
+          "data": [
+            {
+              "type": "establishment",
+              "id": 21
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/spots/103"
+      }
     },
     {
-      "lat": "-23.559608",
-      "lng": "-46.7325361",
-      "address": "Av. Prof. Luciano Gualberto, 777",
-      "status": 0,
-      "operation": 1
+      "type": "spot",
+      "id": 104,
+      "attributes": {
+        "latitude": "-23.545059841145",
+        "longitude": "-46.638880670071",
+        "status": 0,
+        "parking_type": "street",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+            "Mon-Fri | 07:00:00 to 19:00:00: $5.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          }
+        }
+      },
+      "links": {
+        "self": "/spots/104"
+      }
     },
     {
-      "lat": "-23.554408",
-      "lng": "-46.7377361",
-      "address": "Av. Prof. Luciano Gualberto, 777",
-      "status": 1,
-      "operation": 1
+      "type": "spot",
+      "id": 105,
+      "attributes": {
+        "latitude": "-23.545138526079",
+        "longitude": "-46.638942360878",
+        "status": 0,
+        "parking_type": "street",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+            "Mon-Fri | 07:00:00 to 19:00:00: $5.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          }
+        }
+      },
+      "links": {
+        "self": "/spots/105"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 106,
+      "attributes": {
+        "latitude": "-23.545266388995",
+        "longitude": "-46.639055013657",
+        "status": 0,
+        "parking_type": "street",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+            "Mon-Fri | 07:00:00 to 19:00:00: $5.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          }
+        }
+      },
+      "links": {
+        "self": "/spots/106"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 107,
+      "attributes": {
+        "latitude": "-23.544027097025",
+        "longitude": "-46.639902591705",
+        "status": 0,
+        "parking_type": "street",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          }
+        }
+      },
+      "links": {
+        "self": "/spots/107"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 108,
+      "attributes": {
+        "latitude": "-23.544082422808",
+        "longitude": "-46.639826148748",
+        "status": 0,
+        "parking_type": "street",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          }
+        }
+      },
+      "links": {
+        "self": "/spots/108"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 109,
+      "attributes": {
+        "latitude": "-23.544120536112",
+        "longitude": "-46.639769822359",
+        "status": 0,
+        "parking_type": "street",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          }
+        }
+      },
+      "links": {
+        "self": "/spots/109"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 110,
+      "attributes": {
+        "latitude": "-23.544170944013",
+        "longitude": "-46.63971349597",
+        "status": 0,
+        "parking_type": "street",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          }
+        }
+      },
+      "links": {
+        "self": "/spots/110"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 111,
+      "attributes": {
+        "latitude": "-23.546647054688",
+        "longitude": "-46.639190465212",
+        "status": 0,
+        "parking_type": "establishment",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+            "Sun-Sat | 00:00:00 to 23:59:59: $15.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          },
+          "data": [
+            {
+              "type": "establishment",
+              "id": 22
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/spots/111"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 112,
+      "attributes": {
+        "latitude": "-23.54659357414",
+        "longitude": "-46.639154925942",
+        "status": 0,
+        "parking_type": "establishment",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+            "Sun-Sat | 00:00:00 to 23:59:59: $15.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          },
+          "data": [
+            {
+              "type": "establishment",
+              "id": 22
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/spots/112"
+      }
+    },
+    {
+      "type": "spot",
+      "id": 113,
+      "attributes": {
+        "latitude": "-23.546508128164",
+        "longitude": "-46.639087200165",
+        "status": 0,
+        "parking_type": "establishment",
+        "formatted_details": {
+          "parking_restrictions": [
+
+          ],
+          "pricing_restrictions": [
+            "Sun-Sat | 00:00:00 to 23:59:59: $15.00"
+          ]
+        }
+      },
+      "relationships": {
+        "establishment": {
+          "links": {
+            "related": "/establishments"
+          },
+          "data": [
+            {
+              "type": "establishment",
+              "id": 22
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/spots/113"
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "establishment",
+      "id": 21,
+      "attributes": {
+        "google_place_id": "ChIJi6GKOxFWzpQRHk7k7_d5Wyc"
+      },
+      "links": {
+        "self": "/establishments/21"
+      }
+    },
+    {
+      "type": "establishment",
+      "id": 22,
+      "attributes": {
+        "google_place_id": "ChIJn0Obs1NYzpQR60tacQW_S24"
+      },
+      "links": {
+        "self": "/establishments/22"
+      }
     }
   ]
 }

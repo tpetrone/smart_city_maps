@@ -12,7 +12,7 @@ exports.spec = function(casper, test, other) {
       window.map.getSpots();
       return filterMAnager.markerGroups.available[0];
     });
-    test.assert(typeof(spots) === "object", "Spot request was succesfull");
+    test.assert(typeof(spots) === "object", "Spot request was successful");
   });
 
   casper.then(function() {

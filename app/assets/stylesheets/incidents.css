@@ -1,0 +1,61 @@
+/**
+ * Styles for incidents area.
+ * =========================
+ */
+
+.msg-empty-incidents {
+  margin-bottom: 10px;
+}
+
+/*
+ * Form.
+ * ----------------------------------------------------------- */
+
+#container-incident-form {
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+#form-for-incident .btn-cancel {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.category-chooser {
+  cursor: pointer;
+}
+
+#incident-category-menu,
+.category-chooser {
+  font-size: 15px;
+}
+
+/*
+ * Incidents list.
+ * ----------------------------------------------------------- */
+
+.reported-incidents-list {
+  width: 350px;
+}
+
+.reported-incidents-list .mdl-list__item {
+  font-size: 14px;
+}
+
+.reported-incidents-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-icon {
+  margin-right: 15px;
+}
+
+.reported-incidents-list .mdl-list__item {
+  letter-spacing: 0;
+}
+
+.mdl-list__item.incident-report {
+  padding: 16px 0;
+}
+
+.reported-incident-time, .reported-incident-category {
+  color: #777;
+  font-style: italic;
+}

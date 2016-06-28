@@ -9,6 +9,22 @@ html, body {
   padding: 0;
 }
 
+/*
+ * Generic rules.
+ * ----------------------------------------------------------- */
+
+.text-center {
+  text-align : center;
+}
+
+.hidden {
+  display: none;
+}
+
+/*
+ * Header.
+ * ----------------------------------------------------------- */
+
 .header-search .mdl-textfield__label {
   color: rgba(255, 255, 255, .5);
 }
@@ -29,9 +45,14 @@ html, body {
   background: #fafafa;
   box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
   color: #757575;
+  font-size: 14px;
   margin: 10px;
-  min-width: 150px;
   padding: 10px;
+
+  /* Width */
+  min-width: 200px;
+  max-width: 350px;
+  width: 350px;
 }
 
 /*
@@ -74,4 +95,3 @@ html, body {
 #establishment-controls input[type=checkbox] {
   vertical-align: top;
 }
-
