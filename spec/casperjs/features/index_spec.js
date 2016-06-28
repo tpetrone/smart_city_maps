@@ -24,7 +24,7 @@ casper.options.viewportSize = { width: 1024, height: 768 };
 casper.test.begin('Start page loads correctly', 26, function suite(test) {
 
   var startedAt = new Date().getTime();
-  casper.start('http://smart-city-aryanne.c9users.io:8081/', function() {
+  casper.start('http://localhost:3011', function() {
     if (!this.page.injectJs('spec/casperjs/lib/geolocation.js')) {
       test.fail("Unable to inject geolocation.js");
     }
