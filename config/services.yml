@@ -11,8 +11,8 @@ default: &default
   discovery_service: "localhost:3003"
 
   # Ports 3010 and above are used by applications.
-  smart_parking_api: "smart-city-aryanne.c9users.io"
-  smart_parking_maps: "smart-city-aryanne.c9users.io:8081"
+  smart_parking_api: "localhost:3010"
+  smart_parking_maps: "localhost:3011"
 
 development:
   <<: *default
