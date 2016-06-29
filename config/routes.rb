@@ -12,6 +12,5 @@ Rails.application.routes.draw do
     post   '/auth/password' => 'mock/users#reset'
     put    '/auth/password' => 'mock/users#update'
     delete '/auth/sign_out' => 'mock/users#signout'
-
   end
 end

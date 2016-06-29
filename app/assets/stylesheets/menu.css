@@ -1,6 +1,10 @@
-.user-id{
- position: fixed;
- right: 0;
- bottom: 20px;
- height: 30px;
+/**
+ * Styles for the lateral menu.
+ */
+
+.user-id {
+  bottom: 20px;
+  height: 30px;
+  position: fixed;
+  right: 0;
 }

@@ -70,11 +70,12 @@ Incident = new (function() {
     if (incidents.length) {
       // Hide empty incidents message
       $(".msg-empty-incidents").hide();
+
       // For each incident...
       for(var i = 0; i < incidents.length; i++) {
         var data = incidents[i];
 
-        // Create a new DOM element.
+        // Create a new DOM element...
         var incident = $(".template-for-incident")
                       .clone()
                       .removeClass("template-for-incident")

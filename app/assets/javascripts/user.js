@@ -23,18 +23,15 @@ function setupUser() {
   User.prototype.configJtoker = function(user) {
     $.auth.configure({
       apiUrl: Rails.config.smartParkingAPI.url,
-      storage:'localStorage',
-
-    confirmationSuccessUrl:  function() {
-      url = window.location.href + "confirmation_token";
-      return url;
-    },
-
-    passwordResetSuccessUrl: function() {
-      url = window.location.href + "reset_password_token";
-      return url;
-    }
-
+      storage: 'localStorage',
+      confirmationSuccessUrl:  function() {
+        url = window.location.href + "confirmation_token";
+        return url;
+      },
+      passwordResetSuccessUrl: function() {
+        url = window.location.href + "reset_password_token";
+        return url;
+      }
     })
     .done(function() {
       if ($.auth.user.id) {
@@ -229,22 +226,22 @@ function setupUser() {
  */
 $(function () {
 
-  $("#form-signin").submit(function(event){
+  $("#form-signin").submit(function(event) {
     event.preventDefault();
     var inputs = $("#form-signin").serializeArray();
-    currentUser.doSignIn(inputs[0].value,inputs[1].value);
+    currentUser.doSignIn(inputs[0].value, inputs[1].value);
   });
 
-  $("#form-signup").submit(function(event){
+  $("#form-signup").submit(function(event) {
     event.preventDefault();
     var inputs = $("#form-signup").serializeArray();
-    currentUser.doSignUp(inputs[0].value,inputs[1].value,inputs[2].value);
+    currentUser.doSignUp(inputs[0].value, inputs[1].value, inputs[2].value);
   });
 
-  $("#form-reset").submit(function(event){
+  $("#form-reset").submit(function(event) {
     event.preventDefault();
     var inputs = $("#form-reset").serializeArray();
-    currentUser.doUpdatePassword(inputs[0].value,inputs[1].value);
+    currentUser.doUpdatePassword(inputs[0].value, inputs[1].value);
   });
 
   // Open sign in form.

@@ -211,7 +211,7 @@ exports.spec = function(casper, test, other) {
 
 
 
-/**
+  /**
    * Click on the menu.
    */
   casper.then(function() {

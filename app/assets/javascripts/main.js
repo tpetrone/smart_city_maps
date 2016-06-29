@@ -49,12 +49,12 @@ function main() {
   if (/Chrome/i.exec(navigator.userAgent) === null) {
     $("#dialog-msg").addClass("hidden");
     $("#dialog-loader").addClass("hidden");
-  }else{
-    if (/reset_password_token/i.exec(window.location.hash.substring(1))){
+  } else {
+    if (/reset_password_token/i.exec(window.location.hash.substring(1))) {
       currentUser.modalReset.show();
     }
-    if (/confirmation_token/i.exec(window.location.hash.substring(1))){
-      currentUser.modalMessage.show("Email confirmed. You can Sign In now.");
+    if (/confirmation_token/i.exec(window.location.hash.substring(1))) {
+      currentUser.modalMessage.show("Email confirmed. You can sign in now.");
     }
   }
 
