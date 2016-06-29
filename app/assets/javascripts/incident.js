@@ -68,6 +68,8 @@ Incident = new (function() {
     $(".when-has-spot").show();
 
     if (incidents.length) {
+      // Hide empty incidents message
+      $(".msg-empty-incidents").hide();
       // For each incident...
       for(var i = 0; i < incidents.length; i++) {
         var data = incidents[i];
