@@ -16,7 +16,7 @@ exports.spec = function(casper, test, other) {
   casper.then(function() {
      var spotPrice = casper.evaluate(function() {
        var pr = window.pricing_restriction;
-       return window.getSpotPrice(pr);
+       return ParkingFilter.getSpotPrice(pr);
      });
      test.assert(spotPrice === 10.0, "Get price from parking restriction was successfull");
   });

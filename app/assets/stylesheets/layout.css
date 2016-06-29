@@ -53,6 +53,10 @@ html, body {
   min-width: 200px;
   max-width: 350px;
   width: 350px;
+
+  /* Height */
+  max-height: calc(100vh - 75px);
+  overflow-y: scroll;
 }
 
 /*
@@ -103,4 +107,18 @@ html, body {
 .checkIn-btn,
 .route-checkin-btn {
   margin-left: 10px;
+}
+
+/*
+ * Map controls: pricing and date filters.
+ * ----------------------------------------------------------- */
+
+.txt-price-bound {
+  display:inline-block;
+  width: 25px;
+}
+
+.price-slider-container p {
+  display: inline-block;
+  width:270px;
 }

@@ -35,6 +35,20 @@
       </div>
 
       <div id="map-controls" style="display: none;">
+        <!-- Refresh controls -->
+        <span><strong>Auto-refresh</strong></span>
+        <hr>
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+          <input type="checkbox" id="switch-1" class="refresh-switch mdl-switch__input">
+          <span class="mdl-switch__label">OFF</span>
+        </label>
+        <div class="slider-wrapper" style="display: none;">
+          <input id="time-slider" class="mdl-slider mdl-js-slider" type="range" min="0" max="60" step="1" value="10" tabindex="0">
+          <span class="mdl-slider__label">Refresh interval<br><span>30s</span></span>
+        </div>
+
+        <div class="spacer"></div>
+
         <span><strong>Filter by availability</strong></span>
         <hr>
         <ul class="availability-options">
@@ -60,20 +74,6 @@
 
         <div class="spacer"></div>
 
-        <!-- Refresh controls -->
-        <span><strong>Auto-refresh</strong></span>
-        <hr>
-          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
-            <input type="checkbox" id="switch-1" class="refresh-switch mdl-switch__input">
-            <span class="mdl-switch__label">OFF</span>
-          </label>
-          <div class="slider-wrapper" style="display: none;">
-            <input id="time-slider" class="mdl-slider mdl-js-slider" type="range" min="0" max="60" step="1" value="10" tabindex="0">
-            <span class="mdl-slider__label">Refresh interval<br><span>30s</span></span>
-          </div>
-
-        <div class="spacer"></div>
-
         <!-- Establishment controls -->
         <div id="establishment-controls" style="display: none;">
           <span><strong>Establishment options</strong></span>
@@ -90,7 +90,7 @@
           <span><strong>Filter by date and time of operation</strong></span>
             <hr>
             Date and time:
-            <input type="text" id="datetimepicker" value="" class="mdl-textfield__input">
+            <input type="text" id="datetimepicker" value="" class="mdl-textfield__input" placeholder="Click to pick a date">
         </div>
 
         <div class="spacer"></div>
@@ -98,11 +98,24 @@
         <!-- Pricing restrictions -->
         <div class="pricing-spot-restrictions">
           <span><strong>Filter by price</strong></span>
-            <hr>
-            Min:
-            <input id="min-price" class="mdl-textfield__input" type="text" name="min_price" value=""/>
-            Max:
-            <input id="max-price" class="mdl-textfield__input" type="text" name="max_price" value=""/>
+          <hr>
+
+          <div>
+            <div class="price-slider-container">
+              <span class="txt-price-bound">MIN</span>
+              <p>
+                <input id="min-price" class="mdl-slider mdl-js-slider" type="range" id="s1" min="0" max="30" value="0" step="1">
+              </p>
+              <span class="txt-min-price">$ 0</span>
+            </div>
+            <div class="price-slider-container">
+              <span class="txt-price-bound">MAX</span>
+              <p>
+                <input id="max-price" class="mdl-slider mdl-js-slider" type="range" id="s1" min="0" max="30" value="30" step="1">
+              </p>
+              <span class="txt-max-price">$ 30</span>
+            </div>
+          </div>
         </div>
 
         <!-- Checkin controls -->
