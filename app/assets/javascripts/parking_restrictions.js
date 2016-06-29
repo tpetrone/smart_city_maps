@@ -25,11 +25,18 @@ $(function () {
      }
    });
 
+   /*
+    * Creates a datetime picker component
+    */
    $('#datetimepicker').datetimepicker({
      step: 15,
      format:'m/d/Y H:i',
      formatDate:'Y/m/d'
    });
+
+   /*
+    * Listens for changes in datetimepicker element
+    */
    $('#datetimepicker').change(function() {
      var targetTime = getTargetTime();
      if (targetTime !== null) {
@@ -40,6 +47,9 @@ $(function () {
    });
 });
 
+/*
+ * Gets the value of the max-price element
+ */
 function getMaxPrice() {
   var max = parseFloat($("#max-price").val());
   if (isNaN(max) || max < 0.0) {
@@ -48,6 +58,9 @@ function getMaxPrice() {
   return max;
 }
 
+/*
+ * Gets the value of the min-price element
+ */
 function getMinPrice() {
   var min = parseFloat($("#min-price").val());
   if (isNaN(min) || min < 0.0) {
@@ -56,9 +69,12 @@ function getMinPrice() {
   return min;
 }
 
+/*
+ * Gets the value of the datetimepicker element
+ */
 function getTargetTime() {
   var datetimeStr = $("#datetimepicker").val();
-  if (datetimeStr == "") {
+  if (datetimeStr === "") {
     return null;
   }
   var bits = datetimeStr.split(/ |\/|:/);
@@ -69,15 +85,20 @@ function getTargetTime() {
  * Shows only spots with prices lower than newMax
  */
 function showSpotsBelowThisPrice(allMarkers, min, newMax) {
+  // if there is no min specified, use 0.0
   min = (min === null) ? 0.0 : min;
+  // If there is no targetTime, use today's date
   var datetime = (getTargetTime() !== null) ? getTargetTime() : new Date();
   for (var i = 0; i < allMarkers.length; i++) {
+    // Get the string associated to the pricing restriction
     var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
     for (var j = 0; j < prs.length; j++) {
+      // For every restriction in the spot, check if the datetime
+      // is in the interval of the restriction
       var withinInterval = isWithinInterval(prs[j], datetime);
       if (withinInterval) {
-        // Get the spot price as a number
+        // If the spot is in the interval, get the spot price as a number
         spotPrice = getSpotPrice(prs[j]);
         break;
       }
@@ -98,14 +119,20 @@ function showSpotsBelowThisPrice(allMarkers, min, newMax) {
  * Shows only spots with prices higher than newMin
  */
 function showSpotsAboveThisPrice(allMarkers, newMin, max) {
+  // if there is no max specified, use Number.MAX_VALUE
   max = (max === null) ? Number.MAX_VALUE : max;
+  // If there is no targetTime, use today's date
   var datetime = (getTargetTime() !== null) ? getTargetTime() : new Date();
   for (var i = 0; i < allMarkers.length; i++) {
+    // Get the string associated to the pricing restriction
     var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
     for (var j = 0; j < prs.length; j++) {
+      // For every restriction in the spot, check if the datetime
+      // is in the interval of the restriction
       var withinInterval = isWithinInterval(prs[j], datetime);
       if (withinInterval) {
+        // If the spot is in the interval, get the spot price as a number
         spotPrice = getSpotPrice(prs[j]);
         break;
       }
@@ -127,13 +154,18 @@ function showSpotsAboveThisPrice(allMarkers, newMin, max) {
  */
 function showSpotsByTimeOfOperation(allMarkers, targetTime) {
   for (var i = 0; i < allMarkers.length; i++) {
+    // Get the string associated to the parking restriction
     var prs = getSpotParkingRestriction(allMarkers[i]);
     var showSpot = false;
     if (prs.length === 0) {
+      // If there are no restrictions, show the spot
       showSpot = true;
     }
     for (var j = 0; j < prs.length; j++) {
+      // For every restriction in the spot, check if the datetime
+      // is in the interval of the restriction
       var withinInterval = isWithinInterval(prs[j], targetTime);
+      // Check if the spot is available according to the interval
       var spotAvailable = isSpotAvailable(prs[j], withinInterval);
       if (spotAvailable) {
         showSpot = true;
@@ -145,15 +177,25 @@ function showSpotsByTimeOfOperation(allMarkers, targetTime) {
   }
 }
 
+/*
+ * Checks if a restriction is in or out of an interval
+ */
 function isSpotAvailable(restriction, withinInterval) {
   var isAvailable = false;
   var bitsOfPR = splitRestriction(restriction);
   var status = bitsOfPR[bitsOfPR.length-1];
+  // if the restriction says that the spot is unavailable,
+  // but the datetime is outside the restriction interval, then the spot
+  // is actually available
   if (status === "unavailable" && !withinInterval) {
     isAvailable = true;
+  // if a restriction says the spot is only available,
+  // in a certain interval, and the datetime in within
+  // this interval, then the spot is available
   } else if (status === "available" && withinInterval) {
     isAvailable = true;
   }
+  // In all other cases, the spot is unavailable
   return isAvailable;
 }
 
