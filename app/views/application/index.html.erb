@@ -85,6 +85,37 @@
 
         <div class="spacer"></div>
 
+        <!-- Checkin controls -->
+        <div id="checkin-controls">
+          <span><strong>Checkins</strong></span>
+          <hr>
+          <div class="msg-checkin-logged-out" style="display: block;">
+            Sign in to see your checkins.
+          </div>
+
+          <div class="msg-no-active-checkin" style="display: none;">
+            You don't have an active checkin.
+          </div>
+
+          <div class="when-has-checkin" style="display: none;">
+            <span class="txt-checked-in-at">Checked in at: Jun 14, 14:20.</span>
+
+            <div class="spacer"></div>
+
+            <!-- Checkout button -->
+            <button id="checkOut-btn" class="mdl-button mdl-js-button mdl-button--raised checkOut-btn">
+              Checkout
+            </button>
+
+            <!-- Route to checkin spot button -->
+            <button id="route-checkin-btn" class="mdl-button mdl-js-button mdl-button--raised route-checkin-btn">
+              Route to checkin spot
+            </button>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+
         <!-- Incidents -->
         <div id="incident-controls">
           <span><strong>Incident reports</strong></span>
@@ -240,7 +271,12 @@
 
   <!-- Raised button -->
   <button class="mdl-button mdl-js-button mdl-button--raised route-btn">
-    Calculate route from my current location
+    Show route from my location
+  </button>
+
+  <!-- CheckIn button -->
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent checkIn-btn">
+    Checkin
   </button>
 </div>
 

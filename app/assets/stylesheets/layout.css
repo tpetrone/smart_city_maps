@@ -95,3 +95,12 @@ html, body {
 #establishment-controls input[type=checkbox] {
   vertical-align: top;
 }
+
+/*
+ * Checkins.
+ * ----------------------------------------------------------- */
+
+.checkIn-btn,
+.route-checkin-btn {
+  margin-left: 10px;
+}

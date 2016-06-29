@@ -105,8 +105,8 @@ function showEstabSpotsOnly(place) {
               obj.marker.marker.setVisible(true);
             }
             else {
-              console.log("Comparing " + obj.spot.google_establishment_id + " with " + place.place_id);
-              if (obj.spot.google_establishment_id !== place.place_id) {
+              console.log("Comparing " + obj.spot.attributes.google_establishment_id + " with " + place.place_id);
+              if (obj.spot.attributes.google_establishment_id !== place.place_id) {
                 obj.marker.marker.setVisible(false);
               }
             }

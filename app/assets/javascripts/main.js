@@ -27,6 +27,8 @@ function main() {
     $("#dialog-msg").addClass("hidden");
     $("#dialog-loader").addClass("hidden");
   }
+
+  Checkin.init();
 }
 
 /**

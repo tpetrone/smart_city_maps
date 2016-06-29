@@ -54,9 +54,9 @@ function AvailabilityFilter() {
    * Add a spot to a marker group.
    */
   this.assignSpot = function(spot, marker) {
-    this.markerGroups[Spot.STATUSES[spot.status]].push(marker);
+    this.markerGroups[Spot.STATUSES[spot.attributes.status]].push(marker);
     this.allMarkers.push({
-      spot: spot,
+      spot: spot.attributes,
       marker: marker
     });
   };
