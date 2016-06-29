@@ -9,6 +9,7 @@ function setupUser() {
     // Instantiate modals that will be used to show user messages.
     this.modalForm    = new Modal(document.querySelector("#dialog-form"));
     this.modalMessage = new Modal(document.querySelector("#dialog-msg"));
+    this.modalReset = new Modal(document.querySelector("#dialog-form-reset"));
 
     // Configure jToker.
     this.configJtoker(this);
@@ -22,7 +23,18 @@ function setupUser() {
   User.prototype.configJtoker = function(user) {
     $.auth.configure({
       apiUrl: Rails.config.smartParkingAPI.url,
-      storage:'localStorage'
+      storage:'localStorage',
+
+    confirmationSuccessUrl:  function() {
+      url = window.location.href + "confirmation_token";
+      return url;
+    },
+
+    passwordResetSuccessUrl: function() {
+      url = window.location.href + "reset_password_token";
+      return url;
+    }
+
     })
     .done(function() {
       if ($.auth.user.id) {
@@ -109,6 +121,43 @@ function setupUser() {
   };
 
   /**
+   * Reset Password.
+   */
+  User.prototype.doResetPassword = function(email) {
+    var self = this;
+
+    $.auth.requestPasswordReset({email: email})
+    .then(function(resp) {
+      var msgs = ["Succesfully sent email instructions"];
+      self.updateLayout(msgs, "reset", false);
+    })
+    .fail(function(resp) {
+      var msgs = ["Use the email field to type in your email correctly"];
+      self.updateLayout(msgs, "reset", true);
+    });
+  };
+
+  /**
+   * Update Password.
+   */
+  User.prototype.doUpdatePassword = function(password, password_confirmation) {
+    var self = this;
+
+    $.auth.updatePassword({
+      password: password,
+      password_confirmation: password_confirmation
+    })
+    .then(function(resp) {
+      var msgs = ["Succesfully updated your password"];
+      self.updateLayout(msgs, "update", false);
+    })
+    .fail(function(resp) {
+      var msg = resp.data.errors.full_messages;
+      self.updateLayout(msg, "reset", true);
+    });
+  };
+
+  /**
    * Show error and success messages.
    */
   User.prototype.updateLayout = function (msgs, condition, error){
@@ -167,11 +216,12 @@ function setupUser() {
       // Sign up
       // Upon sucess and failure: show message
       // on form panel.
-      case "signup":
-        $("#panel-signup > .panel-msg").html(msg);
+      default:
+        $(".panel-msg").html(msg);
         break;
     }
   };
+
 }
 
 /**
@@ -189,6 +239,12 @@ $(function () {
     event.preventDefault();
     var inputs = $("#form-signup").serializeArray();
     currentUser.doSignUp(inputs[0].value,inputs[1].value,inputs[2].value);
+  });
+
+  $("#form-reset").submit(function(event){
+    event.preventDefault();
+    var inputs = $("#form-reset").serializeArray();
+    currentUser.doUpdatePassword(inputs[0].value,inputs[1].value);
   });
 
   // Open sign in form.
@@ -221,9 +277,17 @@ $(function () {
     $(".panel-msg").html("");
   });
 
+  // When the user clicks on the reset password link:
+  // - Try to perform reset password.
+  $("#link-reset-password").click(function() {
+    email = $("input[name='email']").val();
+    currentUser.doResetPassword(email);
+  });
+
   // When the user clicks on the signout link:
   // - Try to perform sign up.
   $("#link-signout").click(function() {
     currentUser.doSignOut();
   });
+
 });
