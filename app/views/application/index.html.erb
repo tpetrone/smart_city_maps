@@ -252,6 +252,7 @@
   <button class="mdl-snackbar__action" type="button"></button>
 </div>
 
+<!-- Reset Password Dialog -->
 <dialog id="dialog-form-reset">
   <!-- Close (x) button -->
   <div class="close-wrapper">
@@ -290,81 +291,81 @@
 </dialog>
 
 <!-- Message Display Dialog-->
-      <dialog id="dialog-msg" class="mdl-dialog">
-        <div class="mdl-dialog__content">
-          <p></p>
-        </div>
-        <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-          <button id="dialog-button" type="button" class="mdl-button close-msg">Ok</button>
-        </div>
-      </dialog>
+<dialog id="dialog-msg" class="mdl-dialog">
+  <div class="mdl-dialog__content">
+    <p></p>
+  </div>
+  <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+    <button id="dialog-button" type="button" class="mdl-button close-msg">Ok</button>
+  </div>
+</dialog>
 
-      <!-- Loader Display Dialog-->
-      <dialog id="dialog-loader" class="mdl-dialog">
-        <div class="mdl-dialog__content">
-          <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-        </div>
-      </dialog>
+<!-- Loader Display Dialog-->
+<dialog id="dialog-loader" class="mdl-dialog">
+  <div class="mdl-dialog__content">
+    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+  </div>
+</dialog>
 
-      <!-- SignIn/SignUp form Dialog-->
-      <dialog id="dialog-form">
-        <!-- Close (x) button -->
-        <div class="close-wrapper">
-          <button class="mdl-button mdl-js-button close-form">
-            <i class="material-icons">close</i>
-          </button>
+<!-- SignIn/SignUp form Dialog-->
+<dialog id="dialog-form">
+  <!-- Close (x) button -->
+  <div class="close-wrapper">
+    <button class="mdl-button mdl-js-button close-form">
+      <i class="material-icons">close</i>
+    </button>
+  </div>
+  <div class="mdl-card mdl-shadow--2dp wrapper">
+    <div class="mdl-card__title text-center">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+          <a id="tab-signup" tabindex="-1" href="#panel-signup" class="mdl-tabs__tab is-active">Sign Up</a>
+          <a id="tab-signin" tabindex="-1" href="#panel-signin" class="mdl-tabs__tab">Sign In</a>
         </div>
-        <div class="mdl-card mdl-shadow--2dp wrapper">
-          <div class="mdl-card__title text-center">
-            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-              <div class="mdl-tabs__tab-bar">
-                <a id="tab-signup" tabindex="-1" href="#panel-signup" class="mdl-tabs__tab is-active">Sign Up</a>
-                <a id="tab-signin" tabindex="-1" href="#panel-signin" class="mdl-tabs__tab">Sign In</a>
+        <div id="panel-signup" class="mdl-tabs__panel is-active panel">
+          <div class="panel-msg"></div>
+          <div class="mdl-card__supporting-text">
+            <form id="form-signup">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" name="email" />
+                <label class="mdl-textfield__label" for="email">Email</label>
               </div>
-              <div id="panel-signup" class="mdl-tabs__panel is-active panel">
-                <div class="panel-msg"></div>
-                <div class="mdl-card__supporting-text">
-                  <form id="form-signup">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                      <input class="mdl-textfield__input" type="text" name="email" />
-                      <label class="mdl-textfield__label" for="email">Email</label>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                      <input class="mdl-textfield__input" type="password" name="password" />
-                      <label class="mdl-textfield__label" for="password">Password</label>
-                    </div>
-                    <div id="password-confirm-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                      <input class="mdl-textfield__input" type="password" name="password_confirmation"/>
-                      <label class="mdl-textfield__label" for="password_confirmation">Confirm Password</label>
-                    </div>
-                    <button type="submit" id="form-btn-signup" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
-                      Sign Up
-                    </button>
-                  </form>
-                </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="password" name="password" />
+                <label class="mdl-textfield__label" for="password">Password</label>
               </div>
-              <div id="panel-signin" class="mdl-tabs__panel panel">
-                <div class="panel-msg"></div>
-                <div class="mdl-card__supporting-text">
-                  <form id="form-signin">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                      <input class="mdl-textfield__input" type="text" name="email"/>
-                      <label class="mdl-textfield__label" for="email">Email</label>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                      <input class="mdl-textfield__input" type="password" name="password" />
-                      <label class="mdl-textfield__label" for="password">Password</label>
-                    </div>
-                    <button type="submit" id="form-btn-signin" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
-                      Sign In
-                    </button>
-                  </form>
-                </div>
+              <div id="password-confirm-field" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="password" name="password_confirmation"/>
+                <label class="mdl-textfield__label" for="password_confirmation">Confirm Password</label>
               </div>
-            </div>
-          </div>
-          <div class="mdl-card__actions mdl-card--border text-center">
-          <a id="link-reset-password" class="mdl-navigation__link" href="#">Forgot Password?</a>
+              <button type="submit" id="form-btn-signup" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                Sign Up
+              </button>
+            </form>
           </div>
         </div>
-      </dialog>
+        <div id="panel-signin" class="mdl-tabs__panel panel">
+          <div class="panel-msg"></div>
+          <div class="mdl-card__supporting-text">
+            <form id="form-signin">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" name="email"/>
+                <label class="mdl-textfield__label" for="email">Email</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="password" name="password" />
+                <label class="mdl-textfield__label" for="password">Password</label>
+              </div>
+              <button type="submit" id="form-btn-signin" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                Sign In
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mdl-card__actions mdl-card--border text-center">
+    <a id="link-reset-password" class="mdl-navigation__link" href="#">Forgot Password?</a>
+    </div>
+  </div>
+</dialog>
