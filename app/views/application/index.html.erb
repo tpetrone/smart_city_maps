@@ -227,10 +227,69 @@
             </div>
           </div>
         </div>
-
       </div>
+    </div>
+  </main>
+</div>
 
-      <!-- Message Display Dialog-->
+<div class="parking-spot-details" style="display: none">
+  <ul>
+    <li data-attr="type"><strong>Type:</strong> <span>AAA</span></li>
+    <li data-attr="parking-schedules-text" style="display: none;"><strong>Parking restrictions:</strong> <span >BBB</span></li>
+    <li data-attr="parking-schedules-list" style="display: none;"><strong>Parking restrictions:</strong><ul></ul></li>
+    <li data-attr="pricing-schedules-text" style="display: none;"><strong>Pricing restrictions:</strong> <span>CCC</span></li>
+    <li data-attr="pricing-schedules-list" style="display: none;"><strong>Pricing restrictions:</strong><ul></ul></li>
+  </ul>
+
+  <!-- Raised button -->
+  <button class="mdl-button mdl-js-button mdl-button--raised route-btn">
+    Calculate route from my current location
+  </button>
+</div>
+
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+
+<dialog id="dialog-form-reset">
+  <!-- Close (x) button -->
+  <div class="close-wrapper">
+    <button class="mdl-button mdl-js-button close-reset">
+      <i class="material-icons">close</i>
+    </button>
+  </div>
+  <div class="mdl-card mdl-shadow--2dp wrapper">
+    <div class="mdl-card__title text-center">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+          <a id="tab-reset" tabindex="-1" href="#panel-reset" class="mdl-tabs__tab is-active">Reset Password</a>
+        </div>
+        <div id="panel-reset" class="mdl-tabs__panel is-active panel">
+          <div class="panel-msg"></div>
+          <div class="mdl-card__supporting-text">
+            <form id="form-reset">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="password" name="password" />
+                <label class="mdl-textfield__label" for="password">Password</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="password" name="password_confirmation"/>
+                <label class="mdl-textfield__label" for="password_confirmation">Confirm Password</label>
+              </div>
+              <button type="submit" id="form-btn-reset" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                Reset!
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</dialog>
+
+<!-- Message Display Dialog-->
       <dialog id="dialog-msg" class="mdl-dialog">
         <div class="mdl-dialog__content">
           <p></p>
@@ -305,35 +364,7 @@
             </div>
           </div>
           <div class="mdl-card__actions mdl-card--border text-center">
+          <a id="link-reset-password" class="mdl-navigation__link" href="#">Forgot Password?</a>
           </div>
         </div>
       </dialog>
-
-    </div>
-  </main>
-</div>
-
-<div class="parking-spot-details" style="display: none">
-  <ul>
-    <li data-attr="type"><strong>Type:</strong> <span>AAA</span></li>
-    <li data-attr="parking-schedules-text" style="display: none;"><strong>Parking restrictions:</strong> <span >BBB</span></li>
-    <li data-attr="parking-schedules-list" style="display: none;"><strong>Parking restrictions:</strong><ul></ul></li>
-    <li data-attr="pricing-schedules-text" style="display: none;"><strong>Pricing restrictions:</strong> <span>CCC</span></li>
-    <li data-attr="pricing-schedules-list" style="display: none;"><strong>Pricing restrictions:</strong><ul></ul></li>
-  </ul>
-
-  <!-- Raised button -->
-  <button class="mdl-button mdl-js-button mdl-button--raised route-btn">
-    Show route from my location
-  </button>
-
-  <!-- CheckIn button -->
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent checkIn-btn">
-    Checkin
-  </button>
-</div>
-
-<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-  <div class="mdl-snackbar__text"></div>
-  <button class="mdl-snackbar__action" type="button"></button>
-</div>
