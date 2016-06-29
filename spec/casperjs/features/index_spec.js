@@ -10,6 +10,7 @@ var features = {
   filtersSpec: require('./_filters_spec'),
   geolocationSpec: require('./_geolocation_spec'),
   incidentSpec: require('./_incident_spec'),
+  parkingRestrictionsSpec: require('./_parking_restrictions_spec'),
   routesSpec: require('./_routes_spec'),
   spotsSpec: require('./_spots_spec'),
   userSpec: require('./_user_spec')
@@ -23,7 +24,7 @@ var colorizer = require('colorizer').create('Colorizer');
  */
 casper.options.viewportSize = { width: 1024, height: 768 };
 
-casper.test.begin('Start page loads correctly', 44, function suite(test) {
+casper.test.begin('Start page loads correctly', 47, function suite(test) {
 
   var startedAt = new Date().getTime();
   casper.start('http://localhost:3011', function() {
@@ -64,7 +65,8 @@ casper.test.begin('Start page loads correctly', 44, function suite(test) {
    'routesSpec',
    'userSpec',
    'incidentSpec',
-   'checkinsSpec'
+   'checkinsSpec',
+   'parkingRestrictionsSpec'
   ];
 
   for(var i = 0; i < featuresModules.length; i++) {
