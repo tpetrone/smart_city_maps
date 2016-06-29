@@ -105,7 +105,7 @@ exports.spec = function(casper, test, other) {
   casper.then(function() {
     casper.evaluate(function() {
       $("input[name='email']").val("user@valid.com");
-      $("#form-btn-login").click();
+      $("#form-btn-signin").click();
     });
   });
 
@@ -137,6 +137,12 @@ exports.spec = function(casper, test, other) {
     });
     test.assertEquals(msg, "S", "Success messages shown correctly");
 
+    // Assert success message
+    var email = casper.evaluate(function() {
+      return $(".user-id").html()[0];
+    });
+    test.assertEquals(email, "L", "User email shown correctly");
+
     // Assert modal closed
     isVisible = casper.evaluate(function(){
       $(".close-msg").click();
@@ -144,7 +150,7 @@ exports.spec = function(casper, test, other) {
       });
     test.assertEquals(isVisible, false, "Message successfully hidden");
 
-  }, function timeout() {}, 2000);
+  }, function timeout() {}, 3000);
 
   /**
    * Click on the menu.

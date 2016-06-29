@@ -3,6 +3,7 @@ function setupUser() {
   User = function() {
     // Initialize attributes.
     this.id = null;
+    this.email = null;
     this.isLoggedIn = false;
 
     // Instantiate modals that will be used to show user messages.
@@ -47,11 +48,11 @@ function setupUser() {
       password_confirmation: password_confirmation
     })
     .then(function(user) {
-      msg = ["An email was sent to " + user.data.email];
+      var msg = ["An email was sent to " + user.data.email];
       self.updateLayout(msg, "signup", false);
     })
     .fail(function(resp) {
-      msg = resp.data.errors.full_messages;
+      var msg = resp.data.errors.full_messages;
       self.updateLayout(msg, "signup", true);
     });
   };
@@ -73,12 +74,13 @@ function setupUser() {
     })
     .then(function(user) {
       self.id = user.data.id;
+      self.email = user.data.email;
       self.isLoggedIn = true;
-      msg = ["Successfully signed in as " + user.data.email];
+      var msg = ["Successfully signed in as " + user.data.email];
       self.updateLayout(msg, "signin", false);
     })
     .fail(function(resp) {
-      msg = resp.data.errors;
+      var msg = resp.data.errors;
       self.updateLayout(msg, "signin", true);
     });
   };
@@ -97,11 +99,11 @@ function setupUser() {
     .then(function(resp) {
       self.id = null;
       self.isLoggedIn = false;
-      msgs = ["Succesfully signed out"];
+      var msgs = ["Succesfully signed out"];
       self.updateLayout(msgs, "signout", false);
     })
     .fail(function(resp) {
-      msgs = ["There was an error. Try again."];
+      var msgs = ["There was an error. Try again."];
       self.updateLayout(msgs, "signout", true);
     });
   };
@@ -142,6 +144,7 @@ function setupUser() {
       case "signin":
         if (!error){
           this.modalForm.hide();
+          $(".user-id").html("Logged in as " + this.email);
           $("#link-signin").hide();
           $("#link-signout").show();
           this.modalMessage.show(msg);
@@ -155,6 +158,7 @@ function setupUser() {
       // Upon failure: Show message on a modal.
       case "signout":
         if (!error){
+          $(".user-id").html("Not Logged In");
           $("#link-signin").show();
           $("#link-signout").hide();
         }
