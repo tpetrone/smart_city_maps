@@ -19,12 +19,6 @@ function GmapMarker (gmap, spotData, spotId) {
     var detail = new Detail();
     detail.showInfo(gmap, this.marker, _data, spotId);
 
-    this.marker.addListener('click', function() {
-      currentSpot = {
-        id: spotId
-      };
-      Incident.spotSelectedHandler(spotId);
-    });
   };
 }
 

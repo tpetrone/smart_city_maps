@@ -1,5 +1,3 @@
-var user_logged_id = 1;
-
 function Detail() {
 
   /**
@@ -39,6 +37,19 @@ function Detail() {
       Detail.currentInfoWindow = newInfoWindow;
       newInfoWindow.open(map, marker);
 
+      currentSpot = spot;
+
+      if (currentSpot.attributes.status == 0 /* available */) {
+        // Checkin button.
+        $(".checkIn-btn").on('click', function() {
+           Checkin.create();
+        });
+      } else {
+        $(".checkIn-btn").attr('disabled', true);
+      }
+
+      Incident.spotSelectedHandler(spot.id);
+
       google.maps.event.addListener(newInfoWindow, 'closeclick', function () {
         Incident.spotUnselectedHandler();
       });
@@ -46,14 +57,6 @@ function Detail() {
       $(".route-btn").on('click', function() {
         newInfoWindow.close();
         traceroute(map, marker.position);
-      });
-
-      //button to do checkin
-      $(".checkIn-btn").on('click', function() {
-        console.log("you clicked the checkin button");
-        current_checkIn = new Checkin(spot.id, user_logged_id);
-        current_checkIn.save();
-
       });
     });
   };

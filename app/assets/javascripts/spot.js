@@ -19,24 +19,3 @@ Spot.search = function() {
     console.log("error");
   });
 };
-
-// Set checkin to Spot for current user
-Spot.checkin = function(spotId, userId) {
-  return $.post(Rails.config.smartParkingAPI.url + "/checkins", {
-    token: Rails.config.smartParkingAPI.token,
-    spot_id: spotId,
-    user_id: userId
-  }).done(function(response) {
-    if (response.data[0].id){
-      user_checked = response.data[0].attributes.user_id.toString();
-      spot_checked = response.data[0].attributes.spot_id.toString();
-      console.log("You (user_id: " + user_checked+ ') did checkin on spot_id: ' + spot_checked);
-    }else{
-      console.log("You can not do new checkin");
-      console.log(" - You have a current checkin waiting for checkout, or");
-      console.log(" - Another user did checkin in the same spot");
-    }      
-  }).fail(function() {
-      console.log("Error on save checkin in database")
-  });
-};
