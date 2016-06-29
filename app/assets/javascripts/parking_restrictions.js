@@ -31,8 +31,12 @@ $(function () {
      formatDate:'Y/m/d'
    });
    $('#datetimepicker').change(function() {
-     var targetTime = getTargetTime(dateStr, timeStr);
-     showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
+     var targetTime = getTargetTime();
+     if (targetTime !== null) {
+       showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
+     } else {
+       $(this).val("");
+     }
    });
 });
 
@@ -52,12 +56,21 @@ function getMinPrice() {
   return min;
 }
 
+function getTargetTime() {
+  var datetimeStr = $("#datetimepicker").val();
+  if (datetimeStr == "") {
+    return null;
+  }
+  var bits = datetimeStr.split(/ |\/|:/);
+  return new Date(bits[2], bits[0]-1, bits[1], bits[3], bits[4], 59, 0);
+}
+
 /*
  * Shows only spots with prices lower than newMax
  */
 function showSpotsBelowThisPrice(allMarkers, min, newMax) {
   min = (min === null) ? 0.0 : min;
-  var datetime = getTargetTime();
+  var datetime = (getTargetTime() !== null) ? getTargetTime() : new Date();
   for (var i = 0; i < allMarkers.length; i++) {
     var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
@@ -86,7 +99,7 @@ function showSpotsBelowThisPrice(allMarkers, min, newMax) {
  */
 function showSpotsAboveThisPrice(allMarkers, newMin, max) {
   max = (max === null) ? Number.MAX_VALUE : max;
-  var datetime = getTargetTime();
+  var datetime = (getTargetTime() !== null) ? getTargetTime() : new Date();
   for (var i = 0; i < allMarkers.length; i++) {
     var prs = getSpotPricingRestriction(allMarkers[i]);
     var spotPrice = 0.0;
@@ -197,8 +210,12 @@ function isWithinInterval(restriction, datetime) {
   var endDIndex = dayOfWeekToIndex(bitsOfPR[1]);
   var targetDIndex = dateToDayOfWeekIndex(datetime);
   // convert string times into Date object
-  var initTime = getRestrictionTime(bitsOfPR[3], datetime);
-  var endTime = getRestrictionTime(bitsOfPR[5], datetime);
+  var i = 3;
+  if (endDIndex === -1) {
+    i = i - 1;
+  }
+  var initTime = getRestrictionTime(bitsOfPR[i], datetime);
+  var endTime = getRestrictionTime(bitsOfPR[i+2], datetime);
   // Show the spots if allowed
   var within = false;
   if (isWithinWeekDay(initDIndex, endDIndex, targetDIndex) &&
@@ -255,25 +272,4 @@ function isWithinTime(initTime, endTime, targetTime) {
     within = true;
   }
   return within;
-}
-
-function getTargetTime() {
-  var fullDatetimeStr = $("#datetimepicker").val();
-  var targetTime;
-  if (fullDatetimeStr !== "") {
-    var fullDateBits = fullDatetimeStr.split(/ /);
-    var stringDate = fullDateBits[0];
-    var stringTime = fullDateBits[1];
-    var dateBits = stringDate.split(/\//);
-    var M = parseInt(dateBits[0])-1;
-    var d = parseInt(dateBits[1]);
-    var y = parseInt(dateBits[2]);
-    var timeBits = stringTime.split(/:/);
-    var h = parseInt(timeBits[0]);
-    var m = parseInt(timeBits[1]);
-    targetTime = new Date(y, M, d, h, m, 59, 0);
-  } else {
-    targetTime = new Date();
-  }
-  return targetTime;
 }

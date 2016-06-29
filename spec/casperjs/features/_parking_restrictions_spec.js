@@ -19,8 +19,8 @@ exports.spec = function(casper, test, other) {
   casper.then(function() {
     casper.evaluate(function() {
       var parking_rs = [
-        "Mon-Fri | 8:00:00 to 17:59:59: unavailable",
-        "Sun | 00:00:00 to 23:59:59: available"
+        "Tue-Thu | 8:00:00 to 17:59:59: unavailable",
+        "Wed | 00:00:00 to 23:59:59: available"
       ];
       window.parking_restrictions = parking_rs;
       return window.parking_restrictions;
@@ -35,7 +35,7 @@ exports.spec = function(casper, test, other) {
        var prs = window.pricing_restrictions;
        return window.getSpotPrice(prs[0]);
      });
-     test.assert(spotPrice === 10.0, "Get price from parking restriction was successfull");
+     test.assert(spotPrice === 10.0, "Get price from pricing restriction was successfull");
   });
 
   /*
@@ -80,8 +80,49 @@ exports.spec = function(casper, test, other) {
     test.assert(isVisible === true, "Show spot below $20.00 was successful");
   });
 
+
+
+  casper.then(function() {
+    var isVisible = casper.evaluate(function() {
+      var oneMarker = window.one_marker;
+      oneMarker[0].marker.marker.visible = true;
+      var targetTime = new Date(2016, 5, 28, 12, 0, 0, 0); //27/06/2016 12:00:00
+      window.showSpotsByTimeOfOperation(oneMarker, targetTime);
+      return oneMarker[0].marker.marker.visible;
+    });
+    test.assert(isVisible === false, "Hide unavailable spot was successful");
+  });
+
+  casper.then(function() {
+    var isVisible = casper.evaluate(function() {
+      var oneMarker = window.one_marker;
+      oneMarker[0].marker.marker.visible = false;
+      var targetTime = new Date(2016, 5, 27, 20, 0, 0, 0); //27/06/2016 20:00:00
+      window.showSpotsByTimeOfOperation(oneMarker, targetTime);
+      return oneMarker[0].marker.marker.visible;
+    });
+    test.assert(isVisible === true, "Show spot outside restriction was successful");
+  });
+
+  casper.then(function() {
+    var isAvailable = casper.evaluate(function() {
+      var parking_rs = window.parking_restrictions;
+      return window.isSpotAvailable(parking_rs[1], true);
+    });
+    test.assert(isAvailable === true, "Spot with available restriction is available");
+  });
+
+  casper.then(function() {
+    var isWithin = casper.evaluate(function() {
+      var parking_rs = window.parking_restrictions;
+      var targetTime = new Date(2016, 5, 29, 17, 0, 0, 0); //29/06/2016 17:00:00
+      return window.isWithinInterval(parking_rs[1], targetTime);
+    });
+    test.assert(isWithin === true, "One date restriction is within interval");
+  });
+
   /*
-   * This function is needed for improving test coverage
+   * This function is here for augmenting tests coverage
    */
   casper.then(function() {
     casper.evaluate(function() {
@@ -89,24 +130,33 @@ exports.spec = function(casper, test, other) {
       var evt = document.createEvent("HTMLEvents");
       evt.initEvent("change", false, true);
 
-      // Simulate a change event for  max-price
-      window.document.getElementById("max-price").value = 10.0;
-      window.document.getElementById("max-price").dispatchEvent(evt);
+      // Simulate a change event for max-price with a valid value
+      var maxPrice = window.document.getElementById("max-price");
+      maxPrice.value = 10.0;
+      maxPrice.dispatchEvent(evt);
 
-      // Simulate a change event for  min-price
-      window.document.getElementById("min-price").value = 10.0;
-      window.document.getElementById("min-price").dispatchEvent(evt);
+      // Simulate a change event for max-price with an invalid value
+      maxPrice.value = -10.0;
+      maxPrice.dispatchEvent(evt);
+
+      // Simulate a change event for min-price with a valid value
+      var minPrice = window.document.getElementById("min-price");
+      minPrice.value = 10.0;
+      minPrice.dispatchEvent(evt);
+
+      // Simulate a change event for min-price with an invalid value
+      minPrice.value = -10.0;
+      minPrice.dispatchEvent(evt);
+
+      // Simulate a change event for datetimepicker with a valid date
+      var datetime = window.document.getElementById("datetimepicker");
+      datetime.value = "06/29/2016 09:00";
+      datetime.dispatchEvent(evt);
+
+      // Simulate a change event for datetimepicker with an invalid date
+      datetime.value = "";
+      datetime.dispatchEvent(evt);
     });
   });
 
-  casper.then(function() {
-    var isVisible = casper.evaluate(function() {
-      var oneMarker = window.one_marker;
-      oneMarker[0].marker.marker.visible = true;
-      var targetTime = new Date(2016, 5, 27, 12, 0, 0, 0); //27/06/2016 12:00:00
-      window.showSpotsByTimeOfOperation(oneMarker, targetTime);
-      return oneMarker[0].marker.marker.visible;
-    });
-    test.assert(isVisible === false, "Restrict unavailable spot was successful");
-  });
 };
