@@ -72,8 +72,6 @@ function setupUser() {
       password: password
     })
     .then(function(user) {
-      // TODO: remove this after we're done testing users.
-      console.log(user);
       self.id = user.data.id;
       self.isLoggedIn = true;
       msg = ["Successfully signed in as " + user.data.email];
@@ -126,11 +124,11 @@ function setupUser() {
 
     // Change color of the message.
     if (error) {
-      $("#panel").removeClass("panel-success");
-      $("#panel").addClass("panel-error");
+      $(".panel-msg").removeClass("panel-success");
+      $(".panel-msg").addClass("panel-error");
     } else {
-      $("#panel").addClass("panel-success");
-      $("#panel").removeClass("panel-error");
+      $(".panel-msg").addClass("panel-success");
+      $(".panel-msg").removeClass("panel-error");
     }
 
     // Treat different events (signup / signin / signout).
@@ -148,7 +146,7 @@ function setupUser() {
           $("#link-signout").show();
           this.modalMessage.show(msg);
         } else {
-          $("#panel").html(msg);
+          $("#panel-signin > .panel-msg").html(msg);
         }
         break;
       // Sign out
@@ -166,7 +164,7 @@ function setupUser() {
       // Upon sucess and failure: show message
       // on form panel.
       case "signup":
-        $("#panel").html(msg);
+        $("#panel-signup > .panel-msg").html(msg);
         break;
     }
   };
@@ -177,51 +175,46 @@ function setupUser() {
  */
 $(function () {
 
+  $("#form-signin").submit(function(event){
+    event.preventDefault();
+    var inputs = $("#form-signin").serializeArray();
+    currentUser.doSignIn(inputs[0].value,inputs[1].value)
+  });
+
+  $("#form-signup").submit(function(event){
+    event.preventDefault();
+    var inputs = $("#form-signup").serializeArray();
+    currentUser.doSignUp(inputs[0].value,inputs[1].value,inputs[2].value)
+  });
+
   // Open sign in form.
   $("#link-signin").click(function() {
-    $("#panel").html("");
+    $(".panel-msg").html("");
     currentUser.modalForm.show();
   });
 
-  // When user selects the login tab inside the login form:
+  // When user selects the signin tab inside the signin form:
   // - Hide password confirmation field;
   // - Hide sign up button;
-  // - Show login button; and
+  // - Show signin button; and
   // - Clear the panel where error messages appear.
-  $("#tab-login").click(function() {
+  $("#tab-signin").click(function() {
     $("#password-confirm-field").hide(400);
     $("#form-btn-signup").hide();
-    $("#form-btn-login").show(400);
-    $("#panel").html("");
+    $("#form-btn-signin").show(400);
+    $(".panel-msg").html("");
   });
 
   // When user selects the sign up tab inside the sign up form:
   // - Show password confirmation field;
   // - Show sign up button;
-  // - Hide login button; and
+  // - Hide signin button; and
   // - Clear the panel where error messages appear
   $("#tab-signup").click(function() {
     $("#password-confirm-field").show(400);
-    $("#form-btn-login").hide();
+    $("#form-btn-signin").hide();
     $("#form-btn-signup").show(400);
-    $("#panel").html("");
-  });
-
-  // When the user clicks on login button:
-  // - Fetch text fields infos and try to perform login.
-  $("#form-btn-login").click(function() {
-    var email = $("#txt-email").val();
-    var password = $("#txt-password").val();
-    currentUser.doSignIn(email, password);
-  });
-
-  // When the user clicks on the signup button:
-  // - Fetch text fields infos and try to perform sign up.
-  $("#form-btn-signup").click(function() {
-    var email = $("#txt-email").val();
-    var password = $("#txt-password").val();
-    var password_confirmation = $("#txt-password-confirm").val();
-    currentUser.doSignUp(email, password, password_confirmation);
+    $(".panel-msg").html("");
   });
 
   // When the user clicks on the signout link:

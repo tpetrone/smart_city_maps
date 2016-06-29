@@ -17,7 +17,7 @@ exports.spec = function(casper, test, other) {
     casper.evaluate(function() {
       $("#link-signin").click();
       $("#tab-signup").click();
-      $("#txt-email").val("user@not-valid.com");
+      $("input[name='email']").val("user@not-valid.com");
       $("#form-btn-signup").click();
     });
   });
@@ -25,7 +25,7 @@ exports.spec = function(casper, test, other) {
   /**
    * Wait for results and perform assertions.
    */
-  casper.wait(1000, function() {
+  casper.wait(2000, function() {
     console.log("*** Unsuccessful case assertions ***");
     // Assert if Modal is shown
     status = casper.evaluate(function() {
@@ -35,7 +35,7 @@ exports.spec = function(casper, test, other) {
 
     // Assert error message
     var error_msg = casper.evaluate(function() {
-      return $("#panel").html()[0];
+      return $("#panel-signup > .panel-msg").html()[0];
     });
     test.assertEquals(error_msg, "<", "The user could not sign up");
   });
@@ -45,7 +45,7 @@ exports.spec = function(casper, test, other) {
    */
   casper.then(function() {
     casper.evaluate(function() {
-      $("#txt-email").val("user@valid.com");
+      $("input[name='email']").val("user@valid.com");
       $("#form-btn-signup").click();
     });
   });
@@ -57,7 +57,7 @@ exports.spec = function(casper, test, other) {
     console.log("*** Successful case assertions ***");
     // Assert error msg on panel
     var error_msg = casper.evaluate(function() {
-      return $("#panel").html()[0];
+      return $("#panel-signup > .panel-msg").html()[0];
     });
     test.assertEquals(error_msg, "A", "The user signed up successfuly");
   });
@@ -71,8 +71,8 @@ exports.spec = function(casper, test, other) {
     console.log("***");
     casper.evaluate(function() {
       $("#tab-login").click();
-      $("#txt-email").val("user@not-valid.com");
-      $("#form-btn-login").click();
+      $("input[name='email']").val("user@not-valid.com");
+      $("#form-btn-signin").click();
     });
   });
 
@@ -89,11 +89,11 @@ exports.spec = function(casper, test, other) {
     var status = casper.evaluate(function() {
       return currentUser.isLoggedIn;
     });
+    test.assertEquals(status, false, "The user could not login");
 
     // Assert error message on the panel
-    test.assertEquals(status, false, "The user could not login");
     var error_msg = casper.evaluate(function() {
-      return $("#panel").html()[0];
+      return $("#panel-signin > .panel-msg").html()[0];
     });
     test.assertEquals(error_msg, "I", "Error messages shown correctly");
   }, 2000);
@@ -104,7 +104,7 @@ exports.spec = function(casper, test, other) {
    */
   casper.then(function() {
     casper.evaluate(function() {
-      $("#txt-email").val("user@valid.com");
+      $("input[name='email']").val("user@valid.com");
       $("#form-btn-login").click();
     });
   });
