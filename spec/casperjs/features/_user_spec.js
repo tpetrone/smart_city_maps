@@ -194,7 +194,7 @@ exports.spec = function(casper, test, other) {
   /**
    * Perform assertions.
    */
-  casper.then(function() {
+  casper.wait(1000, function() {
     console.log("*** Unsuccessful case assertions ***");
     // Assert error message
     var error_msg = casper.evaluate(function() {
