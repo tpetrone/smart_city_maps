@@ -8,7 +8,7 @@ var features = {
   autocompleteSpec: require('./_autocomplete_spec'),
   filtersSpec: require('./_filters_spec'),
   geolocationSpec: require('./_geolocation_spec'),
-  incidentSpec: require('./_incident_spec')
+  incidentSpec: require('./_incident_spec'),
   routesSpec: require('./_routes_spec'),
   spotsSpec: require('./_spots_spec'),
   userSpec: require('./_user_spec'),
