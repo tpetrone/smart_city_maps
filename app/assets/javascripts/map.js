@@ -18,6 +18,11 @@ function setupGmapClass() {
     this.refresh = null;
   };
 
+  /**
+   * Minimum change of center (in meters) that will trigger a map update.
+   */
+  Gmap.MIN_DISTANCE_TO_UPDATE = 50;
+
   // Make Gmap "inherit" from google.maps.Map.
   Gmap.prototype = Object.create(google.maps.Map.prototype);
   Gmap.prototype.constructor = Gmap;
@@ -33,10 +38,18 @@ function setupGmapClass() {
     * assign it to AvailabilityFilter
     */
   Gmap.prototype.refreshFromAPI = function() {
+    var lat = map.getCenter().lat();
+    var lng = map.getCenter().lng();
+
+    NotificationCenter.showAndWait("Loading spots...");
+
     Spot.search({
-      lat: map.getCenter().lat().toString(),
-      lng: map.getCenter().lng().toString()
+      lat: lat,
+      lng: lng
     }).done(function (response) {
+
+      NotificationCenter.hideAll();
+      NotificationCenter.success("Found " + response.data.length + " spots.");
 
       filterManager.resetAll();
 

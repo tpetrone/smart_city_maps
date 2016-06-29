@@ -8,11 +8,10 @@ Spot.STATUSES = {
   '1': 'occupied'
 };
 
-Spot.search = function() {
+Spot.search = function(args) {
   return $.get(Rails.config.smartParkingAPI.url + "/spots/search", {
-    token: Rails.config.smartParkingAPI.token,
-    lat: "-23.545241799982602",
-    lng: "-46.63861848413944"
+    lat: args.lat,
+    lng: args.lng
   }).done(function(response) {
     console.log("done!");
   }).fail(function() {
