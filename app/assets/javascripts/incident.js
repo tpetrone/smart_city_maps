@@ -1,3 +1,6 @@
+/**
+ * Object for managing incidents.
+ */
 Incident = new (function() {
   var self = this;
 

@@ -4,7 +4,8 @@ function Detail() {
    * Prepares the details window for a marker and binds on the
    * 'click' event to display the details.
    */
-  this.showInfo = function(map, marker, details, spot_id){
+  this.showInfo = function(map, marker, spot, spot_id){
+    details = spot.attributes;
 
     var content = $(".parking-spot-details").clone().show();
 
@@ -35,6 +36,19 @@ function Detail() {
 
       Detail.currentInfoWindow = newInfoWindow;
       newInfoWindow.open(map, marker);
+
+      currentSpot = spot;
+
+      if (currentSpot.attributes.status == 0 /* available */) {
+        // Checkin button.
+        $(".checkIn-btn").on('click', function() {
+           Checkin.create();
+        });
+      } else {
+        $(".checkIn-btn").attr('disabled', true);
+      }
+
+      Incident.spotSelectedHandler(spot.id);
 
       google.maps.event.addListener(newInfoWindow, 'closeclick', function () {
         Incident.spotUnselectedHandler();

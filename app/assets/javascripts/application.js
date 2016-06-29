@@ -12,14 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+
+// jToker dependencies
+// -------------------
 //= require jquery-deparam
 //= require pubsub.js
 //= require jquery.j-toker
+
+// Datepicker dependencies
+// -----------------------
+//= require jquery-ui
+//= require datetimepicker-min
 
 // The Rails helpers file must be loaded first.
 //= require rails_helpers
 
 //= require_tree .
-
-//= require datetimepicker-min

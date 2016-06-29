@@ -1,317 +1,187 @@
-$(function () {
-  /*
-   * Listens for changes in min-price element
+/**
+ * Object for managing datetime and pricing filters.
+ */
+ParkingFilter = new (function() {
+  var self = this;
+
+  this.WEEKDAYS = {
+    sun: 0,
+    mon: 1,
+    tue: 2,
+    wed: 3,
+    thu: 4,
+    fri: 5,
+    sat: 6
+  };
+
+  this.currentMin = 0;
+  this.currentMax = 30;
+  this.currentDatetime = null;
+
+  /**
+   * Show/hide spots according to new pricing bounds.
    */
-  $("#min-price").change(function() {
-    var newMin = getMinPrice();
-    if (newMin !== null) {
-      var max = getMaxPrice();
-      showSpotsAboveThisPrice(filterManager.allMarkers, newMin, max);
-    } else {
-      $(this).val("");
+  this.updateSpots = function() {
+    self.showSpotInPriceRange(self.currentMin, self.currentMax);
+  };
+
+  /**
+   * Show/hide spots according to given pricing bounds.
+   */
+  this.showSpotInPriceRange = function(min, max) {
+    self.forEachMarker(filterManager.allMarkers, function(spot) {
+      return spot.spot.formatted_details.pricing_restrictions;
+    }, function(restriction) {
+      var spotPrice = 0;
+      if (restriction) {
+        spotPrice = self.getSpotPrice(restriction);
+      }
+      return spotPrice >= min && spotPrice <= max;
+    }, "showSpotInPriceRange");
+  };
+
+  /**
+   * Show/hide spots according to currently selected datetime.
+   */
+  this.showSpotsByTimeOfOperation = function() {
+    self.forEachMarker(filterManager.allMarkers, function(spot) {
+      return spot.spot.formatted_details.parking_restrictions;
+    }, function(restriction) {
+      if (!restriction) {
+        return true;
+      }
+      return !(/unavailable/.test(restriction));
+    }, "showSpotsByTimeOfOperation");
+  };
+
+  /**
+   * Iterator function.
+   */
+  this.forEachMarker = function(allMarkers, getRestrictionsFn, getSpotAvailabilityFn, fn) {
+    for (var i = 0; i < allMarkers.length; i++) {
+      var prs = getRestrictionsFn(allMarkers[i]);
+      var showSpot = true;
+      if (prs.length) {
+        for (var j = 0; j < prs.length; j++) {
+          var withinInterval = self.isWithinInterval(prs[j], self.currentDatetime);
+          if (withinInterval || (/price/i.test(fn) && !self.currentDatetime)) {
+            showSpot = getSpotAvailabilityFn(prs[j]);
+            if (!showSpot) {
+              break;
+            }
+          }
+        }
+      } else {
+        showSpot = getSpotAvailabilityFn(null);
+      }
+
+      var marker = allMarkers[i].marker.marker;
+      filterManager.applyFilters(marker, fn, showSpot);
+    }
+  };
+
+  /*
+   * Extract spot price from the parking restriction string.
+   */
+  this.getSpotPrice = function (priceStr) {
+    var vet = priceStr.split(/\$/);
+    return parseFloat(vet[1]);
+  };
+
+  /**
+   * Check if a restriction applies to the given datetime.
+   */
+  this.isWithinInterval = function (restriction, datetime) {
+    // If there is no datetime to check, then it's no within this
+    // "null" interval.
+    if (!datetime) {
+      return false;
+    }
+
+    // Split the parking restriction string into its bits.
+    var bitsOfPR = self.splitRestriction(restriction);
+
+    // Get indexes for the days of week
+    var startDay  = self.WEEKDAYS[bitsOfPR[0]];
+    var endDay    = self.WEEKDAYS[bitsOfPR[1]];
+    var targetDay = datetime.getDay();
+
+    // convert string times into Date object
+    var startTime = self.getRestrictionTime(bitsOfPR[3], datetime);
+    var endTime = self.getRestrictionTime(bitsOfPR[5], datetime);
+
+    return self.isWithinRange(startDay, endDay, targetDay) &&
+           self.isWithinRange(startTime, endTime, datetime);
+  }
+
+  /*
+   * Splits parkings and pricing restrictions string into an array
+   */
+  this.splitRestriction = function (restriction) {
+    return restriction.toLowerCase().split(/-| |: /);
+  };
+
+  /*
+   * Convert a string time into a Date object.
+   */
+  this.getRestrictionTime = function (stringTime, targetTime) {
+    var d  = targetTime.getDate();
+    var M  = targetTime.getMonth();
+    var y  = targetTime.getFullYear();
+    var hs = stringTime.split(/:/);
+    var h  = parseInt(hs[0]);
+    var m  = parseInt(hs[1]);
+    return new Date(y, M, d, h, m, 59, 0);
+  };
+
+  /**
+   * Check if target value is within the [start, end] range.
+   */
+  this.isWithinRange = function (start, end, target) {
+    return target >= start && target <= end;
+  };
+
+});
+
+/**
+ * Attach event handlers to DOM elements on page load.
+ */
+$(function() {
+
+  /**
+   * Setup datetime picker.
+   */
+  $('#datetimepicker').datetimepicker({
+    step: 15,
+    format:'m/d/Y H:i',
+    formatDate:'Y/m/d',
+    onChangeDateTime: function (datetime) {
+      ParkingFilter.currentDatetime = datetime;
+      ParkingFilter.showSpotsByTimeOfOperation();
     }
   });
 
-  /*
-   * Listens for changes in max-price element
+  /**
+   * Update markers when min or max price changes.
    */
-   $("#max-price").change(function() {
-     var newMax = getMaxPrice();
-     if (newMax !== null) {
-       var min = getMinPrice();
-       showSpotsBelowThisPrice(filterManager.allMarkers, min, newMax);
-     } else {
-       $(this).val("");
-     }
-   });
+  $("#min-price, #max-price").change(function(evt) {
+    var newBound = parseInt(evt.target.value);
 
-   /*
-    * Creates a datetime picker component
-    */
-   $('#datetimepicker').datetimepicker({
-     step: 15,
-     format:'m/d/Y H:i',
-     formatDate:'Y/m/d'
-   });
+    if (/min/.test(evt.target.id)) {
+      ParkingFilter.currentMin = newBound;
+    } else {
+      ParkingFilter.currentMax = newBound;
+    }
 
-   /*
-    * Listens for changes in datetimepicker element
-    */
-   $('#datetimepicker').change(function() {
-     var targetTime = getTargetTime();
-     if (targetTime !== null) {
-       showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
-     } else {
-       $(this).val("");
-     }
-   });
+    ParkingFilter.updateSpots();
+  });
+
+  /**
+   * Update UI pricing labels.
+   */
+  $("#min-price, #max-price").on("input", function() {
+    $(this).closest(".price-slider-container")
+           .find(".txt-" + this.id)
+           .html("$ " + this.value);
+  });
 });
-
-/*
- * Gets the value of the max-price element
- */
-function getMaxPrice() {
-  var max = parseFloat($("#max-price").val());
-  if (isNaN(max) || max < 0.0) {
-    max = null;
-  }
-  return max;
-}
-
-/*
- * Gets the value of the min-price element
- */
-function getMinPrice() {
-  var min = parseFloat($("#min-price").val());
-  if (isNaN(min) || min < 0.0) {
-    min = null;
-  }
-  return min;
-}
-
-/*
- * Gets the value of the datetimepicker element
- */
-function getTargetTime() {
-  var datetimeStr = $("#datetimepicker").val();
-  if (datetimeStr === "") {
-    return null;
-  }
-  var bits = datetimeStr.split(/ |\/|:/);
-  return new Date(bits[2], bits[0]-1, bits[1], bits[3], bits[4], 59, 0);
-}
-
-/*
- * Shows only spots with prices lower than newMax
- */
-function showSpotsBelowThisPrice(allMarkers, min, newMax) {
-  // if there is no min specified, use 0.0
-  min = (min === null) ? 0.0 : min;
-  // If there is no targetTime, use today's date
-  var datetime = (getTargetTime() !== null) ? getTargetTime() : new Date();
-  for (var i = 0; i < allMarkers.length; i++) {
-    // Get the string associated to the pricing restriction
-    var prs = getSpotPricingRestriction(allMarkers[i]);
-    var spotPrice = 0.0;
-    for (var j = 0; j < prs.length; j++) {
-      // For every restriction in the spot, check if the datetime
-      // is in the interval of the restriction
-      var withinInterval = isWithinInterval(prs[j], datetime);
-      if (withinInterval) {
-        // If the spot is in the interval, get the spot price as a number
-        spotPrice = getSpotPrice(prs[j]);
-        break;
-      }
-    }
-    // Show the spot if its price is below or equal to the threshold
-    var showSpot;
-    if (spotPrice <= newMax && spotPrice >= min) {
-      showSpot = true;
-    } else {
-      showSpot = false;
-    }
-    var marker = allMarkers[i].marker.marker;
-    filterManager.applyFilters(marker, fName(arguments), showSpot);
-  }
-}
-
-/*
- * Shows only spots with prices higher than newMin
- */
-function showSpotsAboveThisPrice(allMarkers, newMin, max) {
-  // if there is no max specified, use Number.MAX_VALUE
-  max = (max === null) ? Number.MAX_VALUE : max;
-  // If there is no targetTime, use today's date
-  var datetime = (getTargetTime() !== null) ? getTargetTime() : new Date();
-  for (var i = 0; i < allMarkers.length; i++) {
-    // Get the string associated to the pricing restriction
-    var prs = getSpotPricingRestriction(allMarkers[i]);
-    var spotPrice = 0.0;
-    for (var j = 0; j < prs.length; j++) {
-      // For every restriction in the spot, check if the datetime
-      // is in the interval of the restriction
-      var withinInterval = isWithinInterval(prs[j], datetime);
-      if (withinInterval) {
-        // If the spot is in the interval, get the spot price as a number
-        spotPrice = getSpotPrice(prs[j]);
-        break;
-      }
-    }
-    var showSpot;
-    // Show the spot if its price is above or equal to the threshold
-    if (spotPrice >= newMin && spotPrice <= max) {
-      showSpot = true;
-    } else {
-      showSpot = false;
-    }
-    var marker = allMarkers[i].marker.marker;
-    filterManager.applyFilters(marker, fName(arguments), showSpot);
-  }
-}
-
-/*
- * Shows only spots within the date range
- */
-function showSpotsByTimeOfOperation(allMarkers, targetTime) {
-  for (var i = 0; i < allMarkers.length; i++) {
-    // Get the string associated to the parking restriction
-    var prs = getSpotParkingRestriction(allMarkers[i]);
-    var showSpot = false;
-    if (prs.length === 0) {
-      // If there are no restrictions, show the spot
-      showSpot = true;
-    }
-    for (var j = 0; j < prs.length; j++) {
-      // For every restriction in the spot, check if the datetime
-      // is in the interval of the restriction
-      var withinInterval = isWithinInterval(prs[j], targetTime);
-      // Check if the spot is available according to the interval
-      var spotAvailable = isSpotAvailable(prs[j], withinInterval);
-      if (spotAvailable) {
-        showSpot = true;
-        break;
-      }
-    }
-    var marker = allMarkers[i].marker.marker;
-    filterManager.applyFilters(marker, fName(arguments), showSpot);
-  }
-}
-
-/*
- * Checks if a restriction is in or out of an interval
- */
-function isSpotAvailable(restriction, withinInterval) {
-  var isAvailable = false;
-  var bitsOfPR = splitRestriction(restriction);
-  var status = bitsOfPR[bitsOfPR.length-1];
-  // if the restriction says that the spot is unavailable,
-  // but the datetime is outside the restriction interval, then the spot
-  // is actually available
-  if (status === "unavailable" && !withinInterval) {
-    isAvailable = true;
-  // if a restriction says the spot is only available,
-  // in a certain interval, and the datetime in within
-  // this interval, then the spot is available
-  } else if (status === "available" && withinInterval) {
-    isAvailable = true;
-  }
-  // In all other cases, the spot is unavailable
-  return isAvailable;
-}
-
-/*
- * Extracts the parking restriction
- */
-function getSpotParkingRestriction(obj) {
-  return obj.spot.formatted_details.parking_restrictions;
-}
-
-/*
- * Extracts the pricing restriction
- */
-function getSpotPricingRestriction(obj) {
-  return obj.spot.formatted_details.pricing_restrictions;
-}
-
-/*
- * Converts a day of week into an index
- */
-function dayOfWeekToIndex(dayOfWeek) {
-  switch (dayOfWeek) {
-    case "sun": return 0;
-    case "mon": return 1;
-    case "tue": return 2;
-    case "wed": return 3;
-    case "thu": return 4;
-    case "fri": return 5;
-    case "sat": return 6;
-  }
-  return -1;
-}
-
-/*
- * Converts a date into a day of week index
- */
-function dateToDayOfWeekIndex(date) {
-  return date.getDay();
-}
-
-/*
- * Extracts spot price from the parking restriction string
- */
-function getSpotPrice(priceStr) {
-  var vet = priceStr.split(/\$/);
-  return parseFloat(vet[1]);
-}
-
-function isWithinInterval(restriction, datetime) {
-  // Splits the parking restriction string into bits
-  var bitsOfPR = splitRestriction(restriction);
-  // Get indexes for the days of week
-  var initDIndex = dayOfWeekToIndex(bitsOfPR[0]);
-  var endDIndex = dayOfWeekToIndex(bitsOfPR[1]);
-  var targetDIndex = dateToDayOfWeekIndex(datetime);
-  // convert string times into Date object
-  var i = 3;
-  if (endDIndex === -1) {
-    i = i - 1;
-  }
-  var initTime = getRestrictionTime(bitsOfPR[i], datetime);
-  var endTime = getRestrictionTime(bitsOfPR[i+2], datetime);
-  // Show the spots if allowed
-  var within = false;
-  if (isWithinWeekDay(initDIndex, endDIndex, targetDIndex) &&
-      isWithinTime(initTime, endTime, datetime)) {
-    within = true;
-  }
-  return within;
-}
-
-/*
- * Splits parkings and pricing restrictions string into an array
- */
-function splitRestriction(restriction) {
-  restriction = restriction.toLowerCase();
-  return restriction.split(/-| |: /);
-}
-
-/*
- * Converts a string time into a Date object
- */
-function getRestrictionTime(stringTime, targetTime) {
-  var d = targetTime.getDate();
-  var M = targetTime.getMonth();
-  var y = targetTime.getFullYear();
-  var hs = stringTime.split(/:/);
-  var h = parseInt(hs[0]);
-  var m = parseInt(hs[1]);
-  return new Date(y, M, d, h, m, 59, 0);
-}
-
-/*
- * Checks if the spot is available in the target date
- */
-function isWithinWeekDay(initDay, endDay, targetDay) {
-  var within = false;
-  if (endDay !== -1) {
-    if (targetDay >= initDay && targetDay <= endDay) {
-      within = true;
-    }
-  } else {
-    if (targetDay === initDay) {
-      within = true;
-    }
-  }
-  return within;
-}
-
-/*
- * Checks if the spot is available in the target time
- */
-function isWithinTime(initTime, endTime, targetTime) {
-  var within = false;
-  if (targetTime >= initTime && targetTime <= endTime) {
-    within = true;
-  }
-  return within;
-}
