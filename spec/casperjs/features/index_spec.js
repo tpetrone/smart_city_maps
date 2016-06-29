@@ -11,8 +11,8 @@ var features = {
   incidentSpec: require('./_incident_spec')
   routesSpec: require('./_routes_spec'),
   spotsSpec: require('./_spots_spec'),
-  parkingRestrictionsSpec: require('./_parking_restrictions_spec')
   userSpec: require('./_user_spec'),
+  parkingRestrictionsSpec: require('./_parking_restrictions_spec')
 };
 
 var utils = require('utils');
