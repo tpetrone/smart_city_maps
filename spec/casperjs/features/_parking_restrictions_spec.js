@@ -6,10 +6,7 @@ exports.spec = function(casper, test, other) {
     console.log(other.colorizer.colorize("Test file: _parking_restriction_spec.js", "INFO_BAR"));
     casper.evaluate(function() {
       var price_rs = [
-        "Mon-Fri | 18:00:00 to 23:59:59: $10.00",
-        "Tue-Thu | 8:00:00 to 11:59:59: $0.00",
-        "Wed | 8:00:00 to 11:59:59: $5.00",
-        "Sat-Sun | 00:00:00 to 23:59:59: $5.00"
+        "Mon-Fri | 18:00:00 to 23:59:59: $10.00"
       ];
       window.pricing_restrictions = price_rs;
       return window.pricing_restrictions;
@@ -23,7 +20,7 @@ exports.spec = function(casper, test, other) {
     casper.evaluate(function() {
       var parking_rs = [
         "Tue-Thu | 8:00:00 to 17:59:59: unavailable",
-        "Wed | 00:00:00 to 23:59:59: available"
+        "Wed | 8:00:00 to 17:59:59: unavailable"
       ];
       window.parking_restrictions = parking_rs;
       return window.parking_restrictions;
@@ -36,7 +33,7 @@ exports.spec = function(casper, test, other) {
   casper.then(function() {
      var spotPrice = casper.evaluate(function() {
        var prs = window.pricing_restrictions;
-       return window.getSpotPrice(prs[0]);
+       return ParkingFilter.getSpotPrice(prs[0]);
      });
      test.assert(spotPrice === 10.0, "Get price from pricing restriction was successfull");
   });
@@ -64,23 +61,10 @@ exports.spec = function(casper, test, other) {
     var isVisible = casper.evaluate(function() {
       var oneMarker = window.one_marker;
       oneMarker[0].marker.marker.visible = false;
-      window.showSpotsAboveThisPrice(oneMarker, 0.00, null);
+      ParkingFilter.showSpotInPriceRange(0, 30, oneMarker);
       return oneMarker[0].marker.marker.visible;
     });
-    test.assert(isVisible === true, "Show spot above $0.00 was successful");
-  });
-
-  /*
-   * Checks if a $10.00 invisible spot becomes visible below $20.00 threshold
-   */
-  casper.then(function() {
-    var isVisible = casper.evaluate(function() {
-      var oneMarker = window.one_marker;
-      oneMarker[0].marker.marker.visible = false;
-      window.showSpotsBelowThisPrice(oneMarker, null, 20.00);
-      return oneMarker[0].marker.marker.visible;
-    });
-    test.assert(isVisible === true, "Show spot below $20.00 was successful");
+    test.assert(isVisible === true, "Show spot in price range was successful");
   });
 
   /*
@@ -93,7 +77,8 @@ exports.spec = function(casper, test, other) {
       var oneMarker = window.one_marker;
       oneMarker[0].marker.marker.visible = true;
       var targetTime = new Date(2016, 5, 28, 12, 0, 0, 0);
-      window.showSpotsByTimeOfOperation(oneMarker, targetTime);
+      ParkingFilter.currentDatetime = targetTime;
+      ParkingFilter.showSpotsByTimeOfOperation(oneMarker);
       return oneMarker[0].marker.marker.visible;
     });
     test.assert(isVisible === false, "Hide unavailable spot was successful");
@@ -109,24 +94,11 @@ exports.spec = function(casper, test, other) {
       var oneMarker = window.one_marker;
       oneMarker[0].marker.marker.visible = false;
       var targetTime = new Date(2016, 5, 27, 20, 0, 0, 0);
-      window.showSpotsByTimeOfOperation(oneMarker, targetTime);
+      ParkingFilter.currentDatetime = targetTime;
+      ParkingFilter.showSpotsByTimeOfOperation(oneMarker);
       return oneMarker[0].marker.marker.visible;
     });
     test.assert(isVisible === true, "Show spot outside restriction was successful");
-  });
-
-  /*
-   * Checks if the spot is available when the parking restriction is:
-   * Wed | 00:00:00 to 23:59:59: available
-   * and the datetime is within the interval
-   */
-  casper.then(function() {
-    var isAvailable = casper.evaluate(function() {
-      var parking_rs = window.parking_restrictions;
-      return window.isSpotAvailable(parking_rs[1], true);
-    });
-    test.assert(isAvailable === true,
-      "Access to the spot with availability restriction in allowed time was successful");
   });
 
   /*
@@ -136,7 +108,7 @@ exports.spec = function(casper, test, other) {
     casper.evaluate(function() {
       var parking_rs = window.parking_restrictions;
       var targetTime = new Date(2016, 5, 29, 17, 0, 0, 0);
-      window.isWithinInterval(parking_rs[1], targetTime);
+      ParkingFilter.isWithinInterval(parking_rs[1], targetTime);
     });
   });
 
