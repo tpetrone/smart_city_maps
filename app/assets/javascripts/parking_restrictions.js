@@ -78,6 +78,7 @@ ParkingFilter = new (function() {
       var marker = allMarkers[i].marker.marker;
       filterManager.applyFilters(marker, fn, showSpot);
     }
+    map.reCluster();
   };
 
   /*

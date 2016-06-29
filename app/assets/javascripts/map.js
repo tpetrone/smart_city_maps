@@ -55,12 +55,7 @@ function setupGmapClass() {
 
       filterManager.resetAll();
 
-      if (Gmap.markerClusterer) {
-        Gmap.markerClusterer.clearMarkers();
-      }
-
       var spots = response.data;
-      var markers = [];
 
       for(var i = 0; i < spots.length; i++) {
         spot = spots[i];
@@ -69,12 +64,31 @@ function setupGmapClass() {
 
         gmarker.addMarker(spot);
         filterManager.assignSpot(spot, gmarker);
-        markers.push(gmarker.marker);
       }
+      map.reCluster();
+    });
+  };
 
-      Gmap.markerClusterer = new MarkerClusterer(map, markers, {
-        imagePath: '/assets/markerclusterer/m'
-      });
+  /**
+   * Re-cluster markers. To be called after filters are applied.
+   */
+  Gmap.prototype.reCluster = function() {
+    if (Gmap.markerClusterer) {
+      Gmap.markerClusterer.clearMarkers();
+    }
+
+    filterManager.filteredMarkers = [];
+
+    for (var i = 0; i < filterManager.allMarkers.length; i++) {
+      var spot = filterManager.allMarkers[i];
+      if (spot.marker.marker.getVisible()) {
+        filterManager.filteredMarkers.push(spot.marker.marker);
+      }
+    }
+
+    Gmap.markerClusterer = new MarkerClusterer(map, filterManager.filteredMarkers, {
+      maxZoom: 19,
+      imagePath: '/assets/markerclusterer/m'
     });
   };
 
