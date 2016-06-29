@@ -22,14 +22,35 @@ NotificationCenter = new (function() {
   }
 
   /**
+   * Display a message with a longer timeout.
+   */
+  this.showAndWait = function(msg) {
+    self.show(msg, 120000);
+  }
+
+  /**
    * Display a generic message to the user using Material Design's snackbar
    * component.
    */
-  this.show = function(msg) {
-    var snackbarContainer = document.querySelector('#demo-toast-example');
+  this.show = function(msg, timeout) {
     var data = {
-      message: msg
+      message: msg,
+      timeout: timeout || self.snackbarContainer.timeout_
     };
-    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    self.snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
+
+  /**
+   * Hide all current and enqueued toasts.
+   */
+  this.hideAll = function() {
+    self.snackbarContainer.MaterialSnackbar.cleanup_();
+  };
 });
+
+/**
+ * Perform activities on page load.
+ */
+$(function() {
+  NotificationCenter.snackbarContainer = document.querySelector('#demo-toast-example');
+})
