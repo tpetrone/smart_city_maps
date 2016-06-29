@@ -70,7 +70,7 @@ exports.spec = function(casper, test, other) {
     console.log("*** Beginning of SignIn tests ***");
     console.log("***");
     casper.evaluate(function() {
-      $("#tab-login").click();
+      $("#tab-signin").click();
       $("input[name='email']").val("user@not-valid.com");
       $("#form-btn-signin").click();
     });
@@ -109,9 +109,9 @@ exports.spec = function(casper, test, other) {
     });
   });
 
-  /**
+  /*
    * Wait for results.
-   */
+  */
   casper.waitFor(function() {
     return casper.evaluate(function() {
       return currentUser.isLoggedIn;
@@ -191,7 +191,7 @@ exports.spec = function(casper, test, other) {
   casper.then(function() {
     casper.evaluate(function() {
       $.ajaxSetup({
-        data: { "error" : "error" }
+        data: { "error" : 1 }
       });
       $("#link-signout").click();
     });
@@ -207,5 +207,105 @@ exports.spec = function(casper, test, other) {
       return $("#dialog-msg > .mdl-dialog__content > p").html()[0];
     });
     test.assertEquals(error_msg, "T", "Error messages shown correctly");
+  });
+
+
+
+/**
+   * Click on the menu.
+   */
+  casper.then(function() {
+    console.log("***");
+    console.log("*** Beginning of reset password tests ***");
+    console.log("***");
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 1 }
+      });
+      $("#link-reset-password").click();
+    });
+  });
+
+  casper.wait(1000, function() {
+    console.log("*** Unsuccessful case assertions ***");
+    // Assert error message
+    var error_msg = casper.evaluate(function() {
+      return $(".panel-msg").html()[0];
+    });
+    test.assertEquals(error_msg, "U", "Error messages shown correctly");
+  });
+
+  /**
+   * Delete error parameter to force successful reset.
+   */
+  casper.then(function() {
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 0 }
+      });
+      $("#link-reset-password").click();
+    });
+  });
+
+  /**
+   * Perform assertions.
+   */
+  casper.wait(1000, function() {
+    console.log("*** Successful case assertions ***");
+
+    // Assert success message
+    var msg = casper.evaluate(function() {
+      return $(".panel-msg").html()[0];
+    });
+    test.assertEquals(msg, "S", "Success message shown correctly");
+  });
+
+  /**
+   * Click on the menu.
+   */
+  casper.then(function() {
+    console.log("***");
+    console.log("*** Beginning of update password tests ***");
+    console.log("***");
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 1 }
+      });
+      $("#form-btn-reset").click();
+    });
+  });
+
+  casper.wait(1000, function() {
+    console.log("*** Unsuccessful case assertions ***");
+    // Assert error message
+    var error_msg = casper.evaluate(function() {
+      return $(".panel-msg").html()[0];
+    });
+    test.assertEquals(error_msg, "<", "Error messages shown correctly");
+  });
+
+  /**
+   * Insert error parameter to force unsuccessful sign out.
+   */
+  casper.then(function() {
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 0 }
+      });
+      $("#form-btn-reset").click();
+    });
+  });
+
+  /**
+   * Perform assertions.
+   */
+  casper.wait(1000, function() {
+    console.log("*** Successful case assertions ***");
+
+    // Assert success message
+    var msg = casper.evaluate(function() {
+      return $(".panel-msg").html();
+    });
+    test.assertEquals(msg, "Succesfully updated your password", "Success message shown correctly");
   });
 };
