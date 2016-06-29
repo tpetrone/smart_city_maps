@@ -4,7 +4,7 @@ function Detail() {
    * Prepares the details window for a marker and binds on the
    * 'click' event to display the details.
    */
-  this.showInfo = function(map, marker, details){
+  this.showInfo = function(map, marker, details, spot_id){
 
     var content = $(".parking-spot-details").clone().show();
 
@@ -35,6 +35,10 @@ function Detail() {
 
       Detail.currentInfoWindow = newInfoWindow;
       newInfoWindow.open(map, marker);
+
+      google.maps.event.addListener(newInfoWindow, 'closeclick', function () {
+        Incident.spotUnselectedHandler();
+      });
 
       $(".route-btn").on('click', function() {
         newInfoWindow.close();

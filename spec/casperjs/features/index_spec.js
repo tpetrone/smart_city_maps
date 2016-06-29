@@ -8,9 +8,11 @@ var features = {
   autocompleteSpec: require('./_autocomplete_spec'),
   filtersSpec: require('./_filters_spec'),
   geolocationSpec: require('./_geolocation_spec'),
-  spotsSpec: require('./_spots_spec'),
+  incidentSpec: require('./_incident_spec')
   routesSpec: require('./_routes_spec'),
+  spotsSpec: require('./_spots_spec'),
   parkingRestrictionsSpec: require('./_parking_restrictions_spec')
+  userSpec: require('./_user_spec'),
 };
 
 var utils = require('utils');
@@ -21,8 +23,7 @@ var colorizer = require('colorizer').create('Colorizer');
  */
 casper.options.viewportSize = { width: 1024, height: 768 };
 
-casper.test.begin('Start page loads correctly', 25, function suite(test) {
-
+casper.test.begin('Start page loads correctly', 40, function suite(test) {
   var startedAt = new Date().getTime();
   casper.start('http://localhost:3011', function() {
     if (!this.page.injectJs('spec/casperjs/lib/geolocation.js')) {
@@ -60,7 +61,9 @@ casper.test.begin('Start page loads correctly', 25, function suite(test) {
    'spotsSpec',
    'filtersSpec',
    'routesSpec',
-   'parkingRestrictionsSpec'
+   'parkingRestrictionsSpec',
+   'userSpec',
+   'incidentSpec'
   ];
 
   for(var i = 0; i < featuresModules.length; i++) {

@@ -1,39 +1,69 @@
-function Modal() {
+function Modal(elementDialog) {
 
-  var dialogLoader = document.querySelector("#dialog-loader");
-  var dialogMsg = document.querySelector("#dialog-msg");
-  var dialogContent = $(".mdl-dialog__content > p");
   var self = this;
-  var isVisible = false;
-  var isMsgVisible = false;
+  this.elementDialog = elementDialog;
+  this.dialogContent = $("#" + elementDialog.id + "> .mdl-dialog__content > p");
+  this.isVisible = false;
 
-  this.showLoader = function() {
-    dialogLoader.showModal();
-    isVisible = true;
-  };
+  // Detect Chrome Browser
+  this.isChrome = /Chrome/i.exec(navigator.userAgent);
 
-  this.hideLoader = function() {
-    if (isVisible) {
-      dialogLoader.close();
-      isVisible = false;
+  this.show = function(msg) {
+    if (msg) {
+      this.dialogContent.html(msg);
+    }
+    this.isVisible = true;
+
+    // Check browser compatibility before showing modal programmatically
+    try {
+      this.elementDialog.showModal();
+    } catch(err) {
+      // REVISIT: maybe display a notification when this happens? Do this for
+      // the two other occurrences below too.
+      console.log("Can't show <dialog>. Your browser is not supported.");
     }
   };
 
-  this.showMsg = function(msg) {
-    dialogContent.html(msg);
-    dialogMsg.showModal();
-    isMsgVisible = true;
-  };
-
-  this.hideMsg = function() {
-    if (isMsgVisible) {
-      dialogMsg.close();
-      isMsgVisible = false;
+  this.hide = function() {
+    if (this.isVisible) {
+      this.isVisible = false;
+    }
+    // Check browser compatibility before closing modal programmatically
+    try {
+      this.elementDialog.close();
+      return true;
+    } catch(err) {
+      console.log("Can't close the <dialog>. Your browser is not supported.");
+      return false;
     }
   };
-
-  // Modal dialog button click handler
-  $('#dialog-button')[0].addEventListener('click', function(event) {
-    self.hideMsg();
-  });
 }
+
+$(function () {
+
+  /**
+   * Try to close a dialog.
+   */
+  function closeDialog(selector) {
+    try {
+      document.querySelector(selector).close();
+    }
+    catch(err) {
+      console.log("Can't close the <dialog>. Your browser is not supported.");
+    }
+  }
+
+  // Close dialog message on click.
+  $('.close-msg').bind('click', function(event) {
+    if (!currentUser.modalMessage.hide()) {
+      // Only use this method of closing the dialog if the call
+      // to hide() didn't succeed.
+      closeDialog("#dialog-msg");
+    }
+  });
+
+  // Close dialog form on click.
+  $('.close-form').bind('click', function(event) {
+    closeDialog("#dialog-form");
+  });
+});
