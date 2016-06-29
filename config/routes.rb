@@ -12,5 +12,10 @@ Rails.application.routes.draw do
     post   '/auth/password' => 'mock/users#reset'
     put    '/auth/password' => 'mock/users#update'
     delete '/auth/sign_out' => 'mock/users#signout'
+
+    # Checkins
+    post '/checkins'          => 'mock/checkins#create'
+    post '/checkins/checkout' => 'mock/checkins#checkout'
+    get  '/checkins/pending'  => 'mock/checkins#pending'
   end
 end
