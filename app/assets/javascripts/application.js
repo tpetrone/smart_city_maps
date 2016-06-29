@@ -12,6 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+
+// jToker dependencies
+// -------------------
+//= require jquery-deparam
+//= require pubsub.js
+//= require jquery.j-toker
+
+// Datepicker dependencies
+// -----------------------
 //= require jquery-ui
 //= require datetimepicker-min
 

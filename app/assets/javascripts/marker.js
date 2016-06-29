@@ -1,13 +1,13 @@
 /**
  * GmapMarker: this class is used to create new markers in the map.
  */
-function GmapMarker (gmap, spotData) {
+function GmapMarker (gmap, spotData, spotId) {
   var self = this;
   this.map = gmap;
 
   this.addMarker = function (spotData) {
-    var position = new google.maps.LatLng(spotData.latitude, spotData.longitude);
-    var state = Spot.STATUSES[spotData.status.toString()];
+    var position = new google.maps.LatLng(spotData.attributes.latitude, spotData.attributes.longitude);
+    var state = Spot.STATUSES[spotData.attributes.status.toString()];
     var _data = spotData;
 
     self.marker = new google.maps.Marker({
@@ -17,7 +17,8 @@ function GmapMarker (gmap, spotData) {
     });
 
     var detail = new Detail();
-    detail.showInfo(gmap, this.marker, _data);
+    detail.showInfo(gmap, this.marker, _data, spotId);
+
   };
 }
 

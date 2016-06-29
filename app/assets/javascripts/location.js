@@ -13,7 +13,8 @@ $(function () {
  */
 function getUserLocation(map, callback) {
 
-  var modal = new Modal();
+  var modalLoader  = new Modal(document.querySelector("#dialog-loader"));
+  var modalMessage = new Modal(document.querySelector("#dialog-msg"));
   var answer;
 
   var AUTHORIZATION_TIMEOUT = 5000;
@@ -21,8 +22,8 @@ function getUserLocation(map, callback) {
 
   // Set authorization timeout after button click
   answer = setTimeout(function() {
-    modal.hideLoader();
-    modal.showMsg("You must authorize the app to use this feature.");
+    modalLoader.hide();
+    modalMessage.show("You must authorize the app to use this feature.");
   }, AUTHORIZATION_TIMEOUT);
 
   var options = {
@@ -32,10 +33,10 @@ function getUserLocation(map, callback) {
   };
 
   navigator.geolocation.getCurrentPosition(success, error, options);
-  modal.showLoader();
+  modalLoader.show();
 
   function handleCallback(){
-    modal.hideLoader();
+    modalLoader.hide();
     clearTimeout(answer);
   }
 
@@ -70,13 +71,13 @@ function getUserLocation(map, callback) {
      */
     switch(err.code) {
       case 1:
-        modal.showMsg("You must authorize the app to use geolocation.");
+        modalMessage.show("You must authorize the app to use geolocation.");
         break;
       case 2:
-        modal.showMsg("Geolocation is not supported by your device.");
+        modalMessage.show("Geolocation is not supported by your device.");
         break;
       case 3:
-        modal.showMsg("The network is taking too long to return your location.");
+        modalMessage.show("The network is taking too long to return your location.");
         break;
     }
   }
