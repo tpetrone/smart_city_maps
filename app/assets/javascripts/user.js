@@ -178,13 +178,13 @@ $(function () {
   $("#form-signin").submit(function(event){
     event.preventDefault();
     var inputs = $("#form-signin").serializeArray();
-    currentUser.doSignIn(inputs[0].value,inputs[1].value)
+    currentUser.doSignIn(inputs[0].value,inputs[1].value);
   });
 
   $("#form-signup").submit(function(event){
     event.preventDefault();
     var inputs = $("#form-signup").serializeArray();
-    currentUser.doSignUp(inputs[0].value,inputs[1].value,inputs[2].value)
+    currentUser.doSignUp(inputs[0].value,inputs[1].value,inputs[2].value);
   });
 
   // Open sign in form.
