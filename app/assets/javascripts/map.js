@@ -66,6 +66,9 @@ function setupGmapClass() {
         filterManager.assignSpot(spot, gmarker);
       }
       map.reCluster();
+    }).fail(function (response) {
+      NotificationCenter.hideAll();
+      NotificationCenter.error("Unable to load spots. Please try again later.");
     });
   };
 
