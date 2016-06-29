@@ -16,7 +16,7 @@ ParkingFilter = new (function() {
 
   this.currentMin = 0;
   this.currentMax = 30;
-  this.currentDatetime = null;
+  this.currentDatetime = new Date();
 
   /**
    * Show/hide spots according to new pricing bounds.
@@ -31,9 +31,10 @@ ParkingFilter = new (function() {
   this.showSpotInPriceRange = function(min, max) {
     self.forEachMarker(filterManager.allMarkers, function(spot) {
       return spot.spot.formatted_details.pricing_restrictions;
-    }, function(restriction) {
+    }, function(restriction, withinInterval) {
       var spotPrice = 0;
-      if (restriction) {
+
+      if (restriction && withinInterval) {
         spotPrice = self.getSpotPrice(restriction);
       }
       return spotPrice >= min && spotPrice <= max;
@@ -46,11 +47,11 @@ ParkingFilter = new (function() {
   this.showSpotsByTimeOfOperation = function() {
     self.forEachMarker(filterManager.allMarkers, function(spot) {
       return spot.spot.formatted_details.parking_restrictions;
-    }, function(restriction) {
+    }, function(restriction, withinInterval) {
       if (!restriction) {
         return true;
       }
-      return !(/unavailable/.test(restriction));
+      return (/unavailable/.test(restriction) && !withinInterval);
     }, "showSpotsByTimeOfOperation");
   };
 
@@ -64,11 +65,9 @@ ParkingFilter = new (function() {
       if (prs.length) {
         for (var j = 0; j < prs.length; j++) {
           var withinInterval = self.isWithinInterval(prs[j], self.currentDatetime);
-          if (withinInterval || (/price/i.test(fn) && !self.currentDatetime)) {
-            showSpot = getSpotAvailabilityFn(prs[j]);
-            if (!showSpot) {
-              break;
-            }
+          showSpot = getSpotAvailabilityFn(prs[j], withinInterval);
+          if (!showSpot) {
+            break;
           }
         }
       } else {
@@ -106,9 +105,14 @@ ParkingFilter = new (function() {
     var endDay    = self.WEEKDAYS[bitsOfPR[1]];
     var targetDay = datetime.getDay();
 
+    var i = 3;
+    if (endDay === -1) {
+      i = i - 1;
+    }
+
     // convert string times into Date object
-    var startTime = self.getRestrictionTime(bitsOfPR[3], datetime);
-    var endTime = self.getRestrictionTime(bitsOfPR[5], datetime);
+    var startTime = self.getRestrictionTime(bitsOfPR[i], datetime);
+    var endTime = self.getRestrictionTime(bitsOfPR[i+2], datetime);
 
     return self.isWithinRange(startDay, endDay, targetDay) &&
            self.isWithinRange(startTime, endTime, datetime);
