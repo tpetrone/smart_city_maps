@@ -16,7 +16,7 @@ Incident = new (function() {
     1: 'location_off',
     2: 'restore',
     3: 'info_outline'
-  }
+  };
 
   /**
    * Handler that deals with a spot having been selected by the user.
@@ -38,7 +38,7 @@ Incident = new (function() {
     $(".msg-no-spot-selected").show();
     // Hide incidents area.
     $(".when-has-spot").hide();
-  }
+  };
 
   /**
    * Get incidents from the API and display them.
@@ -68,11 +68,14 @@ Incident = new (function() {
     $(".when-has-spot").show();
 
     if (incidents.length) {
+      // Hide empty incidents message
+      $(".msg-empty-incidents").hide();
+
       // For each incident...
       for(var i = 0; i < incidents.length; i++) {
         var data = incidents[i];
 
-        // Create a new DOM element.
+        // Create a new DOM element...
         var incident = $(".template-for-incident")
                       .clone()
                       .removeClass("template-for-incident")

@@ -17,7 +17,7 @@ exports.spec = function(casper, test, other) {
     casper.evaluate(function() {
       $("#link-signin").click();
       $("#tab-signup").click();
-      $("#txt-email").val("user@not-valid.com");
+      $("input[name='email']").val("user@not-valid.com");
       $("#form-btn-signup").click();
     });
   });
@@ -25,7 +25,7 @@ exports.spec = function(casper, test, other) {
   /**
    * Wait for results and perform assertions.
    */
-  casper.wait(1000, function() {
+  casper.wait(2000, function() {
     console.log("*** Unsuccessful case assertions ***");
     // Assert if Modal is shown
     status = casper.evaluate(function() {
@@ -35,7 +35,7 @@ exports.spec = function(casper, test, other) {
 
     // Assert error message
     var error_msg = casper.evaluate(function() {
-      return $("#panel").html()[0];
+      return $("#panel-signup > .panel-msg").html()[0];
     });
     test.assertEquals(error_msg, "<", "The user could not sign up");
   });
@@ -45,7 +45,7 @@ exports.spec = function(casper, test, other) {
    */
   casper.then(function() {
     casper.evaluate(function() {
-      $("#txt-email").val("user@valid.com");
+      $("input[name='email']").val("user@valid.com");
       $("#form-btn-signup").click();
     });
   });
@@ -57,7 +57,7 @@ exports.spec = function(casper, test, other) {
     console.log("*** Successful case assertions ***");
     // Assert error msg on panel
     var error_msg = casper.evaluate(function() {
-      return $("#panel").html()[0];
+      return $("#panel-signup > .panel-msg").html()[0];
     });
     test.assertEquals(error_msg, "A", "The user signed up successfuly");
   });
@@ -70,9 +70,9 @@ exports.spec = function(casper, test, other) {
     console.log("*** Beginning of SignIn tests ***");
     console.log("***");
     casper.evaluate(function() {
-      $("#tab-login").click();
-      $("#txt-email").val("user@not-valid.com");
-      $("#form-btn-login").click();
+      $("#tab-signin").click();
+      $("input[name='email']").val("user@not-valid.com");
+      $("#form-btn-signin").click();
     });
   });
 
@@ -89,11 +89,11 @@ exports.spec = function(casper, test, other) {
     var status = casper.evaluate(function() {
       return currentUser.isLoggedIn;
     });
+    test.assertEquals(status, false, "The user could not login");
 
     // Assert error message on the panel
-    test.assertEquals(status, false, "The user could not login");
     var error_msg = casper.evaluate(function() {
-      return $("#panel").html()[0];
+      return $("#panel-signin > .panel-msg").html()[0];
     });
     test.assertEquals(error_msg, "I", "Error messages shown correctly");
   }, 2000);
@@ -104,14 +104,14 @@ exports.spec = function(casper, test, other) {
    */
   casper.then(function() {
     casper.evaluate(function() {
-      $("#txt-email").val("user@valid.com");
-      $("#form-btn-login").click();
+      $("input[name='email']").val("user@valid.com");
+      $("#form-btn-signin").click();
     });
   });
 
-  /**
+  /*
    * Wait for results.
-   */
+  */
   casper.waitFor(function() {
     return casper.evaluate(function() {
       return currentUser.isLoggedIn;
@@ -137,6 +137,12 @@ exports.spec = function(casper, test, other) {
     });
     test.assertEquals(msg, "S", "Success messages shown correctly");
 
+    // Assert success message
+    var email = casper.evaluate(function() {
+      return $(".user-id").html()[0];
+    });
+    test.assertEquals(email, "L", "User email shown correctly");
+
     // Assert modal closed
     isVisible = casper.evaluate(function(){
       $(".close-msg").click();
@@ -144,7 +150,7 @@ exports.spec = function(casper, test, other) {
       });
     test.assertEquals(isVisible, false, "Message successfully hidden");
 
-  }, function timeout() {}, 2000);
+  }, function timeout() {}, 3000);
 
   /**
    * Click on the menu.
@@ -185,7 +191,7 @@ exports.spec = function(casper, test, other) {
   casper.then(function() {
     casper.evaluate(function() {
       $.ajaxSetup({
-        data: { "error" : "error" }
+        data: { "error" : 1 }
       });
       $("#link-signout").click();
     });
@@ -194,12 +200,112 @@ exports.spec = function(casper, test, other) {
   /**
    * Perform assertions.
    */
-  casper.then(function() {
+  casper.wait(1000, function() {
     console.log("*** Unsuccessful case assertions ***");
     // Assert error message
     var error_msg = casper.evaluate(function() {
       return $("#dialog-msg > .mdl-dialog__content > p").html()[0];
     });
     test.assertEquals(error_msg, "T", "Error messages shown correctly");
+  });
+
+
+
+  /**
+   * Click on the menu.
+   */
+  casper.then(function() {
+    console.log("***");
+    console.log("*** Beginning of reset password tests ***");
+    console.log("***");
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 1 }
+      });
+      $("#link-reset-password").click();
+    });
+  });
+
+  casper.wait(1000, function() {
+    console.log("*** Unsuccessful case assertions ***");
+    // Assert error message
+    var error_msg = casper.evaluate(function() {
+      return $(".panel-msg").html()[0];
+    });
+    test.assertEquals(error_msg, "U", "Error messages shown correctly");
+  });
+
+  /**
+   * Delete error parameter to force successful reset.
+   */
+  casper.then(function() {
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 0 }
+      });
+      $("#link-reset-password").click();
+    });
+  });
+
+  /**
+   * Perform assertions.
+   */
+  casper.wait(1000, function() {
+    console.log("*** Successful case assertions ***");
+
+    // Assert success message
+    var msg = casper.evaluate(function() {
+      return $(".panel-msg").html()[0];
+    });
+    test.assertEquals(msg, "S", "Success message shown correctly");
+  });
+
+  /**
+   * Click on the menu.
+   */
+  casper.then(function() {
+    console.log("***");
+    console.log("*** Beginning of update password tests ***");
+    console.log("***");
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 1 }
+      });
+      $("#form-btn-reset").click();
+    });
+  });
+
+  casper.wait(1000, function() {
+    console.log("*** Unsuccessful case assertions ***");
+    // Assert error message
+    var error_msg = casper.evaluate(function() {
+      return $(".panel-msg").html()[0];
+    });
+    test.assertEquals(error_msg, "<", "Error messages shown correctly");
+  });
+
+  /**
+   * Insert error parameter to force unsuccessful sign out.
+   */
+  casper.then(function() {
+    casper.evaluate(function() {
+      $.ajaxSetup({
+        data: { "error" : 0 }
+      });
+      $("#form-btn-reset").click();
+    });
+  });
+
+  /**
+   * Perform assertions.
+   */
+  casper.wait(1000, function() {
+    console.log("*** Successful case assertions ***");
+
+    // Assert success message
+    var msg = casper.evaluate(function() {
+      return $(".panel-msg").html();
+    });
+    test.assertEquals(msg, "Succesfully updated your password", "Success message shown correctly");
   });
 };

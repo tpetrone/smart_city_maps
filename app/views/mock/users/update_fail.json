@@ -1,0 +1,15 @@
+{
+  "success":false,
+  "errors":{
+    "password_confirmation":[
+      "doesn't match Password"
+    ],
+    "password":[
+      "is too short (minimum is 8 characters)"
+    ],
+    "full_messages":[
+      "Password confirmation doesn't match Password",
+      "Password is too short (minimum is 8 characters)"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "success":true,
+  "data":{
+    "id":26,
+    "provider":"email",
+    "email":"thiago.petrone@gmail.com",
+    "uid":"thiago.petrone@gmail.com",
+    "name":null,"nickname":null,
+    "image":null,
+    "created_at":"2016-06-29T17:30:12.520Z",
+    "updated_at":"2016-06-29T17:30:59.577Z"
+  },
+  "message":"An email has been sent to 'thiago.petrone@gmail.com' containing instructions for resetting your password."
+}
