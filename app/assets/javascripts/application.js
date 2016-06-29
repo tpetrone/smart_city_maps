@@ -13,10 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require datetimepicker-min
 
 // The Rails helpers file must be loaded first.
 //= require rails_helpers
 
 //= require_tree .
-
-//= require datetimepicker-min

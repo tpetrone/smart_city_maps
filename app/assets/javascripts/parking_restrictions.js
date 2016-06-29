@@ -1,5 +1,5 @@
 $(function () {
-  /*
+  /**
    * Listens for changes in min-price element
    */
   $("#min-price").change(function() {
@@ -15,25 +15,33 @@ $(function () {
   /*
    * Listens for changes in max-price element
    */
-   $("#max-price").change(function() {
-     var newMax = getMaxPrice();
-     if (newMax !== null) {
-       var min = getMinPrice();
-       showSpotsBelowThisPrice(filterManager.allMarkers, min, newMax);
-     } else {
-       $(this).val("");
-     }
-   });
+  $("#max-price").change(function() {
+    var newMax = getMaxPrice();
+    if (newMax !== null) {
+      var min = getMinPrice();
+      showSpotsBelowThisPrice(filterManager.allMarkers, min, newMax);
+    } else {
+      $(this).val("");
+    }
+  });
 
-   $('#datetimepicker').datetimepicker({
-     step: 15,
-     format:'m/d/Y H:i',
-     formatDate:'Y/m/d'
-   });
-   $('#datetimepicker').change(function() {
-     var targetTime = getTargetTime(dateStr, timeStr);
-     showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
-   });
+  /**
+   * Setup datetime picker.
+   */
+  $('#datetimepicker').datetimepicker({
+    step: 15,
+    format:'m/d/Y H:i',
+    formatDate:'Y/m/d'
+  });
+
+
+  /**
+   * Listen to datetime update.
+   */
+  $('#datetimepicker').change(function() {
+    var targetTime = getTargetTime();
+    showSpotsByTimeOfOperation(filterManager.allMarkers, targetTime);
+  });
 });
 
 function getMaxPrice() {
@@ -44,6 +52,7 @@ function getMaxPrice() {
   return max;
 }
 
+// REVIEW: Remove duplication here.
 function getMinPrice() {
   var min = parseFloat($("#min-price").val());
   if (isNaN(min) || min < 0.0) {
@@ -145,9 +154,10 @@ function isSpotAvailable(restriction, withinInterval) {
 }
 
 /*
- * Extracts the parking restriction
+ * Extracts the parking restriction.
  */
 function getSpotParkingRestriction(obj) {
+  // REVIEW: Will break on merge.
   return obj.spot.formatted_details.parking_restrictions;
 }
 
@@ -155,6 +165,7 @@ function getSpotParkingRestriction(obj) {
  * Extracts the pricing restriction
  */
 function getSpotPricingRestriction(obj) {
+  // REVIEW: Will break on merge.
   return obj.spot.formatted_details.pricing_restrictions;
 }
 

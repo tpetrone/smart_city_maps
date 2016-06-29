@@ -64,6 +64,7 @@ function AvailabilityFilter() {
   };
 
   this.filterKeys = [];
+
   this.addFilter = function(marker, filterKey, visible) {
     var isFilterAdded = false;
     for (var i = 0; i < this.filterKeys.length; i++) {
