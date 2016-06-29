@@ -1,0 +1,22 @@
+{
+  "links":{
+    "self":"/checkins"
+  },
+  "data":[
+    {
+      "type":"checkin",
+      "id":1,
+      "attributes":{
+        "checked_in_at_human":"Jun 29, 19:26",
+        "spot_attributes":{
+          "id":1,
+          "lat":"-23.545608175798",
+          "lng":"-46.638517230749"
+        }
+      },
+      "links":{
+        "self":"/checkins/pending.1"
+      }
+    }
+  ]
+}

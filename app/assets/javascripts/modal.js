@@ -62,6 +62,15 @@ $(function () {
     }
   });
 
+  // Close dialog message on click.
+  $('.close-reset').bind('click', function(event) {
+    if (!currentUser.modalReset.hide()) {
+      // Only use this method of closing the dialog if the call
+      // to hide() didn't succeed.
+      closeDialog("#dialog-form-reset");
+    }
+  });
+
   // Close dialog form on click.
   $('.close-form').bind('click', function(event) {
     closeDialog("#dialog-form");

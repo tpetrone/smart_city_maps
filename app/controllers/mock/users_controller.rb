@@ -17,10 +17,26 @@ module Mock
     end
 
     def signout
-      if params[:error]
+      if params[:error] == "1"
         render_json 'signout_fail', :bad_request
       else
         render_json 'signout_success'
+      end
+    end
+
+    def reset
+      if params[:error] == "1"
+        render_json 'reset_fail', :bad_request
+      else
+        render_json 'reset_success'
+      end
+    end
+
+    def update
+      if params[:error] == "1"
+        render_json 'update_fail', :bad_request
+      else
+        render_json 'update_success'
       end
     end
 

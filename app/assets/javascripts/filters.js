@@ -13,6 +13,7 @@ $(function() {
  * AvailabilityFilter "class".
  */
 function AvailabilityFilter() {
+  var self = this;
 
   /**
    * Marks to which status the currently displayed spots belong.
@@ -24,6 +25,11 @@ function AvailabilityFilter() {
   };
 
   this.allMarkers = [];
+
+  /**
+   * Markers that pass all filters.
+   */
+  this.filteredMarkers = [];
 
   /**
    * Show/hide spot markers according to user selection.
@@ -39,6 +45,7 @@ function AvailabilityFilter() {
       }
       filterManager.applyFilters(marker, "spotStatus", showSpot);
     }
+    map.reCluster();
   };
 
   /**
@@ -49,6 +56,11 @@ function AvailabilityFilter() {
       for (var i = 0 ; i < this.markerGroups[j].length; i++) {
         this.markerGroups[j][i].marker.setMap(null);
       }
+    }
+
+    self.filteredMarkers = [];
+    if (Gmap.markerClusterer) {
+      Gmap.markerClusterer.clearMarkers();
     }
   };
 

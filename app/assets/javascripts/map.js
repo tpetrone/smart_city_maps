@@ -18,6 +18,13 @@ function setupGmapClass() {
     this.refresh = null;
   };
 
+  /**
+   * Minimum change of center (in meters) that will trigger a map update.
+   */
+  Gmap.MIN_DISTANCE_TO_UPDATE = 5000;
+
+  Gmap.markerClusterer = null;
+
   // Make Gmap "inherit" from google.maps.Map.
   Gmap.prototype = Object.create(google.maps.Map.prototype);
   Gmap.prototype.constructor = Gmap;
@@ -33,14 +40,23 @@ function setupGmapClass() {
     * assign it to AvailabilityFilter
     */
   Gmap.prototype.refreshFromAPI = function() {
+    var lat = map.getCenter().lat();
+    var lng = map.getCenter().lng();
+
+    NotificationCenter.showAndWait("Loading spots...");
+
     Spot.search({
-      lat: map.getCenter().lat().toString(),
-      lng: map.getCenter().lng().toString()
+      lat: lat,
+      lng: lng
     }).done(function (response) {
+
+      NotificationCenter.hideAll();
+      NotificationCenter.success("Found " + response.data.length + " spots.");
 
       filterManager.resetAll();
 
       var spots = response.data;
+
       for(var i = 0; i < spots.length; i++) {
         spot = spots[i];
         spot_id = spot.id;
@@ -49,6 +65,30 @@ function setupGmapClass() {
         gmarker.addMarker(spot);
         filterManager.assignSpot(spot, gmarker);
       }
+      map.reCluster();
+    });
+  };
+
+  /**
+   * Re-cluster markers. To be called after filters are applied.
+   */
+  Gmap.prototype.reCluster = function() {
+    if (Gmap.markerClusterer) {
+      Gmap.markerClusterer.clearMarkers();
+    }
+
+    filterManager.filteredMarkers = [];
+
+    for (var i = 0; i < filterManager.allMarkers.length; i++) {
+      var spot = filterManager.allMarkers[i];
+      if (spot.marker.marker.getVisible()) {
+        filterManager.filteredMarkers.push(spot.marker.marker);
+      }
+    }
+
+    Gmap.markerClusterer = new MarkerClusterer(map, filterManager.filteredMarkers, {
+      maxZoom: 19,
+      imagePath: '/assets/markerclusterer/m'
     });
   };
 
