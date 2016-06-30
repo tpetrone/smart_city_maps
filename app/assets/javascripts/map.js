@@ -91,7 +91,7 @@ function setupGmapClass() {
 
     Gmap.markerClusterer = new MarkerClusterer(map, filterManager.filteredMarkers, {
       maxZoom: 19,
-      imagePath: '/assets/markerclusterer/m'
+      imagePath: '/m'
     });
   };
 
