@@ -138,6 +138,7 @@ tests, use the following commands:
 suite to be able to run.
 
 ```
+RAILS_ENV=test bundle exec rails s -p 3011 -b 0.0.0.0
 export LC_ALL=C
 ./script/casperjs-bundle.sh
 ```
