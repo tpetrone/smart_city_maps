@@ -160,3 +160,12 @@ project, and test drive each one.
   - Add more user-facing features.
 
 - **Issues**: see all issues that were planned (and delivered) for this phase [here](https://gitlab.com/smart-city-platform/smart_parking_maps/issues?assignee_id=&author_id=&milestone_title=Phase+2&scope=all&sort=id_desc&state=all&issue_search=&).
+
+### Phase 3 (due June 29)
+
+- **Goals**:
+  - Integrate with the [smart\_parking\_api](https://gitlab.com/smart-city-platform/smart_parking_api) application.
+  - Add more user-facing features: checkin, incident reports, more UI filters, user registration & authentication.
+
+- **Issues**: see all issues that were planned (and delivered) for this phase [here](https://gitlab.com/smart-city-platform/smart_parking_maps/issues?assignee_id=&author_id=&milestone_title=Phase+3&scope=all&sort=id_desc&state=all&issue_search=&).
+
