@@ -22,14 +22,14 @@ ParkingFilter = new (function() {
    * Show/hide spots according to new pricing bounds.
    */
   this.updateSpots = function() {
-    self.showSpotInPriceRange(self.currentMin, self.currentMax);
+    self.showSpotInPriceRange(self.currentMin, self.currentMax, filterManager.allMarkers);
   };
 
   /**
    * Show/hide spots according to given pricing bounds.
    */
-  this.showSpotInPriceRange = function(min, max) {
-    self.forEachMarker(filterManager.allMarkers, function(spot) {
+  this.showSpotInPriceRange = function(min, max, markers) {
+    self.forEachMarker(markers, function(spot) {
       return spot.spot.formatted_details.pricing_restrictions;
     }, function(restriction, withinInterval) {
       var spotPrice = 0;
@@ -44,8 +44,8 @@ ParkingFilter = new (function() {
   /**
    * Show/hide spots according to currently selected datetime.
    */
-  this.showSpotsByTimeOfOperation = function() {
-    self.forEachMarker(filterManager.allMarkers, function(spot) {
+  this.showSpotsByTimeOfOperation = function(markers) {
+    self.forEachMarker(markers, function(spot) {
       return spot.spot.formatted_details.parking_restrictions;
     }, function(restriction, withinInterval) {
       if (!restriction) {
@@ -117,7 +117,7 @@ ParkingFilter = new (function() {
 
     return self.isWithinRange(startDay, endDay, targetDay) &&
            self.isWithinRange(startTime, endTime, datetime);
-  }
+  };
 
   /*
    * Splits parkings and pricing restrictions string into an array
@@ -162,7 +162,7 @@ $(function() {
     formatDate:'Y/m/d',
     onChangeDateTime: function (datetime) {
       ParkingFilter.currentDatetime = datetime;
-      ParkingFilter.showSpotsByTimeOfOperation();
+      ParkingFilter.showSpotsByTimeOfOperation(filterManager.allMarkers);
     }
   });
 
